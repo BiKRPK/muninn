@@ -14,17 +14,70 @@ import WindowState = overwolf.windows.WindowStateEx;
 // and writes them to the relevant log using <pre> tags.
 // The window also sets up Ctrl+F as the minimize/restore hotkey.
 // Like the background window, it also implements the Singleton design pattern.
+type Agent = {
+  name?: String;
+  internalName?: String;
+}
+
+type Scene = {
+  name?: String;
+  internalName?: String;
+}
+
+type Side = "defense" | "attack" | null; 
+
+//All posible agent values, internalName -> name
+var agentMap = new Map<String, String>([
+  ["Clay_PC_C",  "Raze"],
+  ["Pandemic_PC_C", "Viper"],
+  ["Wraith_PC_C", "Omen"],
+  ["Hunter_PC_C", "Sova"],
+  ["Thorne_PC_C", "Sage"],
+  ["Phoenix_PC_C", "Phoenix"],
+  ["Wushu_PC_C", "Jett"],
+  ["Gumshoe_PC_C", "Cypher"],
+  ["Sarge_PC_C", "Brimstone"],
+  ["Breach_PC_C", "Breach"],
+  ["Vampire_PC_C", "Reyna"],
+  ["Killjoy_PC_C", "Killjoy"],
+  ["Guide_PC_C", "Skye"],
+  ["Stealth_PC_C", "Yoru"],
+  ["Rift_PC_C", "Astra"],
+  ["Grenadier_PC_C", "KAY/O"],
+  ["Deadeye_PC_C", "Chamber"],
+  ["Sprinter_PC_C", "Neon"],
+  ["BountyHunter_PC_C", "Fade"],
+  ["Mage_PC_C", "Harbor"]
+]);
+
+//All posible scene values, internalName -> name
+var sceneMap = new Map<String, String>([
+  ["MainMenu", "Main menu"],
+  ["Triad", "Haven"],
+  ["Bonsai", "Split"],
+  ["Ascent", "Ascent"],
+  ["Port", "Icebox"],
+  ["Foxtrot", "Breeze"],
+  ["Canyon", "Fracture"],
+  ["Pitt", "Pearl"],
+  ["Range", "Practice Range"],
+  ["CharacterSelectPersistentLevel", "Character Selection"]
+]);
+
 class InGame extends AppWindow {
   private static _instance: InGame;
   private _gameEventsListener: OWGamesEvents;
-  private _eventsLog: HTMLElement;
-  private _infoLog: HTMLElement;
+  // private _eventsLog: HTMLElement;
+  // private _infoLog: HTMLElement;
+  private currentAgent: Agent;
+  private currentScene: Scene;
+  private currentSide: Side;
 
   private constructor() {
     super(kWindowNames.inGame);
 
-    this._eventsLog = document.getElementById('eventsLog');
-    this._infoLog = document.getElementById('infoLog');
+    // this._eventsLog = document.getElementById('eventsLog');
+    // this._infoLog = document.getElementById('infoLog');
 
     this.setToggleHotkeyBehavior();
     this.setToggleHotkeyText();
@@ -57,32 +110,64 @@ class InGame extends AppWindow {
   }
 
   private onInfoUpdates(info) {
-    this.logLine(this._infoLog, info, false);
-    switch (info.feature) {
-      case 'me' :
-        if(info.info.me.agent) { this.logLine(this._infoLog,'AGENTE: ' + info.info.me.agent, false);}
-        else { this.logLine(this._eventsLog, info, false);}
-        break;
-      case 'game_info': 
-        if(info.info.game_info.scene) { this.logLine(this._infoLog,'MAPA: '  + info.info.game_info.scene, false);}
-        else { this.logLine(this._eventsLog, info, false);}
-        break;
-      case 'match_info': 
-        if(info.info.match_info.team) { this.logLine(this._infoLog,'LADO: '  + info.info.match_info.team, false);}
-        else { this.logLine(this._eventsLog, info, false);}
-        break;
-      default:
-         this.logLine(this._eventsLog, info, false);
-        break;
+      let infoJSON = JSON.parse(JSON.stringify(info));
+      console.log(infoJSON);
+      if(this.isAgent(infoJSON)) {
+        let agent = infoJSON.me.agent;
+        this.currentAgent = {
+          name: agentMap.get(agent)|| "error",
+          internalName: agent
+        }
+        console.log('AGENTE: ' + this.currentAgent.name);
+      } else if(this.isScene(infoJSON)) {
+        let scene = infoJSON.game_info.scene;
+        this.currentScene = {
+          name: sceneMap.get(scene) || "error",
+          internalName: scene
+        }
+        console.log('MAPA: '  + this.currentScene.name);
+      } else if((this.isTeam(infoJSON))) {
+        let team = infoJSON.match_info.team;
+        this.currentSide = team;
+        console.log('LADO: '  + this.currentSide);
+      }
+      
+  }
 
-    }
+  // private addInfo(info: String) {
+  //   this.logLine(this._infoLog, info, false);
+  // }
+
+  // private addEvent(event: String) {
+  //   this.logLine(this._eventsLog, event, true);
+  // }
+  private isAgent(infoJSON): boolean {return !this.isUndefinedOrNull(infoJSON.me) && !this.isUndefinedOrNull(infoJSON.me.agent);}
+  private isScene(infoJSON): boolean {return !this.isUndefinedOrNull(infoJSON.game_info) && !this.isUndefinedOrNull(infoJSON.game_info.scene);}
+  private isTeam(infoJSON): boolean {return !this.isUndefinedOrNull(infoJSON.match_info) && !this.isUndefinedOrNull(infoJSON.match_info.team);}
+  private isUndefinedOrNull(obj): boolean {return obj === undefined || obj === null;}
+
+  private matchEnded() {
+    console.log('TERMINA LA PARTIDA');
+    // document.getElementById("waitingScreen").style.display = ""; 
+    // document.getElementById("matchScreen").style.display = "none"; 
+  }
+
+  private matchStarted() {
+    console.log('EMPIEZA LA PARTIDA');
+    // document.getElementById("waitingScreen").style.display = "none"; 
+    // document.getElementById("matchScreen").style.display = ""; 
   }
 
   // Special events will be highlighted in the event log
   private onNewEvents(e) {
+    console.log(e);
     e.events.some(event => {
-      if (event.name === 'match_start') {this.logLine(this._eventsLog, 'EMPIEZA LA PARTIDA', true);}
-      if (event.name === 'match_end') {this.logLine(this._eventsLog, 'TERMINA LA PARTIDA', true);}
+      if (event.name === 'match_start') {
+        this.matchStarted();
+      }
+      if (event.name === 'match_end') {
+        this.matchEnded();
+      }
     });
   }
 

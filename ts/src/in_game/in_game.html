@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="../../css/header.css" />
   <link rel="stylesheet" href="../../css/ingame.css" />
   <link rel="stylesheet" href="../../css/modal.css" />
+  <link rel="stylesheet" href="../../css/carousel.css" />
   <title>Overwolf Sample App - In-Game page</title>
 </head>
 <body class="in-game">
@@ -13,7 +14,7 @@
 
   <header id="header" class="app-header">
     <img src="../../img/header_icon.svg" />
-    <h1>Sample App / in-game window</h1>
+    <h1>Line-up & Wallbanggs 4 dummies</h1>
     <h1 class="hotkey-text">
       Show/Hide Hotkey:
       <kbd id="hotkey"></kbd>
@@ -27,26 +28,83 @@
 
   <!-- --------------------------------- Main -------------------------------- -->
   <main>
-    <div id="logs">
-      <div id="events" class="logColumn">
-        <h1>Game Events</h1>
-        <div id="eventsLog" class="dataText">
+    <div id="matchScreen" > 
+      <section>
+        <div class="container">
+            <div class="carousel">
+                <input type="radio" name="slides" checked="checked" id="slide-1">
+                <input type="radio" name="slides" id="slide-2">
+                <input type="radio" name="slides" id="slide-3">
+                <input type="radio" name="slides" id="slide-4">
+                <input type="radio" name="slides" id="slide-5">
+                <input type="radio" name="slides" id="slide-6">
+                <ul class="carousel__slides">
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1041/800/450" alt="">
+                            </div>    
+                        </figure>
+                    </li>
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1043/800/450" alt="">
+                            </div>                            
+                        </figure>
+                    </li>
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1044/800/450" alt="">
+                            </div>                            
+                        </figure>
+                    </li>
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1045/800/450" alt="">
+                            </div>                            
+                        </figure>
+                    </li>
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1049/800/450" alt="">
+                            </div>                            
+                        </figure>
+                    </li>
+                    <li class="carousel__slide">
+                        <figure>
+                            <div>
+                                <img src="https://picsum.photos/id/1052/800/450" alt="">
+                            </div>                            
+                        </figure>
+                    </li>
+                </ul>    
+                <ul class="carousel__thumbnails">
+                    <li>
+                        <label for="slide-1"><img src="https://picsum.photos/id/1041/150/150" alt=""></label>
+                    </li>
+                    <li>
+                        <label for="slide-2"><img src="https://picsum.photos/id/1043/150/150" alt=""></label>
+                    </li>
+                    <li>
+                        <label for="slide-3"><img src="https://picsum.photos/id/1044/150/150" alt=""></label>
+                    </li>
+                    <li>
+                        <label for="slide-4"><img src="https://picsum.photos/id/1045/150/150" alt=""></label>
+                    </li>
+                    <li>
+                        <label for="slide-5"><img src="https://picsum.photos/id/1049/150/150" alt=""></label>
+                    </li>
+                    <li>
+                        <label for="slide-6"><img src="https://picsum.photos/id/1052/150/150" alt=""></label>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div id="infoUpdates" class="logColumn">
-        <h1>Info Updates</h1>
-        <div id="infoLog" class="dataText"></div>
-      </div>
-    </div>
-    <div id="other">
-      <h1>Real-time Game Data POR FAVOR TE LO PIDO DEJAME IRME A DORMIR MEDIANAMENTE CONTENTO</h1>
-      <p id="infoParagraph">
-        The background controller of this app is listening to all the game
-        events and info updates, and sends them to this window, that prints
-        them to the screen. Some specific events (Match Start/End, Kill and
-        Death) are painted in <span style="color: #00DEFA">teal</span> and
-        logged to the developers console.
-      </p>
+    </section>
     </div>
   </main>
 
