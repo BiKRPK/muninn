@@ -9,25 +9,27 @@ import { kHotkeys, kWindowNames, kGamesFeatures } from "../consts";
 
 import WindowState = overwolf.windows.WindowStateEx;
 
+import * as $ from "jquery";
+
 // The window displayed in-game while a game is running.
 // It listens to all info events and to the game events listed in the consts.ts file
 // and writes them to the relevant log using <pre> tags.
 // The window also sets up Ctrl+F as the minimize/restore hotkey.
 // Like the background window, it also implements the Singleton design pattern.
 type Agent = {
-  name?: String;
-  internalName?: String;
+  name?: string;
+  internalName?: string;
 }
 
 type Scene = {
-  name?: String;
-  internalName?: String;
+  name?: string;
+  internalName?: string;
 }
 
 type Side = "defense" | "attack" | null; 
 
 //All posible agent values, internalName -> name
-var agentMap = new Map<String, String>([
+var agentMap = new Map<string, string>([
   ["Clay_PC_C",  "Raze"],
   ["Pandemic_PC_C", "Viper"],
   ["Wraith_PC_C", "Omen"],
@@ -51,8 +53,8 @@ var agentMap = new Map<String, String>([
 ]);
 
 //All posible scene values, internalName -> name
-var sceneMap = new Map<String, String>([
-  ["MainMenu", "Main menu"],
+var sceneMap = new Map<string, string>([
+  // ["MainMenu", "Main menu"],
   ["Triad", "Haven"],
   ["Bonsai", "Split"],
   ["Ascent", "Ascent"],
@@ -60,8 +62,8 @@ var sceneMap = new Map<String, String>([
   ["Foxtrot", "Breeze"],
   ["Canyon", "Fracture"],
   ["Pitt", "Pearl"],
-  ["Range", "Practice Range"],
-  ["CharacterSelectPersistentLevel", "Character Selection"]
+  // ["Range", "Practice Range"],
+  // ["CharacterSelectPersistentLevel", "Character Selection"]
 ]);
 
 class InGame extends AppWindow {
@@ -109,27 +111,93 @@ class InGame extends AppWindow {
     }
   }
 
+  private resetAgent() {
+    this.currentAgent = undefined;
+    this.updateAgentInUI();
+  }
+
+  private resetScene() {
+    this.currentScene = undefined;
+    this.updateSceneInUI();
+  }
+
+  private resetSide() {
+    this.currentSide = undefined;
+    this.updateSideInUI();
+  }
+
+  private updateAgent(agent) {
+    //let agent = infoJSON.me.agent;
+    console.log('update agent');
+    let agentName = agentMap.get(agent) || undefined;
+    if (agentMap) {
+      this.currentAgent = {
+        name: agentName,
+        internalName: agent
+      }
+      console.log('AGENTE: ' + this.currentAgent.name);
+      this.updateAgentInUI();
+    }  
+  }
+
+  private updateScene(scene) {
+    //let scene = infoJSON.game_info.scene;
+    console.log('update scene');
+    let sceneName = sceneMap.get(scene) || undefined;
+    if (sceneName) {
+      this.currentScene = {
+        name: sceneName,
+        internalName: scene
+      }
+      console.log('MAPA: '  + this.currentScene.name);
+      this.updateSceneInUI();
+    }
+  }
+
+  private updateSide(side) {
+    //let team = infoJSON.match_info.team;
+    this.currentSide = side;
+    console.log('LADO: '  + this.currentSide);
+    this.updateSideInUI();
+  }
+
+  private updateAgentInUI() {
+    let text = 'waiting...';
+    if(this.currentAgent) {
+      text = this.currentAgent.name;
+    } 
+    $('#Agente').text(text);
+    // document.getElementById("Agente").innerHTML = text;
+  }
+
+  private updateSceneInUI() {
+    let text = 'waiting...';
+    if(this.currentAgent) {
+      text = this.currentScene.name;
+    } 
+    $('#Mapa').text(text);
+    // document.getElementById("Mapa").innerHTML = text;
+  }
+
+  private updateSideInUI() {
+    let text = 'waiting...';
+    if(this.currentAgent) {
+      text = this.currentSide;
+    } 
+    $('#Lado').text(text);
+    // document.getElementById("Lado").innerHTML = text;
+  }
+
+
   private onInfoUpdates(info) {
       let infoJSON = JSON.parse(JSON.stringify(info));
-      console.log(infoJSON);
+      console.log('update: ' + infoJSON);
       if(this.isAgent(infoJSON)) {
-        let agent = infoJSON.me.agent;
-        this.currentAgent = {
-          name: agentMap.get(agent)|| "error",
-          internalName: agent
-        }
-        console.log('AGENTE: ' + this.currentAgent.name);
+        this.updateAgent(infoJSON.me.agent);
       } else if(this.isScene(infoJSON)) {
-        let scene = infoJSON.game_info.scene;
-        this.currentScene = {
-          name: sceneMap.get(scene) || "error",
-          internalName: scene
-        }
-        console.log('MAPA: '  + this.currentScene.name);
+        this.updateScene(infoJSON.game_info.scene);
       } else if((this.isTeam(infoJSON))) {
-        let team = infoJSON.match_info.team;
-        this.currentSide = team;
-        console.log('LADO: '  + this.currentSide);
+        this.updateSide(infoJSON.match_info.team);
       }
       
   }
@@ -148,6 +216,9 @@ class InGame extends AppWindow {
 
   private matchEnded() {
     console.log('TERMINA LA PARTIDA');
+    this.resetAgent();
+    this.resetScene();
+    this.resetSide();
     // document.getElementById("waitingScreen").style.display = ""; 
     // document.getElementById("matchScreen").style.display = "none"; 
   }
