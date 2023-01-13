@@ -167,25 +167,25 @@ class InGame extends AppWindow {
       text = this.currentAgent.name;
     } 
     $('#Agente').text(text);
-    // document.getElementById("Agente").innerHTML = text;
+    document.getElementById("Agente").innerHTML = text;
   }
 
   private updateSceneInUI() {
     let text = 'waiting...';
-    if(this.currentAgent) {
+    if(this.currentScene) {
       text = this.currentScene.name;
     } 
     $('#Mapa').text(text);
-    // document.getElementById("Mapa").innerHTML = text;
+    document.getElementById("Mapa").innerHTML = text;
   }
 
   private updateSideInUI() {
     let text = 'waiting...';
-    if(this.currentAgent) {
+    if(this.currentSide) {
       text = this.currentSide;
     } 
     $('#Lado').text(text);
-    // document.getElementById("Lado").innerHTML = text;
+    document.getElementById("Lado").innerHTML = text;
   }
 
 
