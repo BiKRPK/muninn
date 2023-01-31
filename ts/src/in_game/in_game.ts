@@ -62,6 +62,7 @@ var sceneMap = new Map<string, string>([
   ["Foxtrot", "Breeze"],
   ["Canyon", "Fracture"],
   ["Pitt", "Pearl"],
+  ["Jam", "Lotus"],
   // ["Range", "Practice Range"],
   // ["CharacterSelectPersistentLevel", "Character Selection"]
 ]);
