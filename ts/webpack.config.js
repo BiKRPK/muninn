@@ -9,7 +9,8 @@ module.exports = env => ({
     entry: {
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
-        in_game: './src/in_game/in_game.ts'
+        in_game: './src/in_game/in_game.ts',
+        main: './src/js/main.js'
     },
     devtool: 'inline-source-map',
     module: {
@@ -17,12 +18,36 @@ module.exports = env => ({
             {
                 test: /\.ts?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
+            },
+            {
+                test: /\.(sass|css|scss)$/,
+                use: [
+                {
+                    loader: 'style-loader'
+                },
+                {
+                    loader: 'css-loader'
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                    postcssOptions: {
+                        plugins: () => [
+                        require('autoprefixer')
+                        ]
+                    }
+                    }
+                },
+                {
+                    loader: 'sass-loader'
+                }
+                ]
             }
+    
         ]
     },
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js', '.css']
     },
     output: {
       path: path.resolve(__dirname, 'dist/'),

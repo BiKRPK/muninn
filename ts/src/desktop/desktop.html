@@ -3,14 +3,16 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../../css/general.css" />
+  <script src="./main.js"></script>
+  <!-- <link rel="stylesheet" href="../../css/general.css" /> -->
   <link rel="stylesheet" href="../../css/header.css" />
-  <link rel="stylesheet" href="../../css/desktop.css" />
-  <link rel="stylesheet" href="../../css/modal.css" />
+  <!-- <link rel="stylesheet" href="../../css/desktop.css" />
+  <link rel="stylesheet" href="../../css/modal.css" /> -->
+  <link rel="stylesheet" href="../../css/videoplayer.css" />
   <title>Overwolf Sample App - Desktop page</title>
 </head>
 
-<body class="desktop">
+<body class="desktop vh-100">
   <!-- -------------------------------- Header ------------------------------- -->
 
   <header id="header" class="app-header">
@@ -24,43 +26,30 @@
   </header>
 
   <!-- --------------------------------- Main -------------------------------- -->
-  <main>
-    <div class="desktopTop">
-      <h1>Overwolf Sample App</h1>
-      <p>
-        Welcome to the Overwolf tutorial app for developers. change to see if it has hot reload (yes, it does)<br />
-        Learn how to build an app by using one!
-      </p>
-      <div id="version"></div>
-    </div>
-    <div class="desktopBottom">
-      <!-- Launch a game! -->
-      <div id="left">
-        <h1>
-          Launch a game and the In-Game window will pop-up automatically!
-        </h1>
+  <main class="main">
+    <div class="container-fluid h-100">
+      <div class="row h-80">
+        <div id="videocontainer" class="video col h-100 text-bg-dark"> 
+          <video id="player" controlslist="nodownload noremoteplayback" autoplay="" controls="" preload="true" class="w-100 h-100">
+            <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div id="filterscontainer " class="filters col-3 h-100 text-bg-primary"> 
+          <div>FILTERS</div>
+        </div>
       </div>
-      <!-- Launch a game! -->
-      <div id="middle">
-        What can you learn with this sample app?
-        <br /><br />
-        1. How to listen to real-time game events and how to identify specific
-        events like match start/end, kill, and death.
-        <br /><br />
-        2. How to use a transparent background window as a service bus, that
-        acts as the main controller of your app.
-        <br /><br />
-        3. How to use Hotkeys that show/hide your app while you are in-game.
-      </div>
-      <!-- picture -->
-      <div id="right">
-        <div style="text-align: center">
-          <div style="display: inline-block">
-            <img src="../../img/cool_wolf.png" />
+      <div class="row h-20">
+        <div id="thumbnailscontainer" class="thumbnails col h-100 text-bg-success"> 
+          <div>VIDEO THUMBNAILS</div>
+        </div>
+        <div id="addcontainter" class="adds col-3 h-100 text-bg-danger"> 
+          <div>
+            <p>ADDS HERE</p>
+            <p>WORK IN PROGRESS.. </p>
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   </main>
 
   <script>
