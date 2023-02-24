@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "none",
+    "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -9,6 +10,7 @@
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
     "types": [
       "@overwolf/types"
     ],

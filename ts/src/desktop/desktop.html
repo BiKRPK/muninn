@@ -3,7 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <script src="./main.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <!-- <link rel="stylesheet" href="../../css/general.css" /> -->
   <link rel="stylesheet" href="../../css/header.css" />
   <!-- <link rel="stylesheet" href="../../css/desktop.css" />
@@ -27,18 +32,21 @@
 
   <!-- --------------------------------- Main -------------------------------- -->
   <main class="main">
-    <div class="container-fluid h-100">
-      <div class="row h-80">
+    <!-- <div class="container-fluid h-100">
+      <div class="row h-100">
         <div id="videocontainer" class="video col h-100 text-bg-dark"> 
+          <div id="thumbnailscontainer" class="thumbnails h-100 text-bg-success"> 
+            
+          </div>
           <video id="player" controlslist="nodownload noremoteplayback" autoplay="" controls="" preload="true" class="w-100 h-100">
             <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
           </video>
         </div>
-        <div id="filterscontainer " class="filters col-3 h-100 text-bg-primary"> 
+        <div id="filterscontainer " class="filters h-100 text-bg-primary"> 
           <div>FILTERS</div>
         </div>
       </div>
-      <div class="row h-20">
+      <!-- <div class="row h-20">
         <div id="thumbnailscontainer" class="thumbnails col h-100 text-bg-success"> 
           <div>VIDEO THUMBNAILS</div>
         </div>
@@ -48,8 +56,72 @@
             <p>WORK IN PROGRESS.. </p>
           </div>
         </div>
+      </div> -->
+    </div>  -->
+    <div class="carousel">
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 1
+        </h3>
       </div>
-    </div> 
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/1485637/pexels-photo-1485637.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 2
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 3
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/374898/pexels-photo-374898.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 4
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 5
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/434090/pexels-photo-434090.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 6
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/733416/pexels-photo-733416.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 7
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/160846/french-bulldog-summer-smile-joy-160846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 8
+        </h3>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="https://images.pexels.com/photos/551628/pexels-photo-551628.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Dog" title="Dog">
+        <h3>
+          Someone Famous 9
+        </h3>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -69,6 +141,11 @@
     ga('set', 'checkProtocolTask', function () { });
     ga('require', 'displayfeatures');
     ga('send', 'pageview', '/desktop.html');
+
+    $(() => {
+      $('.carousel').carousel();
+        console.log("funciono");
+    });
   </script>
 </body>
 
