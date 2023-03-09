@@ -1,16 +1,9 @@
 import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-import '../scss/styles.scss';
-import M from 'materialize-css';
-import {
-    Carousel
-} from 'materialize-css';
-import 'materialize-css/dist/css/materialize.min.css'
+// Default theme
+import '@splidejs/splide/css';
 
-document.addEventListener('DOMContentLoaded', function () {
-    var carousel = M.Carousel.init(document.querySelectorAll('.carousel'), {});
-})
+import Splide from '@splidejs/splide';
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../consts";
 
@@ -19,3 +12,33 @@ import { kWindowNames } from "../consts";
 // Therefore, only the generic AppWindow class is called.
 new AppWindow(kWindowNames.desktop);
 
+document.addEventListener( 'DOMContentLoaded', function () {
+    var main = new Splide( '#main-carousel', {
+      fixedHeight  : '80%',
+      type      : 'fade',
+      rewind    : true,
+      pagination: false,
+      arrows    : true
+    } );
+
+  var thumbnails = new Splide( '#thumbnail-carousel', {
+    fixedHeight  : '20%',
+    fixedWidth : 'auto',
+    gap         : 10,
+    rewind      : true,
+    pagination  : false,
+    isNavigation: true,
+    // breakpoints : {
+    //   600: {
+    //     fixedWidth : 60,
+    //     fixedHeight: 44,
+    //   },
+    // },
+  } );
+
+  main.sync( thumbnails );
+  main.mount();
+  thumbnails.mount();
+} );
+
+    

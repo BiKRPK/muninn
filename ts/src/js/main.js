@@ -5,17 +5,11 @@ import * as $ from 'jquery'
 import '../scss/styles.scss'
 
 // Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
+// Default theme
+import '@splidejs/splide/css';
 
-import '../scss/styles.scss';
-import M from 'materialize-css';
-import {
-    Carousel
-} from 'materialize-css';
-import 'materialize-css/dist/css/materialize.min.css'
+import Splide from '@splidejs/splide';
 
-document.addEventListener('DOMContentLoaded', function () {
-    var carousel = M.Carousel.init(document.querySelectorAll('.carousel'), {});
-})
 
 

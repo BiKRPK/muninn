@@ -3,7 +3,9 @@ const
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     CopyPlugin = require("copy-webpack-plugin"),
     { CleanWebpackPlugin } = require('clean-webpack-plugin'),
-    OverwolfPlugin = require('./overwolf.webpack');
+    OverwolfPlugin = require('./overwolf.webpack'),
+    webpack = require('webpack');
+    ;
 
 module.exports = env => ({
     entry: {
@@ -72,6 +74,11 @@ module.exports = env => ({
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
         }),
-        new OverwolfPlugin(env)
+        new OverwolfPlugin(env),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ]
 })
