@@ -13,13 +13,14 @@ import { kWindowNames } from "../consts";
 new AppWindow(kWindowNames.desktop);
 
 document.addEventListener( 'DOMContentLoaded', function () {
-    var main = new Splide( '#main-carousel', {
-      fixedHeight  : '80%',
-      type      : 'fade',
-      rewind    : true,
-      pagination: false,
-      arrows    : true
-    } );
+
+  var main = new Splide( '#main-carousel', {
+    fixedHeight  : '80%',
+    type      : 'fade',
+    rewind    : true,
+    pagination: false,
+    arrows    : true
+  } );
 
   var thumbnails = new Splide( '#thumbnail-carousel', {
     fixedHeight  : '20%',
@@ -40,5 +41,21 @@ document.addEventListener( 'DOMContentLoaded', function () {
   main.mount();
   thumbnails.mount();
 } );
+
+ 
+$(document).on({
+  mouseenter: function (e) {
+    const vid = e.target
+    vid.muted = true
+    vid.play()
+  },
+  mouseleave: function (e) {
+    const vid = e.target
+    vid.muted = false
+    vid.currentTime = 0
+    vid.pause()
+  }
+}, "#thumbnail-carousel > div > ul > li > video");	
+
 
     

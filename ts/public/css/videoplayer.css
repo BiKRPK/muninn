@@ -1,6 +1,6 @@
 
 .main {
-    height: calc(100% - 36px);
+    height: calc(100% - 32px);
 }
 
 .video { 
@@ -30,11 +30,15 @@
 }
 
 .h-25 {
-    height: 20%;
+    height: 25%;
 }
 
 .h-30 {
     height: 30%;
+}
+
+.h-35 {
+    height: 35%;
 }
 
 .h-40 {
@@ -50,7 +54,7 @@
 }
 
 .h-75 {
-    height: 70%;
+    height: 75%;
 }
 
 .h-80 {
@@ -65,13 +69,13 @@
     height: 90%;
 }
 
-.splide__slide img {
+.thumbnail-carousel-item video {
     width: auto;
-    height: 100%;
+    height: 70%;
     object-fit: cover;
 }
 
-.splide__slide video {
+.main-carousel-item video {
     width: auto;
     height: 100%;
     object-fit: cover;

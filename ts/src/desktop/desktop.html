@@ -9,15 +9,15 @@
   <!-- <link rel="stylesheet" href="../../css/desktop.css" />
   <link rel="stylesheet" href="../../css/modal.css" /> -->
   <link rel="stylesheet" href="../../css/videoplayer.css" />
-  <title>Overwolf Sample App - Desktop page</title>
+  <title>Muninn WIP - Desktop page</title>
 </head>
 
 <body class="desktop vh-100">
   <!-- -------------------------------- Header ------------------------------- -->
 
-  <header id="header" class="app-header">
-    <img src="../../img/header_icon.svg" />
-    <h1>Sample App / desktop window</h1>
+  <header id="header" class="app-header text-bg-secondary">
+    <img src="../../img/muninn.png" />
+    <h1>Muninn WIP / desktop window</h1>
     <div class="window-controls-group">
       <button id="minimizeButton" class="window-control window-control-minimize" />
       <button id="maximizeButton" class="window-control window-control-maximize" />
@@ -26,78 +26,198 @@
   </header>
 
   <!-- --------------------------------- Main -------------------------------- -->
-  <main class="main">
+  <main class="main text-bg-dark py-3">
     <div class="container-fluid h-100">
       <div class="row h-100">
-        <div id="videocontainer" class="video col-10 col-sm-9 h-100 text-bg-dark"> 
+        <div id="videocontainer" class="video col-10 col-sm-9 h-100 pe-4"> 
           <!-- <video id="player" controlslist="nodownload noremoteplayback" autoplay="" controls="" preload="true" class="w-100 h-100">
             <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
           </video> -->
 
-          <section id="main-carousel" class="splide h-85" aria-label="My Awesome Gallery">
+          <section id="main-carousel" class="splide h-75" >
             <div class="splide__track h-100">
               <ul class="splide__list h-100">
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v1.mp4" autoplay poster="../../tbn/p1.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v1.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v2.mp4" autoplay poster="../../tbn/p2.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v2.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v3.mp4" autoplay poster="../../tbn/p3.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v3.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v4.mp4" autoplay poster="../../tbn/p4.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v4.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v5.mp4" autoplay poster="../../tbn/p5.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v5.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v6.mp4" autoplay poster="../../tbn/p6.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v6.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
-                <li class="splide__slide h-100">
-                  <video src="../../vid/v7.mp4" autoplay poster="../../tbn/p7.jpg"></video>
+                <li class="splide__slide h-100 main-carousel-item">
+                  <video src="../../vid/v7.mp4" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video>
                 </li>
               </ul>
             </div>
           </section>
   
-          <section id="thumbnail-carousel" class="splide h-15">
+          <section id="thumbnail-carousel" class="splide h-25 pt-4">
             <div class="splide__track h-100">
               <ul class="splide__list h-100">
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p1.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v1.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p2.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v2.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p3.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v3.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p4.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v4.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p5.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v5.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p6.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v6.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
-                <li class="splide__slide h-100">
-                  <img src="../../tbn/p7.jpg" alt="">
+                <li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item">
+                    <div class="h-10"> TITULO DEL VIDEO </div>
+                    <video src="../../vid/v7.mp4" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>
+                    <div class="h-20"> 
+                      <table>
+                        <tr>
+                          <th> Ability: </th> <td> Q - Shock Bolt </td>
+                          <th> Side: </th> <td> Attack </td>
+                        </tr>
+                        <tr>  
+                          <th> Site: </th> <td> B </td>
+                          <th> Type: </th> <td> Line-up </td>  
+                        </tr>
+                      </table>
+                    </div>
                 </li>
               </ul>
             </div>
           </section>
 
         </div>
-        <div class="col-2 col-sm-3 h-100 row">
-          <div id="filterscontainer" class="filters h-75 text-bg-primary"> 
-            <div>FILTERS</div>
+        <div class="col-2 col-sm-3 h-100 row text-bg-secondary py-3">
+          <div id="filterscontainer" class="filters h-100 overflow-auto"> 
+            <!-- TODO COMO IMAGENES CON FUNCIONAMENTO DE BOTON -->
+            <!-- se mantiene la altura porcentual hasta un min-height que se vuelve fijo con overflow-auto -->
+            <div class="text-bg-danger row h-30">
+              Filtro SINGLE mapa
+            </div>
+            <div class="text-bg-light row h-30">
+              filtro SINGLE agente
+            </div>
+            <div class="text-bg-dark row h-20">
+              <div class="text-bg-warning col">
+                filtro MULTI side <br>
+                ATTACK / DEFENSE
+              </div>
+              <div class="text-bg-success col ">
+                filtro MULTI site <br>
+                A / B / C / MID
+              </div>
+            </div>
+            <div class="text-bg-light row h-20">
+              <div class="text-bg-info col">
+                filtro MULTI habilidades <br>
+                X - Hunter's Fury / C - Owl drone / Q - Shock Bolt / E - Recon Bolt
+              </div>
+              <div class="text-bg-danger col">
+                filtro MULTI contenido deseado <br>
+                LINEUPS / SETUPS / WALLBANGS / SNIPER PEEKS 
+              </div>
+            </div>
           </div>
-          <div id="addcontainter" class="adds h-25 text-bg-danger">
-            <script data-num-rows="1" src="https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js" type="text/javascript"></script>
-          </div>
+          <!-- <div id="addcontainter" class="adds h-25 ps-1 pt-2">
+            <div class="text-bg-secondary">
+              <script data-num-rows="1" src="https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js" type="text/javascript"></script>
+            </div>
+          </div> -->
         </div>
       </div>
       <!-- <div class="row h-15">
