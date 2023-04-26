@@ -1,17 +1,33 @@
 
 .main {
-    height: calc(100% - 32px);
+    height: calc(100% - 33px);
 }
 
 .video { 
+    padding-right: 500px;
 }
+
 .thumbnails { 
 }
 
 .filters {
     /* -ms-flex: 0 0 450px;
     flex: 0 0 450px; */
+    scrollbar-width: thin;
 }
+
+.sidebar {
+    width: 500px;
+    position: fixed;
+    top: 33px;
+    bottom: 0;
+    right: calc(var(--bs-gutter-x) * 0.5);
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .adds {
     /* -ms-flex: 0 0 450px;
     flex: 0 0 450px; */
@@ -88,4 +104,82 @@
 
 .splide__slide.is-active {
     opacity: 1;
+}
+
+.grid {
+    /* overflow-y: auto; */
+    display: grid;
+    list-style: none;
+    grid-gap: 10px;
+    box-sizing: border-box;
+}
+
+.agentgrid {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.mapgrid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.sidegrid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.sitegrid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.fitertitle {
+    height: 30px;
+    line-height: 30px; 
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 5px;
+    box-sizing: border-box;
+    list-style: none;
+    background-color: lightgray;
+    height: fit-content;
+}   
+
+.sitecard > .cardimg{
+    height: 60.328px !important;
+}
+
+.agentcard {
+    height: fit-content;
+}
+
+.cardimg {
+    cursor: pointer;
+    list-style: none;
+    display: block;
+    width: 100%;
+    transition: 0.2s;
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0.70;
+}
+
+.cardimg:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+.card.selected > .cardimg{
+    opacity: 1;
+}
+
+.cardname {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 12px;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
 }

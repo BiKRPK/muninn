@@ -55,7 +55,41 @@ $(document).on({
     vid.currentTime = 0
     vid.pause()
   }
-}, "#thumbnail-carousel > div > ul > li > video");	
+}, "#thumbnail-carousel > div > ul > li > video");
 
+$('.agentcard').on({
+  click:  function() {
+    $('.agentcard').removeClass('selected');
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualiza habilidades
+    //llamar a actualizar filtros
+  }
+});
+
+$('.mapcard').on({
+  click:  function() {
+    $('.mapcard').removeClass('selected');
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualizar filtros
+  }
+});
+
+$('.sidecard').on({
+  click:  function() {
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualizar filtros
+  }
+});
+
+$('.sitecard').on({
+  click:  function() {
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualizar filtros
+  }
+});
 
     
