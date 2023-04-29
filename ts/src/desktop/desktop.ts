@@ -59,18 +59,32 @@ $(document).on({
 
 $('.agentcard').on({
   click:  function() {
+    var oldSelected = $('.agentcard.selected');
     $('.agentcard').removeClass('selected');
     $(this).toggleClass('selected');
+    swap(oldSelected, $(this));
+    //$(".agentcard.selected").prependTo(".agentgrid.grid");
     //sacar agente a partir del this
     //llamar a actualiza habilidades
     //llamar a actualizar filtros
   }
 });
 
+function swap(a, b) {
+  a = $(a); b = $(b);
+  var tmp = $('<span>').hide();
+  a.before(tmp);
+  b.before(a);
+  tmp.replaceWith(b);
+};
+
 $('.mapcard').on({
   click:  function() {
+    var oldSelected = $('.mapcard.selected');
     $('.mapcard').removeClass('selected');
     $(this).toggleClass('selected');
+    swap(oldSelected, $(this));
+    // $(".mapcard.selected").prependTo(".mapgrid.grid");
     //sacar agente a partir del this
     //llamar a actualizar filtros
   }
@@ -91,5 +105,22 @@ $('.sitecard').on({
     //llamar a actualizar filtros
   }
 });
+
+$('.abilitycard').on({
+  click:  function() {
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualizar filtros
+  }
+});
+
+$('.contenttypecard').on({
+  click:  function() {
+    $(this).toggleClass('selected');
+    //sacar agente a partir del this
+    //llamar a actualizar filtros
+  }
+});
+
 
     

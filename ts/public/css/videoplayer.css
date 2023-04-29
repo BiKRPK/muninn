@@ -106,29 +106,31 @@
     opacity: 1;
 }
 
+.splide__track--nav > .splide__list > .splide__slide.is-active {
+    border: 3px solid #FFA900 !important;
+}
+
 .grid {
     /* overflow-y: auto; */
     display: grid;
     list-style: none;
     grid-gap: 10px;
     box-sizing: border-box;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .agentgrid {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(6, 1fr) !important;
 }
 
 .mapgrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .sidegrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
 }
 
-.sitegrid {
-    grid-template-columns: repeat(4, 1fr);
-}
 
 .fitertitle {
     height: 30px;
@@ -147,10 +149,6 @@
     height: fit-content;
 }   
 
-.sitecard > .cardimg{
-    height: 60.328px !important;
-}
-
 .agentcard {
     height: fit-content;
 }
@@ -163,16 +161,30 @@
     transition: 0.2s;
     box-sizing: border-box;
     text-align: center;
-    opacity: 0.70;
+    opacity: 0.6;
+}
+
+.mapcard.selected {
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.agentcard.selected {
+    grid-row: span 2;
+    grid-column: span 2;
 }
 
 .cardimg:hover {
     transform: scale(1.1);
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 .card.selected > .cardimg{
     opacity: 1;
+}
+
+.card.selected {
+    border: 1px solid #FFA900;
 }
 
 .cardname {
@@ -182,4 +194,36 @@
     width: 100%;
     text-align: center;
     pointer-events: none;
+}
+
+.sitecard > .cardimg {
+    font-size: 30px;
+    font-weight: 700;
+    height: 60px !important;
+    line-height: 60px;
+    width: auto;
+}
+
+.sidecard > .cardimg {
+    height: 50px !important;
+    width: auto;
+}
+
+.abilitycard {
+    height: 80px !important;
+}
+
+.contenttypecard {
+    height: 80px !important;
+}
+
+.abilitycard > .cardimg {
+    max-height: 68px !important;
+    width: auto;
+    filter: brightness(0);
+}
+
+.contenttypecard > .cardimg {
+    max-height: 68px !important;
+    width: auto;
 }
