@@ -12,6 +12,51 @@ import { kWindowNames } from "../consts";
 // Therefore, only the generic AppWindow class is called.
 new AppWindow(kWindowNames.desktop);
 
+
+
+type Agent = {
+  name?: string;
+  internalName?: string;
+}
+
+type Scene = {
+  name?: string;
+  internalName?: string;
+}
+
+type abKey = "c" | "q" | "e" | "x";
+
+type Ability = {
+  name?: string;
+  key: abKey;
+}
+
+type Side = "defense" | "attack" | null;
+
+type Site = "A" | "B" | "C" | "MID";
+
+// LU -> Line-Up | SU -> Set-Up | WB -> WallBang | SP -> Sniper Peek
+type contentType = "LU" | "SU" | "WB" | "SP";
+
+type Video = {
+  id: string;
+  title: string;
+  description?: string;
+  map: Scene;
+  agent: Agent;
+  abilities?:  Ability[];
+  side: Side;
+  site: Site;
+  type: contentType;
+  url: string;
+ //author: string;
+}
+
+var allVideos: Array<Video> = loadVideos();
+
+var filteredVideos: Array<Video> = allVideos;
+
+
 document.addEventListener( 'DOMContentLoaded', function () {
 
   var main = new Splide( '#main-carousel', {
@@ -123,4 +168,59 @@ $('.contenttypecard').on({
 });
 
 
-    
+function loadVideos(): Array<Video> {
+  //read csv/JSON
+  return null;
+}
+
+function filterVideos(): Array<Video> {
+  let res: Array<Video> = null;
+  allVideos.forEach(
+    function(video) {
+      //if(video.meetCriteria()) {res.push(video);}
+    }
+  );
+  return null;
+}
+
+function addVideosInScreen() {
+  $('thumbnail-carousel > div > ul').empty();
+  $('main-carousel > div > ul').empty();
+
+  filteredVideos.forEach(
+    function(video) {
+      $('thumbnail-carousel > div > ul').append(getThumbnailHTML(video));
+      $('main-carousel > div > ul').append(getVideoHTML(video));
+    }
+  );
+}
+
+function getThumbnailHTML(video: Video): string{
+  return '<li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item rounded">' +
+    '<div class="h-10"> ' + video.title + '</div>' +
+    '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>' +
+    '<div class="h-20"> ' +
+      '<table>' +
+        '<tr>' +
+          '<td> ' + video.description + ' </td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th> Ability: </th> <td> ' + 'ABILITATS SOMEHOW' + ' </td>' +
+          '<th> Side: </th> <td> ' + video.side + ' </td>' +
+        '</tr>' +
+        '<tr>  ' +
+          '<th> Site: </th> <td> ' + video.site + ' </td>' +
+          '<th> Type: </th> <td> ' + video.type + ' </td>  ' +
+        '</tr>' +
+      '</table>' +
+    '</div>' +
+  '</li>' 
+}
+
+function getVideoHTML(video: Video): string{
+  return '<li class="splide__slide h-100 main-carousel-item">'+ 
+    ' <video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video> ' +
+  '</li>';
+}
+
+
