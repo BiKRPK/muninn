@@ -12,6 +12,50 @@ import { kWindowNames } from "../consts";
 // Therefore, only the generic AppWindow class is called.
 new AppWindow(kWindowNames.desktop);
 
+var agentMap = new Map<string, string>([
+  ["Clay_PC_C",  "Raze"],
+  ["Pandemic_PC_C", "Viper"],
+  ["Wraith_PC_C", "Omen"],
+  ["Hunter_PC_C", "Sova"],
+  ["Thorne_PC_C", "Sage"],
+  ["Phoenix_PC_C", "Phoenix"],
+  ["Wushu_PC_C", "Jett"],
+  ["Gumshoe_PC_C", "Cypher"],
+  ["Sarge_PC_C", "Brimstone"],
+  ["Breach_PC_C", "Breach"],
+  ["Vampire_PC_C", "Reyna"],
+  ["Killjoy_PC_C", "Killjoy"],
+  ["Guide_PC_C", "Skye"],
+  ["Stealth_PC_C", "Yoru"],
+  ["Rift_PC_C", "Astra"],
+  ["Grenadier_PC_C", "KAY/O"],
+  ["Deadeye_PC_C", "Chamber"],
+  ["Sprinter_PC_C", "Neon"],
+  ["BountyHunter_PC_C", "Fade"],
+  ["Mage_PC_C", "Harbor"]
+]);
+
+//All posible scene values, internalName -> name
+var sceneMap = new Map<string, string>([
+  // ["MainMenu", "Main menu"],
+  ["Triad", "Haven"],
+  ["Bonsai", "Split"],
+  ["Ascent", "Ascent"],
+  ["Port", "Icebox"],
+  ["Foxtrot", "Breeze"],
+  ["Canyon", "Fracture"],
+  ["Pitt", "Pearl"],
+  ["Jam", "Lotus"],
+  // ["Range", "Practice Range"],
+  // ["CharacterSelectPersistentLevel", "Character Selection"]
+]);
+
+var selectedMap: Scene;
+var selectedAgent: Agent;
+var selectedAbilities: Ability[];
+var selectedSides: Side[];
+var selectedSites: Site[];
+var selectedContentTypes: contentType[];
 
 
 type Agent = {
@@ -24,11 +68,16 @@ type Scene = {
   internalName?: string;
 }
 
-type abKey = "c" | "q" | "e" | "x";
+type abKey = "C" | "Q" | "E" | "X";
 
 type Ability = {
   name?: string;
   key: abKey;
+  agent: Agent;
+}
+
+function getIconFromAbility(ability: Ability): string{
+  return '../../icons/' + ability.agent.internalName + '-' + ability.key; 
 }
 
 type Side = "defense" | "attack" | null;
@@ -56,8 +105,7 @@ var allVideos: Array<Video> = loadVideos();
 
 var filteredVideos: Array<Video> = allVideos;
 
-
-document.addEventListener( 'DOMContentLoaded', function () {
+function loadSplide() {
 
   var main = new Splide( '#main-carousel', {
     fixedHeight  : '80%',
@@ -85,7 +133,99 @@ document.addEventListener( 'DOMContentLoaded', function () {
   main.sync( thumbnails );
   main.mount();
   thumbnails.mount();
-} );
+} 
+
+function initialize() {
+  initializeSelectedVariables();
+  loadVideos();
+  filterVideos();
+  addVideosInScreen();
+  loadSplide();
+}
+
+function initializeSelectedVariables() {
+  selectedMap = getSelectedMap();
+  selectedAgent = getSelectedAgent();
+  selectedAbilities = getSelectedAbilities();
+  selectedSides = getSelectedSides();
+  selectedSites = getSelectedSites();
+  selectedContentTypes = getSelectedContentTypes();
+}
+
+function getSelectedMap(): Scene {
+  let selectedMapID = $('.card.mapcard.selected').attr('id');
+  let selectedScene: Scene = {
+    internalName: selectedMapID,
+    name: sceneMap[selectedMapID],
+  }
+  return selectedScene;
+}
+
+function getSelectedAgent(): Agent {
+  let selectedAgentID = $('.card.agentcard.selected').attr('id');
+  let selectedAgent: Agent = {
+    internalName: selectedAgentID,
+    name: agentMap[selectedAgentID],
+  }
+  return selectedAgent;
+}
+
+function getSelectedAbilities(): Ability[] {
+  let selectedAbilities: Ability[];
+  $('.card.abilitycard.selected').each(
+    function() {
+      let currentAgent = getSelectedAgent();
+      let selectedKey: abKey = $(this).attr('id') as abKey;
+      let selectedAbility: Ability = {
+        agent: currentAgent,
+        key: selectedKey,
+        name: getAbilityName(currentAgent, selectedKey),
+      }
+      selectedAbilities.push(selectedAbility);
+    }
+  );
+  return selectedAbilities;
+}
+
+function getAbilityName(agent: Agent, key: abKey): string {
+  return "asdasd";
+}
+
+function getSelectedSides(): Side[] {
+  let selectedSides: Side[];
+   $('.card.sidecard.selected').each(
+    function() {
+      let selectedSide: Side = $(this).attr('id') as Side;
+      selectedSides.push(selectedSide);
+    }
+  );
+  return selectedSides;
+}
+
+function getSelectedSites(): Site[] {
+  let selectedSites: Site[];
+   $('.card.sitecard.selected').each(
+    function() {
+      let selectedSite: Site = $(this).attr('id') as Site;
+      selectedSites.push(selectedSite);
+    }
+  );
+  return selectedSites;
+}
+
+function getSelectedContentTypes(): contentType[] {
+  let selectedContentTypes: contentType[];
+   $('.card.contenttypecard.selected').each(
+    function() {
+      let selectedContentType: contentType = $(this).attr('id') as contentType;
+      selectedContentTypes.push(selectedContentType);
+    }
+  );
+  return selectedContentTypes;
+}
+
+document.addEventListener( 'DOMContentLoaded', initialize);
+
 
  
 $(document).on({
@@ -168,20 +308,73 @@ $('.contenttypecard').on({
 });
 
 
-function loadVideos(): Array<Video> {
+function loadVideos() {
   //read csv/JSON
   return null;
 }
 
-function filterVideos(): Array<Video> {
-  let res: Array<Video> = null;
-  allVideos.forEach(
-    function(video) {
-      //if(video.meetCriteria()) {res.push(video);}
+function filterVideos() {
+  filteredVideos = allVideos.filter(
+    function(video: Video) {
+      meetsCriteria(video)
     }
   );
-  return null;
 }
+
+function meetsCriteria(video: Video): boolean {
+  return meetsMapCriteria(video.map) &&  meetsAgentCriteria(video.agent) && meetsSideCriteria(video.side) && meetsSiteCriteria(video.site) && meetsAbilityCriteria(video.abilities) && meetsContentTypeCriteria(video.type);
+}
+
+
+function meetsMapCriteria(map: Scene): boolean {
+  return map.internalName === selectedMap.internalName;
+}
+
+function meetsAgentCriteria(agent: Agent): boolean {
+  return agent.internalName === selectedAgent.internalName;
+}
+
+function meetsSideCriteria(side: Side): boolean {
+  if( !$('.card.sidecard:not(.selected)').length) {return true;}
+  return selectedSides.some(
+    function(selectedSideElement: Side): boolean {
+      return selectedSideElement === side;
+    }
+  );
+}
+
+function meetsSiteCriteria(site: Site): boolean {
+  if( !$('.card.sitecard:not(.selected)').length) {return true;}
+  return selectedSites.some(
+    function(selectedSiteElement: Site): boolean {
+      return selectedSiteElement === site;
+    }
+  );
+}
+
+function meetsAbilityCriteria(abilities: Ability[]): boolean {
+  if( !$('.card.abilitycard:not(.selected)').length) {return true;}
+  return selectedAbilities.some(
+    function(selectedAbilityElement: Ability): boolean{
+      return abilities.some(
+        function (abilityElement): boolean {
+          return selectedAbilityElement.agent.internalName === abilityElement.agent.internalName && selectedAbilityElement.key === abilityElement.key;
+        }
+      );
+    }
+  );
+}
+
+
+function meetsContentTypeCriteria(contentType: contentType): boolean {
+  if( !$('.card.contenttypecard:not(.selected)').length) {return true;}
+  return selectedContentTypes.some(
+    function(selectedContentTypeElement: contentType): boolean {
+      return selectedContentTypeElement === contentType;
+    }
+  );
+}
+
 
 function addVideosInScreen() {
   $('thumbnail-carousel > div > ul').empty();
