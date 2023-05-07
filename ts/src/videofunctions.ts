@@ -28,7 +28,7 @@ export function filterVideos() {
       new ContentTypeCriteria(selectedContentTypes),
     ];
   
-    filteredVideos = allVideos.filter(video => criteriaArray.every(criteria => criteria.meetsCriteria(video)));
+    filteredVideos = (allVideos ?? []).filter(video => criteriaArray.every(criteria => criteria.meetsCriteria(video)));
 }
 
 export function initializeSelectedVariables() {

@@ -90,7 +90,7 @@ export function getSelectedMap(): Scene {
   }
   
   export function getSelectedAbilities(): Ability[] {
-    let selectedAbilities: Ability[];
+    let selectedAbilities: Ability[] = [];
     $('.card.abilitycard.selected').each(
       function() {
         let currentAgent = getSelectedAgent();
@@ -106,7 +106,7 @@ export function getSelectedMap(): Scene {
     return selectedAbilities;
   }
   export function getSelectedSides(): Side[] {
-    let selectedSides: Side[];
+    let selectedSides: Side[] = [];
      $('.card.sidecard.selected').each(
       function() {
         let selectedSide: Side = $(this).attr('id') as Side;
@@ -117,7 +117,7 @@ export function getSelectedMap(): Scene {
   }
   
   export function getSelectedSites(): Site[] {
-    let selectedSites: Site[];
+    let selectedSites: Site[] = [];
      $('.card.sitecard.selected').each(
       function() {
         let selectedSite: Site = $(this).attr('id') as Site;
@@ -128,7 +128,7 @@ export function getSelectedMap(): Scene {
   }
   
   export function getSelectedContentTypes(): contentType[] {
-    let selectedContentTypes: contentType[];
+    let selectedContentTypes: contentType[] = [];
      $('.card.contenttypecard.selected').each(
       function() {
         let selectedContentType: contentType = $(this).attr('id') as contentType;
