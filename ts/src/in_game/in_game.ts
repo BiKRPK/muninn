@@ -11,6 +11,9 @@ import WindowState = overwolf.windows.WindowStateEx;
 
 import  $ from "jquery";
 
+import {Agent, Scene, Side} from '../types';
+import {getNameFromInternalName} from '../typefunctions';
+import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../frontfunctions';
 
 
 // The window displayed in-game while a game is running.
@@ -18,56 +21,6 @@ import  $ from "jquery";
 // and writes them to the relevant log using <pre> tags.
 // The window also sets up Ctrl+F as the minimize/restore hotkey.
 // Like the background window, it also implements the Singleton design pattern.
-type Agent = {
-  name?: string;
-  internalName?: string;
-}
-
-type Scene = {
-  name?: string;
-  internalName?: string;
-}
-
-type Side = "defense" | "attack" | null; 
-
-//All posible agent values, internalName -> name
-var agentMap = new Map<string, string>([
-  ["Clay_PC_C",  "Raze"],
-  ["Pandemic_PC_C", "Viper"],
-  ["Wraith_PC_C", "Omen"],
-  ["Hunter_PC_C", "Sova"],
-  ["Thorne_PC_C", "Sage"],
-  ["Phoenix_PC_C", "Phoenix"],
-  ["Wushu_PC_C", "Jett"],
-  ["Gumshoe_PC_C", "Cypher"],
-  ["Sarge_PC_C", "Brimstone"],
-  ["Breach_PC_C", "Breach"],
-  ["Vampire_PC_C", "Reyna"],
-  ["Killjoy_PC_C", "Killjoy"],
-  ["Guide_PC_C", "Skye"],
-  ["Stealth_PC_C", "Yoru"],
-  ["Rift_PC_C", "Astra"],
-  ["Grenadier_PC_C", "KAY/O"],
-  ["Deadeye_PC_C", "Chamber"],
-  ["Sprinter_PC_C", "Neon"],
-  ["BountyHunter_PC_C", "Fade"],
-  ["Mage_PC_C", "Harbor"]
-]);
-
-//All posible scene values, internalName -> name
-var sceneMap = new Map<string, string>([
-  // ["MainMenu", "Main menu"],
-  ["Triad", "Haven"],
-  ["Bonsai", "Split"],
-  ["Ascent", "Ascent"],
-  ["Port", "Icebox"],
-  ["Foxtrot", "Breeze"],
-  ["Canyon", "Fracture"],
-  ["Pitt", "Pearl"],
-  ["Jam", "Lotus"],
-  // ["Range", "Practice Range"],
-  // ["CharacterSelectPersistentLevel", "Character Selection"]
-]);
 
 class InGame extends AppWindow {
   private static _instance: InGame;
@@ -114,81 +67,54 @@ class InGame extends AppWindow {
     }
   }
 
-  private resetAgent() {
-    this.currentAgent = undefined;
-    this.updateAgentInUI();
-  }
+  // private resetAgent() {
+  //   this.currentAgent = undefined;
+  //   this.updateAgentInUI();
+  // }
 
-  private resetScene() {
-    this.currentScene = undefined;
-    this.updateSceneInUI();
-  }
+  // private resetScene() {
+  //   this.currentScene = undefined;
+  //   this.updateSceneInUI();
+  // }
 
-  private resetSide() {
-    this.currentSide = undefined;
-    this.updateSideInUI();
-  }
+  // private resetSide() {
+  //   this.currentSide = undefined;
+  //   this.updateSideInUI();
+  // }
 
-  private updateAgent(agent) {
+  private inGameAgentReaded(readedAgentIN) {
     //let agent = infoJSON.me.agent;
     console.log('update agent');
-    let agentName = agentMap.get(agent) || undefined;
-    if (agentMap) {
+    let agentName = getNameFromInternalName(readedAgentIN) || undefined;
+    if (agentName) {
       this.currentAgent = {
         name: agentName,
-        internalName: agent
+        internalName: readedAgentIN
       }
       console.log('AGENTE: ' + this.currentAgent.name);
-      this.updateAgentInUI();
-    }  
+      updateAgentInUI(this.currentAgent);
+    } 
   }
 
-  private updateScene(scene) {
+  private inGameSceneReaded(readedSceneIN) {
     //let scene = infoJSON.game_info.scene;
     console.log('update scene');
-    let sceneName = sceneMap.get(scene) || undefined;
+    let sceneName = getNameFromInternalName(readedSceneIN) || undefined;
     if (sceneName) {
       this.currentScene = {
         name: sceneName,
-        internalName: scene
+        internalName: readedSceneIN
       }
       console.log('MAPA: '  + this.currentScene.name);
-      this.updateSceneInUI();
+      updateSceneInUI(this.currentScene);
     }
   }
 
-  private updateSide(side) {
+  private inGameSideReaded(readedSideIN) {
     //let team = infoJSON.match_info.team;
-    this.currentSide = side;
+    this.currentSide = readedSideIN;
     console.log('LADO: '  + this.currentSide);
-    this.updateSideInUI();
-  }
-
-  private updateAgentInUI() {
-    let text = 'waiting...';
-    if(this.currentAgent) {
-      text = this.currentAgent.name;
-    } 
-    $('#Agente').text(text);
-    document.getElementById("Agente").innerHTML = text;
-  }
-
-  private updateSceneInUI() {
-    let text = 'waiting...';
-    if(this.currentScene) {
-      text = this.currentScene.name;
-    } 
-    $('#Mapa').text(text);
-    document.getElementById("Mapa").innerHTML = text;
-  }
-
-  private updateSideInUI() {
-    let text = 'waiting...';
-    if(this.currentSide) {
-      text = this.currentSide;
-    } 
-    $('#Lado').text(text);
-    document.getElementById("Lado").innerHTML = text;
+    updateSideInUI(this.currentSide);
   }
 
 
@@ -196,11 +122,11 @@ class InGame extends AppWindow {
       let infoJSON = JSON.parse(JSON.stringify(info));
       console.log('update: ' + infoJSON);
       if(this.isAgent(infoJSON)) {
-        this.updateAgent(infoJSON.me.agent);
+        this.inGameAgentReaded(infoJSON.me.agent);
       } else if(this.isScene(infoJSON)) {
-        this.updateScene(infoJSON.game_info.scene);
+        this.inGameSceneReaded(infoJSON.game_info.scene);
       } else if((this.isTeam(infoJSON))) {
-        this.updateSide(infoJSON.match_info.team);
+        this.inGameSideReaded(infoJSON.match_info.team);
       }
       
   }
@@ -219,9 +145,9 @@ class InGame extends AppWindow {
 
   private matchEnded() {
     console.log('TERMINA LA PARTIDA');
-    this.resetAgent();
-    this.resetScene();
-    this.resetSide();
+    // this.resetAgent();
+    // this.resetScene();
+    // this.resetSide();
     // document.getElementById("waitingScreen").style.display = ""; 
     // document.getElementById("matchScreen").style.display = "none"; 
   }

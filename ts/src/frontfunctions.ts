@@ -1,6 +1,7 @@
 import {Agent, Scene, abKey, Ability, Side, Site, contentType, Video} from './types';
 import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './videofunctions';
-import {getNameFromInternalName, getAbilityName} from './typefunctions';
+import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './typefunctions';
+import $ from 'jquery';
 
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
@@ -16,6 +17,7 @@ export function handleClickSingleOptionFilter(selector: string) {
           filterVideos();
           addVideosInScreen();
           loadSplide();
+          if (selector === '.agentcard') {updateIconsInUI();}
       }
     }
   });
@@ -211,4 +213,51 @@ export function getSelectedMap(): Scene {
         vid.pause()
       }
     }, "#thumbnail-carousel > div > ul > li > video");
+  }
+
+
+  export function updateAgentInUI(agent: Agent) {
+    if (!$('#'+agent.internalName).hasClass('selected')) {
+      var oldSelected = $('.agentcard.selected');
+      $('.agentcard').removeClass('selected');
+      $('#'+agent.internalName).toggleClass('selected');
+      swap(oldSelected, $('#'+agent.internalName));
+      filterVideos();
+      addVideosInScreen();
+      loadSplide();
+    }   
+  }
+
+  export function updateSceneInUI(scene: Scene) {
+    if (!$('#'+scene.internalName).hasClass('selected')) {
+      var oldSelected = $('.mapcard.selected');
+      $('.mapcard').removeClass('selected');
+      $('#'+scene.internalName).toggleClass('selected');
+      swap(oldSelected, $('#'+scene.internalName));
+      filterVideos();
+      addVideosInScreen();
+      loadSplide();
+    } 
+  }
+
+  export function updateSideInUI(side: Side) {
+    $('.sidecard').removeClass('selected');
+    $('#'+side).toggleClass('selected');
+    filterVideos();
+    addVideosInScreen();
+    loadSplide();
+  }
+
+  function updateIconsInUI() {
+    let newAgent: Agent = getSelectedAgent();
+    let newAgentAbilities: Ability[] = getAgentAbilities(newAgent);
+    newAgentAbilities.forEach(function(ability: Ability) {
+      let key = ability.key;
+      let name = ability.name;
+      $('#' + key + ' > .cardimg').attr('src', getIconFromAbility(ability));
+      $('#' + key + ' > .cardimg').attr('alt', key + ' - ' + name);
+      $('#' + key + ' > .cardname').val(key + ' - ' + name);
+    });
+    $('#C').attr('src', '');
+    
   }

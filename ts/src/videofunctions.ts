@@ -13,7 +13,7 @@ var selectedContentTypes: contentType[];
 var allVideos: Array<Video> = loadVideos();
 var filteredVideos: Array<Video> = allVideos;
 
-export function loadVideos() {
+export function loadVideos():  Array<Video>{
     //read csv/JSON
     return null;
 }

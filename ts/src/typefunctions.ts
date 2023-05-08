@@ -1,7 +1,7 @@
 import {Agent, abKey, Ability } from './types';
 
   export function getIconFromAbility(ability: Ability): string {
-    return '../../icons/' + ability.agent.internalName + '-' + ability.key; 
+    return '../../icons/' + ability.agent.internalName + '-' + ability.key; //default case empty
   }
 
   const I2Eagent = new Map<string, string>([
@@ -24,7 +24,8 @@ import {Agent, abKey, Ability } from './types';
     ["Deadeye_PC_C", "Chamber"],
     ["Sprinter_PC_C", "Neon"],
     ["BountyHunter_PC_C", "Fade"],
-    ["Mage_PC_C", "Harbor"]
+    ["Mage_PC_C", "Harbor"],
+    ["AggroBot_PC_C", "Gekko"]
   ]);
   
   const E2Iagent = new Map(Array.from(I2Eagent, entry => [entry[1], entry[0]]))
@@ -33,6 +34,7 @@ import {Agent, abKey, Ability } from './types';
   const I2EScene = new Map<string, string>([
     // ["MainMenu", "Main menu"],
     ["Triad", "Haven"],
+    ["Duality", "Bind"],
     ["Bonsai", "Split"],
     ["Ascent", "Ascent"],
     ["Port", "Icebox"],
@@ -55,5 +57,29 @@ import {Agent, abKey, Ability } from './types';
   }
 
   export function getAbilityName(agent: Agent, key: abKey): string {
-    return "asdasd";
+    return "asdasd"; //default case Uknown
+  }
+
+  export function getAgentAbilities(agent: Agent): Ability[] {
+    let cAb: Ability = {
+      agent: agent,
+      key: 'C' as abKey,
+      name: getAbilityName(agent, 'C' as abKey)
+    }
+    let qAb: Ability = {
+      agent: agent,
+      key: 'Q' as abKey,
+      name: getAbilityName(agent, 'Q' as abKey)
+    }
+    let eAb: Ability = {
+      agent: agent,
+      key: 'E' as abKey,
+      name: getAbilityName(agent, 'E' as abKey)
+    }
+    let xAb: Ability = {
+      agent: agent,
+      key: 'X' as abKey,
+      name: getAbilityName(agent, 'X' as abKey)
+    }
+    return [cAb, qAb, eAb, xAb];
   }
