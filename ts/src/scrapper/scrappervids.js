@@ -48,62 +48,22 @@ async function scrape() {
               console.log('agente: ' + agent +  ' mapa: ' + map + ' Side: ' + side);
               await page.waitForSelector('ul.⚡10f9359');
               const lineups = await page.$$('ul.⚡10f9359 > li');
+              var reload = false;
               for (const lineup of lineups) {
-                  try { 
+                  try {                  
                     // await page.waitForTimeout(5000);
                     const titleElement = await lineup.$('.tip-header > span');
                     const title = await titleElement?.evaluate((el) => el.textContent?.trim());
-                    console.log(title);
-
-                    const descriptionElement = await lineup.$('.type-caption.tip-description');
-                    const description = await descriptionElement?.evaluate((el) => el.textContent?.trim());
-                    console.log(description);
-
-                    const abilityElement = await lineup.$('.ability-icon > path');
-                    const abilityIcon = await abilityElement?.evaluate((el) => el.getAttribute('d'));
-                    //console.log(abilityIcon);
-
-                    const ability = SVGtoAbility[agent][abilityIcon];
-                    console.log(ability);
-                    // await Promise.all([
-                    //   page.evaluate((element) => {
-                    //     element.click()
-                    //   }, titleElement),
-                    //   page.waitForNavigation({waitUntil: 'domcontentloaded'})
-                    // ]);
                     
-                    // await page.waitForTimeout(1000);
-                    // await page.waitForSelector('.⚡85c8d44d > .⚡90fba654 > video > source', {timeout: 100000});
-                    // const videoParentElement = await page.$('.⚡85c8d44d > .⚡90fba654');
-                    // const videoElement = await videoParentElement.$('video > source');
-                    // const videoSrc = await videoElement.evaluate((el) => el.getAttribute('src'));
-                    // const closeVideoElement = await videoParentElement.$('.⚡82426748');
-                    
-                    // await Promise.all([
-                    //   page.evaluate((element) => {
-                    //     element.click()
-                    //   }, closeVideoElement),
-                    //   page.waitForNavigation({waitUntil: 'domcontentloaded'})
-                    // ]);
-                    // console.log(videoSrc);
+                    await Promise.all([
+                      page.evaluate((element) => {
+                        element.click()
+                      }, titleElement),
+                      page.waitForNavigation({waitUntil: 'domcontentloaded'})
+                    ]);
+                    console.log(title + " " + page.url());
 
-                    // await page.waitForTimeout(1000);
-
-                    const clip = {
-                    id: uuidv4(),
-                    agent,
-                    map,
-                    side,
-                    title,
-                    description,
-                    ability,
-                    type,
-                    //abilityIcon,
-                    // videoSrc
-                    
-                    };
-                  
-                    clips.push(clip);
+                    clips.push(page.url());
                   } catch (error) {
                     console.error(`Error occurred while processing ${agent}, ${map}, ${side}: ${error}`);
                     errors += `Error occurred while processing ${agent}, ${map}, ${side}, ${lineup}: ${error} \r\n <br>`;
@@ -124,10 +84,10 @@ async function scrape() {
   await browser.close();
 
   const data = JSON.stringify(clips);
-  fs.writeFileSync('clips.json', data);
+  fs.writeFileSync('vids.json', data);
 
   const data2 = JSON.stringify(errors);
-  fs.writeFileSync('errors.txt', data2);
+  fs.writeFileSync('errorsvids.txt', data2);
 }
 
 scrape().then(() => console.log('Scraping complete!'));
