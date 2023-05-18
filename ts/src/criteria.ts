@@ -8,7 +8,10 @@ interface Criteria {
     constructor(private selectedMap: Scene) {}
   
     meetsCriteria(video: Video): boolean {
-      return video.map.internalName === this.selectedMap.internalName;
+      // console.log("video.map.internalName: " + video.map.internalName + " - this.selectedMap.internalName: " + this.selectedMap.internalName);
+      // console.log("comparison result: " + video.map.internalName == this.selectedMap.internalName);
+      // return true;
+      return video.map.internalName == this.selectedMap.internalName;
     }
   }
   
@@ -16,7 +19,10 @@ interface Criteria {
     constructor(private selectedAgent: Agent) {}
   
     meetsCriteria(video: Video): boolean {
-      return video.agent.internalName === this.selectedAgent.internalName;
+      // console.log("video.agent.internalName: " + video.agent.internalName + " - this.selectedAgent.internalName: " + this.selectedAgent.internalName);
+      // console.log(video.agent + "agent criteria: " + video.agent.internalName == this.selectedAgent.internalName);
+      // return true;
+      return video.agent.internalName == this.selectedAgent.internalName;
     }
   }
   
@@ -24,7 +30,12 @@ interface Criteria {
     constructor(private selectedSides: Side[]) {}
   
     meetsCriteria(video: Video): boolean {
-      return  $('.card.sidecard:not(.selected)').length  !== 0 || this.selectedSides.some(selectedSide => selectedSide === video.side);
+      // let sides = "";
+      // this.selectedSides.forEach(selectedside => sides += selectedside + ", ");
+      // console.log("selected sides: " + sides + "  - video.side " + video.side);
+      // console.log("side criteria: " + ($('.card.sidecard:not(.selected)').length  !== 0 || this.selectedSides.some(selectedSide => selectedSide == video.side)));
+      // return true;
+      return  $('.card.sidecard:not(.selected)').length  !== 0 || this.selectedSides.some(selectedSide => selectedSide == video.side);
     }
   }
   
@@ -32,7 +43,12 @@ interface Criteria {
     constructor(private selectedSites: Site[]) {}
   
     meetsCriteria(video: Video): boolean {
-      return $('.card.sitecard:not(.selected)').length  !== 0 || this.selectedSites.some(selectedSite => selectedSite === video.site);
+      // let sites = "";
+      // this.selectedSites.forEach(selectedsite => sites += selectedsite + ", ");
+      // console.log("selected sites: " + sites + "  - video.site " + video.site);
+      // console.log(video.site + "site criteria: " + ($('.card.sitecard:not(.selected)').length  !== 0 || this.selectedSites.some(selectedSite => selectedSite == video.site)));
+      // return true;
+      return $('.card.sitecard:not(.selected)').length  !== 0 || this.selectedSites.some(selectedSite => selectedSite == video.site);
     }
   }
   
@@ -40,9 +56,10 @@ interface Criteria {
     constructor(private selectedAbilities: Ability[]) {}
   
     meetsCriteria(video: Video): boolean {
+      // console.log( "ability criteria: " + ($('.card.abilitycard:not(.selected)').length  !== 0  || video.abilities.some));
       return $('.card.abilitycard:not(.selected)').length  !== 0  || video.abilities.some(
         ability => this.selectedAbilities.some(
-          selectedAbility => selectedAbility.agent.internalName === ability.agent.internalName && selectedAbility.key === ability.key
+          selectedAbility => selectedAbility.agent.internalName == ability.agent.internalName && selectedAbility.key == ability.key
         )
       );
     }
@@ -52,7 +69,12 @@ interface Criteria {
     constructor(private selectedContentTypes: contentType[]) {}
   
     meetsCriteria(video: Video): boolean {
-      return $('.card.contenttypecard:not(.selected)').length  !== 0  || this.selectedContentTypes.some(selectedContentType => selectedContentType === video.type);
+      // let ContentTypes = "";
+      // this.selectedContentTypes.forEach(selectedContentType => ContentTypes += selectedContentType + ", ");
+      // console.log("selected contentTypes: " + ContentTypes + "  - video.type " + video.type);
+      // console.log(video.type + "type criteria: " + ($('.card.contenttypecard:not(.selected)').length  !== 0  || this.selectedContentTypes.some(selectedContentType => selectedContentType == video.type)));
+      // return true;
+      return $('.card.contenttypecard:not(.selected)').length  !== 0  || this.selectedContentTypes.some(selectedContentType => selectedContentType == video.type);
     }
   }
   

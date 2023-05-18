@@ -1,7 +1,8 @@
 import {Agent, abKey, Ability } from './types';
 
   export function getIconFromAbility(ability: Ability): string {
-    return '../../icons/' + ability.agent.internalName + '-' + ability.key; //default case empty
+    // return '../../icons/' + ability.agent.internalName + '-' + ability.key; //default case empty
+    return 'https://s3-us-east-2.amazonaws.com/strats-gg/images/2a5343bc-7a46-482e-9032-494aec306df7.svg';
   }
 
   const I2Eagent = new Map<string, string>([

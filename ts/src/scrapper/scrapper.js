@@ -4,7 +4,7 @@ const fs = require('fs');
 
 async function scrape() {
   const browser = await puppeteer.launch({
-    executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     "headless": false,
     "args": ["--disable-extensions", '--start-maximized'],
     "ignoreHTTPSErrors": true,
@@ -71,23 +71,24 @@ async function scrape() {
                     //   }, titleElement),
                     //   page.waitForNavigation({waitUntil: 'domcontentloaded'})
                     // ]);
+                    titleElement.click();
+                    page.waitForNavigation({waitUntil: 'domcontentloaded'});
+                    await page.waitForTimeout(1000);
+                    await page.waitForSelector('.⚡85c8d44d > .⚡90fba654 > video > source', {timeout: 100000});
+                    const videoParentElement = await page.$('.⚡85c8d44d > .⚡90fba654');
+                    const videoElement = await videoParentElement.$('video > source');
+                    const videoSrc = await videoElement.evaluate((el) => el.getAttribute('src'));
+                    const closeVideoElement = await videoParentElement.$('.⚡82426748');
                     
-                    // await page.waitForTimeout(1000);
-                    // await page.waitForSelector('.⚡85c8d44d > .⚡90fba654 > video > source', {timeout: 100000});
-                    // const videoParentElement = await page.$('.⚡85c8d44d > .⚡90fba654');
-                    // const videoElement = await videoParentElement.$('video > source');
-                    // const videoSrc = await videoElement.evaluate((el) => el.getAttribute('src'));
-                    // const closeVideoElement = await videoParentElement.$('.⚡82426748');
-                    
-                    // await Promise.all([
-                    //   page.evaluate((element) => {
-                    //     element.click()
-                    //   }, closeVideoElement),
-                    //   page.waitForNavigation({waitUntil: 'domcontentloaded'})
-                    // ]);
-                    // console.log(videoSrc);
+                    await Promise.all([
+                      page.evaluate((element) => {
+                        element.click()
+                      }, closeVideoElement),
+                      page.waitForNavigation({waitUntil: 'domcontentloaded'})
+                    ]);
+                    console.log(videoSrc);
 
-                    // await page.waitForTimeout(1000);
+                    await page.waitForTimeout(1000);
 
                     const clip = {
                     id: uuidv4(),
@@ -99,7 +100,7 @@ async function scrape() {
                     ability,
                     type,
                     //abilityIcon,
-                    // videoSrc
+                    videoSrc
                     
                     };
                   

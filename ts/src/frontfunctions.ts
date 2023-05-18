@@ -43,7 +43,8 @@ function swap(a, b) {
 };
 
 export function loadSplide() {
-
+  if(getfilteredVideos().length) {
+    console.log("loading Splide");
     var main = new Splide( '#main-carousel', {
       fixedHeight  : '80%',
       type      : 'fade',
@@ -67,14 +68,40 @@ export function loadSplide() {
       // },
     } );
   
+    
+
+    function handleVideoPlayback() {
+      const activeVideo = main.Components.Elements.slides[main.index].querySelector('video');
+      const videos = main.Components.Elements.slides.map(slide => slide.querySelector('video'));
+    
+      videos.forEach(video => {
+        if (video === activeVideo) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }
+    
+    main.on('move', handleVideoPlayback);
+    
+    main.on('mounted', () => {
+      handleVideoPlayback();
+    });
+
     main.sync( thumbnails );
     main.mount();
     thumbnails.mount();
+  } else {
+    //load sorry screen
+    console.log("SPLIDE: NO VIDEOS TO LOAD :(");
+  }
 }
 
 
 export function getSelectedMap(): Scene {
-    let selectedMapID = $('.card.mapcard.selected').attr('id');
+    let selectedMapID: string = $('.card.mapcard.selected').attr('id') as string;
+    console.log('selected map: ' +  selectedMapID);
     let selectedScene: Scene = {
       internalName: selectedMapID,
       name: getNameFromInternalName(selectedMapID),
@@ -83,7 +110,8 @@ export function getSelectedMap(): Scene {
   }
   
  export function getSelectedAgent(): Agent {
-    let selectedAgentID = $('.card.agentcard.selected').attr('id');
+    let selectedAgentID: string = $('.card.agentcard.selected').attr('id') as string;
+    console.log('selected agent: ' +  selectedAgentID);
     let selectedAgent: Agent = {
       internalName: selectedAgentID,
       name: getNameFromInternalName(selectedAgentID),
@@ -141,13 +169,16 @@ export function getSelectedMap(): Scene {
   }
   
   function addVideosInScreen() {
-    $('thumbnail-carousel > div > ul').empty();
-    $('main-carousel > div > ul').empty();
+    console.log('en addVideosInScreen');
+    $('#thumbnail-carousel > div > ul').empty();
+    $('#main-carousel > div > ul').empty();
     
+    let i = 0;
     getfilteredVideos().forEach(
       function(video) {
-        $('thumbnail-carousel > div > ul').append(getThumbnailHTML(video));
-        $('main-carousel > div > ul').append(getVideoHTML(video));
+        console.log("filteredvideotoscreen " + i + ": " + video.id);
+        $('#thumbnail-carousel > div > ul').append(getThumbnailHTML(video));
+        $('#main-carousel > div > ul').append(getVideoHTML(video));
       }
     );
   }
@@ -155,7 +186,7 @@ export function getSelectedMap(): Scene {
   function getThumbnailHTML(video: Video): string{
     return '<li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item rounded">' +
       '<div class="h-10"> ' + video.title + '</div>' +
-      '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" class="h-85"></video>' +
+      '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" muted loop="loop" class="h-85"></video>' +
       '<div class="h-20"> ' +
         '<table>' +
           '<tr>' +
@@ -195,7 +226,7 @@ export function getSelectedMap(): Scene {
     loadVideos();
     filterVideos();
     addVideosInScreen();
-    loadSplide();
+    loadSplide(); 
     startThumbnailPreview();
   }
 
@@ -234,6 +265,7 @@ export function getSelectedMap(): Scene {
       $('.mapcard').removeClass('selected');
       $('#'+scene.internalName).toggleClass('selected');
       swap(oldSelected, $('#'+scene.internalName));
+
       filterVideos();
       addVideosInScreen();
       loadSplide();
