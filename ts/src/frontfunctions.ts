@@ -253,6 +253,7 @@ export function getSelectedMap(): Scene {
       $('.agentcard').removeClass('selected');
       $('#'+agent.internalName).toggleClass('selected');
       swap(oldSelected, $('#'+agent.internalName));
+      updateIconsInUI();
       filterVideos();
       addVideosInScreen();
       loadSplide();
@@ -289,6 +290,7 @@ export function getSelectedMap(): Scene {
       $('#' + key + ' > .cardimg').attr('src', getIconFromAbility(ability));
       $('#' + key + ' > .cardimg').attr('alt', key + ' - ' + name);
       $('#' + key + ' > .cardname').val(key + ' - ' + name);
+      $('#' + key + ' > .cardname').text(key + ' - ' + name);
     });
     $('#C').attr('src', '');
     

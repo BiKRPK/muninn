@@ -1,4 +1,16 @@
-[
+export interface RawAbilities {
+    agentName: string;
+    agentAbilities: {
+        [key: string]: RawAbility;
+      };
+}
+
+export interface RawAbility {
+    title: string;
+    src: string;
+}
+  
+  const abilities: RawAbilities[] = [
     {
     "agentName":"Astra",
     "agentAbilities":{
@@ -170,24 +182,24 @@
         }
     },
     {
-    "agentName":"Killjoy",
+    "agentName":"Neon",
     "agentAbilities":{
         "C":{
-        "title":"Nanoswarm",
-        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/2de16edf-f775-426c-8ac2-e3632b4ad5f7.svg"},
+        "title":"Fast Lane",
+        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/69568c07-e4e1-4eb1-833f-594e6022a178.svg"},
     "Q":{
-        "title":"Alarmbot",
-        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/0eee8bd1-e974-4fd3-9131-15a764c5c0b7.svg"},
+        "title":"Relay Bolt",
+        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/82a94f7d-fb74-4e13-b0a4-e3d906529a2e.svg"},
     "E":{
-        "title":"Turret",
-        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/593fd135-d97d-4f44-83d0-d9dd1e0423fb.svg"},
+        "title":"High Gear",
+        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/0ba1390e-9046-43d3-8f95-499e9ef529a6.svg"},
     "X":{
-        "title":"Lockdown",
-        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/0273f388-3903-436a-ab43-80042fb4ab17.svg"}
+        "title":"Overdrive",
+        "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/675ee672-46ab-4e60-b7e4-e0283f2d8cf5.svg"}
         }
     },
     {
-    "agentName":"Neon",
+    "agentName":"Killjoy",
     "agentAbilities":{
         "C":{
         "title":"Nanoswarm",
@@ -356,4 +368,14 @@
         "src":"https://s3-us-east-2.amazonaws.com/strats-gg/images/cc5f4f25-581a-4b95-a601-ebc4b636eb10.svg"}
         }
     }
-]
+];
+  
+  export function getAbilities(agentName: string, key: string): RawAbility {
+    const agent: RawAbilities = abilities.find((ability) => ability.agentName === agentName);
+  
+    if (agent) {
+        return agent.agentAbilities[key];
+    } else {
+        return undefined;
+    }
+  }

@@ -17,7 +17,7 @@
     agent: Agent;
   }
   
-  export type Side = "Defending" | "Attacking" | null;
+  export type Side = "Defense" | "Attack" | null;
   
   export type Site = "A" | "B" | "C" | "MID";
   

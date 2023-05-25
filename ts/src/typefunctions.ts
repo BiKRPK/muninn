@@ -1,8 +1,10 @@
 import {Agent, abKey, Ability } from './types';
+import {getAbilities, RawAbilities, RawAbility} from './abilities';
 
   export function getIconFromAbility(ability: Ability): string {
-    // return '../../icons/' + ability.agent.internalName + '-' + ability.key; //default case empty
-    return 'https://s3-us-east-2.amazonaws.com/strats-gg/images/2a5343bc-7a46-482e-9032-494aec306df7.svg';
+    const rawAbility: RawAbility = getAbilities(ability.agent.name, ability.key);
+    if (rawAbility) { return rawAbility.src;}
+    return '';
   }
 
   const I2Eagent = new Map<string, string>([
@@ -58,7 +60,11 @@ import {Agent, abKey, Ability } from './types';
   }
 
   export function getAbilityName(agent: Agent, key: abKey): string {
-    return "asdasd"; //default case Uknown
+    const rawAbility: RawAbility = getAbilities(agent.name, key);
+    if (rawAbility) {
+      return rawAbility.title;
+    } 
+    return "Uknown";
   }
 
   export function getAgentAbilities(agent: Agent): Ability[] {
