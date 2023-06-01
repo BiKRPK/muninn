@@ -13,10 +13,13 @@ const concurrencySemaphore = new Semaphore(MAX_CONCURRENCY);
 let windowCount = 0;
 const clips = [];
 let SVGtoAbility = [];
-let errors = [];
+const errors = [];
 let lineups = 0;
 async function main() {
   
+  console.log('Script 1 executed with arguments:', process.argv.slice(2));
+  const ini = process.argv[2];
+  const fin = process.argv[3];
 
   const rawData1 = await readFileAsync('svg2abKey.json', 'utf8');
   SVGtoAbility = JSON.parse(rawData1);
@@ -46,7 +49,7 @@ async function main() {
   // );
 
   //for (const item of jsonData) {
-  for (let i = 0; i<1500; i = i + 100) {
+  for (let i = ini; i<fin; i++) {
     // Limit the concurrency using the semaphore
     if (windowCount >= MAX_WINDOW_COUNT) { 
       console.log('Max window count reached. Stopping script.');
@@ -70,9 +73,6 @@ async function main() {
       
     }
 
-    if (lineups % 10 == 0) {
-      saveData(clips, errors);
-    }
 
   }
 
@@ -81,16 +81,16 @@ async function main() {
   
 
   // Rest of your code...
-
-  saveData(clips, errors);
+  console.log('savingData...');
+  saveData(clips, errors, ini, fin);
   console.log('ended');
 }
 
-function saveData(clips, errors) {
+function saveData(clips, errors, ini, fin) {
   const data = JSON.stringify(clips);
-  fs.writeFileSync('vids.json', data);
-
-  fs.writeFileSync('errorsvids.txt', errors);
+  fs.writeFileSync('vids' + ini + '_' + fin + '.json', data);
+  const data2 = JSON.stringify(errors);
+  fs.writeFileSync('errorsvids' + ini + '_' + fin + '.txt', data2);
 }
 
 async function scrape(item, clips, errors) {
@@ -101,7 +101,7 @@ async function scrape(item, clips, errors) {
   const { v4: uuidv4 } = require('uuid');
     const browser = await puppeteer.launch({
       executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-      //headless: false,
+      headless: false,
       args: ['--disable-extensions', '--start-maximized'],
       ignoreHTTPSErrors: true,
     });
@@ -125,7 +125,7 @@ async function scrape(item, clips, errors) {
     // });
     await page.waitForSelector('button.css-47sehv');
     await page.click('button.css-47sehv');
-
+    console.log('cookies allowed')
     await page.waitForSelector('ul.⚡10f9359');
     // const lineup = await page.$('ul.⚡10f9359 > li[data-title="'+ title + '"]');
     const titleElement = await page.$('ul.⚡10f9359 > li[data-title^="'+ title + '"] > .⚡b732c378 > .tip-header > span');
@@ -146,8 +146,8 @@ async function scrape(item, clips, errors) {
           
     await page.click('ul.⚡10f9359 > li[data-title^="'+ title + '"]'); // Click on the element
     // await page.waitForTimeout(5000);
-    await page.waitForSelector('.⚡85c8d44d > .⚡90fba654 > video > source', {timeout: 100000});
-    const videoElement = await page.$('.⚡85c8d44d > .⚡90fba654 > video > source');
+    await page.waitForSelector('.⚡90fba654 > video > source', {timeout: 3000});
+    const videoElement = await page.$('.⚡90fba654 > video > source');
     const videoSrc = await videoElement.evaluate((el) => el.getAttribute('src'));
     console.log(title  + " " + videoSrc);
     // await page.waitForTimeout(5000);
