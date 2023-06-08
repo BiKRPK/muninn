@@ -135,6 +135,7 @@
 .fitertitle {
     height: 30px;
     line-height: 30px;
+    margin-bottom: 5px;
 }
 
 .card {
@@ -188,6 +189,7 @@
 
 .card.selected {
     border: 1px solid #FFA900;
+    background-color: papayawhip;
 }
 
 .cardname {
@@ -205,7 +207,7 @@
     text-align: center;
 }
 
-.sitecard > .cardimg {
+.sitecard.selected > .cardimg {
     font-size: 30px;
     font-weight: 700;
     height: 60px !important;
@@ -213,34 +215,81 @@
     width: auto;
 }
 
-.sitecard {
+.sitecard:not(.selected) > .cardimg {
+    font-size: 30px;
+    font-weight: 700;
+    height: 55px !important;
+    line-height: 55px;
+    width: auto;
+}
+
+.sitecard:not(.selected){
+    height: 55px !important;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.sitecard.selected{
     height: 60px !important;
 }
 
-.sidecard > .cardimg {
+.sidecard:not(.selected) > .cardimg {
+    height: calc(55px - 12px) !important;
+    width: auto;
+}
+
+.sidecard.selected > .cardimg {
     height: calc(60px - 12px) !important;
     width: auto;
 }
 
-.sidecard {
+.sidecard:not(.selected){
+    height: 55px !important;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.abilitycard:not(.selected){
+    height: 60px !important;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
+.contenttypecard:not(.selected){
+    height: 50px !important;
+}
+
+.sidecard.selected{
     height: 60px !important;
 }
 
-.abilitycard {
+.abilitycard.selected{
     height: 70px !important;
+    margin: 0 5px;
 }
 
-.contenttypecard {
+.contenttypecard.selected{
     height: 60px !important;
 }
 
-.abilitycard > .cardimg {
+.abilitycard.selected > .cardimg {
     max-height: calc(70px - 12px) !important;
     width: auto;
     filter: brightness(0);
 }
 
-.contenttypecard > .cardimg {
+.contenttypecard.selected > .cardimg {
     max-height: calc(60px - 12px) !important;
+    max-width: fit-content;
+}
+
+.abilitycard:not(.selected) > .cardimg {
+    max-height: calc(60px - 12px) !important;
+    width: auto;
+    filter: brightness(0);
+}
+
+.contenttypecard:not(.selected) > .cardimg {
+    max-height: calc(50px - 12px) !important;
     max-width: fit-content;
 }

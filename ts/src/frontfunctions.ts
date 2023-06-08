@@ -207,7 +207,7 @@ export function getSelectedMap(): Scene {
   
   function getVideoHTML(video: Video): string{
     return '<li class="splide__slide h-100 main-carousel-item">'+ 
-      ' <video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" ></video> ' +
+      ' <video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video> ' +
     '</li>';
   }
 
