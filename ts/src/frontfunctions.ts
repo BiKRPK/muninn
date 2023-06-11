@@ -184,24 +184,14 @@ export function getSelectedMap(): Scene {
   }
   
   function getThumbnailHTML(video: Video): string{
-    return '<li class="splide__slide h-100 text-bg-secondary thumbnail-carousel-item rounded">' +
-      '<div class="h-10"> ' + video.title + '</div>' +
-      '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" muted loop="loop" class="h-85"></video>' +
-      '<div class="h-20"> ' +
-        '<table>' +
-          '<tr>' +
-            '<td> ' + video.description + ' </td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th> Ability: </th> <td> ' + 'ABILITATS SOMEHOW' + ' </td>' +
-            '<th> Side: </th> <td> ' + video.side + ' </td>' +
-          '</tr>' +
-          '<tr>  ' +
-            '<th> Site: </th> <td> ' + video.site + ' </td>' +
-            '<th> Type: </th> <td> ' + video.type + ' </td>  ' +
-          '</tr>' +
-        '</table>' +
-      '</div>' +
+    return '<li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">' +
+      '<div class="cta">' +
+        '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>' +
+        '<div class="text"> ' +
+          '<h5>' + video.title + '</h5>' +
+          '<p>' + video.description + '</p>' +
+        '</div> ' +
+      '</div> ' +
     '</li>' 
   }
   
@@ -233,17 +223,15 @@ export function getSelectedMap(): Scene {
   function startThumbnailPreview() {
     $(document).on({
       mouseenter: function (e) {
-        const vid = e.target
-        vid.muted = true
+        const vid = e.target;
         vid.play()
       },
       mouseleave: function (e) {
-        const vid = e.target
-        vid.muted = false
+        const vid = e.target;
         vid.currentTime = 0
         vid.pause()
       }
-    }, "#thumbnail-carousel > div > ul > li > video");
+    }, "#thumbnail-carousel > div > ul > li > div > video");
   }
 
 
