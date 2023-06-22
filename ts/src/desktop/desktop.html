@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <script src="../../js/main.js"></script>
+  <script src="../../js/WComponents.js"></script>
   <!-- <link rel="stylesheet" href="../../css/general.css" /> -->
   <link rel="stylesheet" href="../../css/header.css" />
   <!-- <link rel="stylesheet" href="../../css/desktop.css" />
@@ -34,7 +35,7 @@
             <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
           </video> -->
 
-          <section id="main-carousel" class="splide h-75" >
+          <section id="main-carousel" class="splide " >
             <div class="splide__track h-100">
               <ul class="splide__list h-100">
                 <!-- VIDEOS WILL BE ADDED HERE -->
@@ -42,7 +43,7 @@
             </div>
           </section>
   
-          <section id="thumbnail-carousel" class="splide h-25 pt-4">
+          <section id="thumbnail-carousel" class="splide pt-1">
             <div class="splide__track h-100">
               <ul class="splide__list h-100">
                 <!-- VIDEO THUMBNAILS WILL BE ADDED HERE -->
@@ -52,8 +53,8 @@
 
         </div>
 
-        <div class="sidebar row text-bg-secondary">
-          <div id="filterscontainer" class="filters overflow-auto text-bg-secondary"> 
+        <div class="sidebar row" style="background-color: #FFA900;">
+          <div id="filterscontainer" class="filters overflow-auto"> 
             <!-- TODO COMO IMAGENES CON FUNCIONAMENTO DE BOTON -->
             <!-- se mantiene la altura porcentual hasta un min-height que se vuelve fijo con overflow-auto -->
             <div class="row text-bg-dark my-3 rounded">
@@ -189,7 +190,7 @@
             <div class="row my-3 text-bg-dark rounded">
               <div class="fitertitle "> ABILITIES </div>
               <ul class="abilitygrid grid">
-                <li class="card abilitycard selected" id="C" src="">
+                <li class="card abilitycard selected" id="C">
                   <img class="cardimg" src="https://s3-us-east-2.amazonaws.com/strats-gg/images/349065fc-6635-48ce-a8e7-10089ce74f08.svg" alt="C - Gravity Well">
                   <div class="cardname text-dark">C - Gravity Well</div>
                 </li>

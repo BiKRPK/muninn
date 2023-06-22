@@ -184,21 +184,23 @@ export function getSelectedMap(): Scene {
   }
   
   function getThumbnailHTML(video: Video): string{
-    return '<li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">' +
-      '<div class="cta">' +
-        '<video src="' + video.url + '" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>' +
-        '<div class="text"> ' +
-          '<h5>' + video.title + '</h5>' +
-          '<p>' + video.description + '</p>' +
-        '</div> ' +
-      '</div> ' +
-    '</li>' 
+    return `
+    <li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">
+        <div class="cta">
+            <video src="${video.url}" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>
+            <div class="text"> 
+            <h5>${video.title}</h5>
+            <p>${video.description}</p>
+            </div> 
+        </div> 
+    </li>`
   }
   
   function getVideoHTML(video: Video): string{
-    return '<li class="splide__slide h-100 main-carousel-item">'+ 
-      ' <video src="' + video.url + '" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video> ' +
-    '</li>';
+    return `
+    <li class="splide__slide h-100 main-carousel-item">
+      <video src="${video.url}" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video>
+    </li>`;
   }
 
   function initializeFilterClickFunctions() {
