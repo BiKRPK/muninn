@@ -6,6 +6,7 @@ import {
 
 import { AppWindow } from "../AppWindow";
 import { kHotkeys, kWindowNames, kGamesFeatures } from "../consts";
+import { initialize } from '../frontfunctions';
 
 import WindowState = overwolf.windows.WindowStateEx;
 
@@ -38,7 +39,7 @@ class InGame extends AppWindow {
     // this._infoLog = document.getElementById('infoLog');
 
     this.setToggleHotkeyBehavior();
-    this.setToggleHotkeyText();
+    // this.setToggleHotkeyText();
   }
 
   public static instance() {
@@ -64,6 +65,7 @@ class InGame extends AppWindow {
       );
 
       this._gameEventsListener.start();
+
     }
   }
 
@@ -112,7 +114,7 @@ class InGame extends AppWindow {
 
   private inGameSideReaded(readedSideIN) {
     //let team = infoJSON.match_info.team;
-    this.currentSide = readedSideIN;
+    this.currentSide =  readedSideIN.charAt(0).toUpperCase() + readedSideIN.slice(1);
     console.log('LADO: '  + this.currentSide);
     updateSideInUI(this.currentSide);
   }
@@ -172,12 +174,12 @@ class InGame extends AppWindow {
   }
 
   // Displays the toggle minimize/restore hotkey in the window header
-  private async setToggleHotkeyText() {
-    const gameClassId = await this.getCurrentGameClassId();
-    const hotkeyText = await OWHotkeys.getHotkeyText(kHotkeys.toggle, gameClassId);
-    const hotkeyElem = document.getElementById('hotkey');
-    hotkeyElem.textContent = hotkeyText;
-  }
+  // private async setToggleHotkeyText() {
+  //   const gameClassId = await this.getCurrentGameClassId();
+  //   const hotkeyText = await OWHotkeys.getHotkeyText(kHotkeys.toggle, gameClassId);
+  //   const hotkeyElem = document.getElementById('hotkey');
+  //   hotkeyElem.textContent = hotkeyText;
+  // }
 
   // Sets toggleInGameWindow as the behavior for the Ctrl+F hotkey
   private async setToggleHotkeyBehavior() {
@@ -199,26 +201,6 @@ class InGame extends AppWindow {
     OWHotkeys.onHotkeyDown(kHotkeys.toggle, toggleInGameWindow);
   }
 
-  // Appends a new line to the specified log
-  private logLine(log: HTMLElement, data, highlight) {
-    const line = document.createElement('pre');
-    line.textContent = JSON.stringify(data);
-
-    if (highlight) {
-      line.className = 'highlight';
-    }
-
-    // Check if scroll is near bottom
-    const shouldAutoScroll =
-      log.scrollTop + log.offsetHeight >= log.scrollHeight - 10;
-
-    log.appendChild(line);
-
-    if (shouldAutoScroll) {
-      log.scrollTop = log.scrollHeight;
-    }
-  }
-
   private async getCurrentGameClassId(): Promise<number | null> {
     const info = await OWGames.getRunningGameInfo();
 
@@ -227,3 +209,4 @@ class InGame extends AppWindow {
 }
 
 InGame.instance().run();
+document.addEventListener( 'DOMContentLoaded', initialize);
