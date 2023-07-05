@@ -6,7 +6,7 @@ import $ from 'jquery';
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
 
-export function handleClickSingleOptionFilter(selector: string) {
+function handleClickSingleOptionFilter(selector: string) {
   $(selector).on({
     click: function() {
       if (!$(this).hasClass('selected')) {
@@ -23,7 +23,7 @@ export function handleClickSingleOptionFilter(selector: string) {
   });
 }
 
-export function handleClickMultiOptionFilter(selector: string) {
+function handleClickMultiOptionFilter(selector: string) {
   $(selector).on({
     click: function() {
       $(this).toggleClass('selected');
@@ -41,6 +41,29 @@ function swap(a, b) {
   b.before(a);
   tmp.replaceWith(b);
 };
+
+function handleClickFavButton() {
+  // Necesito delegar el evento a un elemento que exista en el DOM antes
+  // que los thumbnails sean cargados
+  $('#thumbnail-carousel').on('click', '.favorite-button', function(this) {
+    toggleFavorite(this);
+  });
+}
+
+function toggleFavorite(button) {
+  const videoId = $(button).parent().attr('id');
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+  const index = favorites.indexOf(videoId);
+  if (index !== -1) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.push(videoId);
+  }
+
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  $(button).toggleClass('isFav');
+}
 
 export function loadSplide() {
   if(getfilteredVideos().length) {
@@ -88,7 +111,7 @@ export function loadSplide() {
     main.on('mounted', () => {
       handleVideoPlayback();
     });
-
+    
     main.sync( thumbnails );
     main.mount();
     thumbnails.mount();
@@ -186,7 +209,8 @@ export function getSelectedMap(): Scene {
   function getThumbnailHTML(video: Video): string{
     return `
     <li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">
-        <div class="cta">
+        <div id="${video.id}" class="cta">
+            <div class="favorite-button ${isFav(video.id) ? "isFav" : ""}" ></div>
             <video src="${video.url}" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>
             <div class="text"> 
             <h5>${video.title}</h5>
@@ -194,6 +218,11 @@ export function getSelectedMap(): Scene {
             </div> 
         </div> 
     </li>`
+  }
+
+  export function isFav(videoID: string) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return favorites.indexOf(videoID) > -1;
   }
   
   function getVideoHTML(video: Video): string{
@@ -210,6 +239,7 @@ export function getSelectedMap(): Scene {
     handleClickMultiOptionFilter('.sitecard');
     handleClickMultiOptionFilter('.abilitycard');
     handleClickMultiOptionFilter('.contenttypecard');
+    handleClickFavButton();
   }
 
   export function initialize() {

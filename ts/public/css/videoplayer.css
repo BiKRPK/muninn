@@ -176,7 +176,7 @@
 }
 
 .cardimg:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     opacity: 0.8;
 }
 
@@ -240,8 +240,16 @@
     transform: scale(1.5);
 }
 
+.sidecard > .cardimg:hover {
+    transform: scale(1.8);
+}
+
 #Defense > .cardimg {
     transform: scale(2);
+}
+
+#Defense > .cardimg:hover {
+    transform: scale(2.4);
 }
 
 .sidecard:not(.selected) > .cardimg {
@@ -431,4 +439,29 @@
     color: #fff;
     font-weight: 300;
     font-size: 0.8rem;
+}
+
+.favorite-button {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 1;
+    cursor: pointer;
+    color: #fff;
+    font-size: 2.25rem;
+
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.favorite-button:hover {
+    transform: scale(1.2);
+}
+
+.favorite-button::before {
+    content: "\2661"; /* Heart symbol empty */
+}
+
+.favorite-button.isFav::before {
+    content: "\2665"; /* Heart symbol */
 }
