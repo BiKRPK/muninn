@@ -1,8 +1,8 @@
 import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './criteria';
-import { Agent, Scene, abKey, Ability, Side, Site, contentType, Video } from './types';
-import {getInternalNameFromName, getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './typefunctions';
-import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './frontfunctions'
-import { RawVideo, getVideos } from './vids'
+import { Agent, Scene, abKey, Ability, Side, Site, contentType, Video } from './Types';
+import {getInternalNameFromName, getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
+import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './FrontFunctions'
+import { RawVideo, getVideos } from './Vids'
 
 
 var selectedMap: Scene;

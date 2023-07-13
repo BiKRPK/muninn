@@ -4,12 +4,12 @@ import {
   OWWindow
 } from '@overwolf/overwolf-api-ts';
 
-import { kWindowNames, kGameClassIds } from "../consts";
+import { kWindowNames, kGameClassIds } from "../Consts";
 
 import RunningGameInfo = overwolf.games.RunningGameInfo;
 import AppLaunchTriggeredEvent = overwolf.extensions.AppLaunchTriggeredEvent;
 
-import { initialize } from '../frontfunctions';
+import { initialize } from '../FrontFunctions';
 
 // The background controller holds all of the app's background logic - hence its name. it has
 // many possible use cases, for example sharing data between windows, or, in our case,

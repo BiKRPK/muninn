@@ -5,16 +5,16 @@ import {
 } from "@overwolf/overwolf-api-ts";
 
 import { AppWindow } from "../AppWindow";
-import { kHotkeys, kWindowNames, kGamesFeatures } from "../consts";
-import { initialize } from '../frontfunctions';
+import { kHotkeys, kWindowNames, kGamesFeatures } from "../Consts";
+import { initialize } from '../FrontFunctions';
 
 import WindowState = overwolf.windows.WindowStateEx;
 
 import  $ from "jquery";
 
-import {Agent, Scene, Side} from '../types';
-import {getNameFromInternalName} from '../typefunctions';
-import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../frontfunctions';
+import {Agent, Scene, Side} from '../Types';
+import {getNameFromInternalName} from '../TypeFunctions';
+import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../FrontFunctions';
 
 
 // The window displayed in-game while a game is running.

@@ -1,10 +1,23 @@
-import {Agent, Scene, abKey, Ability, Side, Site, contentType, Video} from './types';
-import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './videofunctions';
-import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './typefunctions';
+import {Agent, Scene, abKey, Ability, Side, Site, contentType, Video} from './Types';
+import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './VideoFunctions';
+import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
 import $ from 'jquery';
 
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
+
+function handleClickUploadVideo() {
+  const videoElement = $("#videoElement")[0] as HTMLVideoElement;
+  const uploadButton = $("#uploadButton");
+
+  uploadButton.on("click", openFileUploadWindow);
+}
+
+function openFileUploadWindow() {
+  const fileInput = $("<input type='file'>");
+  fileInput.on("change", handleFileSelection);
+  fileInput.trigger("click");
+}
 
 function handleClickSingleOptionFilter(selector: string) {
   $(selector).on({
@@ -67,6 +80,7 @@ function toggleFavorite(button) {
 
 export function loadSplide() {
   if(getfilteredVideos().length) {
+    displayVideos();
     console.log("loading Splide");
     var main = new Splide( '#main-carousel', {
       fixedHeight  : '80%',
@@ -116,9 +130,20 @@ export function loadSplide() {
     main.mount();
     thumbnails.mount();
   } else {
-    //load sorry screen
-    console.log("SPLIDE: NO VIDEOS TO LOAD :(");
+    displayNoVideosMessage();
   }
+}
+
+function displayNoVideosMessage() {
+  $('#main-carousel').hide();
+  $('#thumbnail-carousel').hide();
+  $('#no-content-screen').show();
+}
+
+function displayVideos() {
+  $('#main-carousel').show();
+  $('#thumbnail-carousel').show();
+  $('#no-content-screen').hide();
 }
 
 

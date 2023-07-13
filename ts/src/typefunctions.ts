@@ -1,4 +1,4 @@
-import {Agent, abKey, Ability } from './types';
+import {Agent, abKey, Ability } from './Types';
 import {getAbilities, RawAbility} from './abilities';
 
   export function getIconFromAbility(ability: Ability): string {

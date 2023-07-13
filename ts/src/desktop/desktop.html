@@ -20,6 +20,7 @@
     <img src="../../img/muninn.png" />
     <h1>Muninn WIP / desktop window</h1>
     <div class="window-controls-group">
+      <input type="file" id="videoInput">
       <button id="minimizeButton" class="window-control window-control-minimize" />
       <button id="maximizeButton" class="window-control window-control-maximize" />
       <button id="closeButton" class="window-control window-control-close" />
@@ -31,9 +32,6 @@
     <div class="container-fluid h-100">
       <div class="row h-100">
         <div id="videocontainer" class="video h-100 "> 
-          <!-- <video id="player" controlslist="nodownload noremoteplayback" autoplay="" controls="" preload="true" class="w-100 h-100">
-            <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
-          </video> -->
 
           <section id="main-carousel" class="splide " >
             <div class="splide__track h-100">
@@ -51,12 +49,15 @@
             </div>
           </section>
 
+          <section id="no-content-screen">
+            <img src="../../img/no-content-found.webp">
+            <p>Oops! It seems we couldn't find any videos matching your search. Please try again with different parameters.</p>
+          </section>
+          
         </div>
 
         <div class="sidebar row" style="background-color: #FFA900;">
           <div id="filterscontainer" class="filters overflow-auto"> 
-            <!-- TODO COMO IMAGENES CON FUNCIONAMENTO DE BOTON -->
-            <!-- se mantiene la altura porcentual hasta un min-height que se vuelve fijo con overflow-auto -->
             <div class="row text-bg-dark my-3 rounded">
                 <div class="fitertitle "> MAP </div>
                 <ul  class="mapgrid grid">

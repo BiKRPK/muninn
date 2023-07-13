@@ -37,6 +37,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0-alpha1",
     "fs": "^0.0.1-security",
+    "idb": "^7.1.1",
     "jquery": "^3.6.3",
     "node-sass": "^8.0.0",
     "popper.js": "^1.16.1",
