@@ -283,7 +283,7 @@
     margin-bottom: 0px;
 }
 
-.contenttypecard:not(.selected){
+.ContentTypecard:not(.selected){
     height: 55px !important;
     margin: 5px;
     margin-bottom: 0px;
@@ -296,7 +296,7 @@
     margin: 0 3px;
 }
 
-.contenttypecard.selected{
+.ContentTypecard.selected{
     height: 60px !important;
     margin: 0 3px;
 }
@@ -309,7 +309,7 @@
     height: 100%;
 }
 
-.contenttypecard.selected > .cardimg {
+.ContentTypecard.selected > .cardimg {
     max-height: calc(60px - 24px) !important;
     height: 100%;
     max-width: -webkit-fill-available;
@@ -324,7 +324,7 @@
     height: 100%;
 }
 
-.contenttypecard:not(.selected) > .cardimg {
+.ContentTypecard:not(.selected) > .cardimg {
     max-height: calc(55px - 20px) !important;
     height: 100%;
     max-width: -webkit-fill-available;

@@ -7,7 +7,7 @@ export interface RawVideo {
     description: string;
     ability: string;
     type: string;
-    src: string;
+    src: string | Blob;
     site: string;
 }
 

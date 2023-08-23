@@ -12,7 +12,8 @@ module.exports = env => ({
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
         in_game: './src/in_game/in_game.ts',
-        main: './src/js/main.js'
+        main: './src/js/main.js',
+        upload: './src/upload/upload.ts',
     },
     devtool: 'inline-source-map',
     module: {
@@ -73,6 +74,11 @@ module.exports = env => ({
             template: './src/in_game/in_game.html',
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/upload/upload.html',
+            filename: path.resolve(__dirname, './dist/upload.html'),
+            chunks: ['upload']
         }),
         new OverwolfPlugin(env),
         new webpack.ProvidePlugin({

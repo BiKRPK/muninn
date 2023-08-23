@@ -9,21 +9,28 @@
     internalName?: string;
   }
   
-  export type abKey = "C" | "Q" | "E" | "X";
+  export const allAbKeyOptions = ["C", "Q", "E", "X"] as const; 
+
+  export type AbKey = typeof allAbKeyOptions[number];
   
   export type Ability = {
     name?: string;
-    key: abKey;
+    key: AbKey;
     agent: Agent;
   }
   
-  export type Side = "Defense" | "Attack" | null;
+  export const allSideOptions = ["Defense", "Attack", null] as const; 
+
+  export type Side =  typeof allSideOptions[number];
   
-  export type Site = "A" | "B" | "C" | "MID";
+  export const allSiteOptions = ["A", "B", "C", "MID"] as const; 
+
+  export type Site = typeof allSiteOptions[number];
   
+  export const allContentTypeOptions = ["LU", "SU", "WB", "SP"] as const;
   // LU -> Line-Up | SU -> Set-Up | WB -> WallBang | SP -> Sniper Peek
-  export type contentType = "LU" | "SU" | "WB" | "SP";
-  
+  export type ContentType = typeof allContentTypeOptions[number];
+
   export type Video = {
     id: string;
     title: string;
@@ -33,7 +40,7 @@
     abilities?:  Ability[];
     side: Side;
     site: Site;
-    type: contentType;
+    type: ContentType;
     url: string;
    //author: string;
   }

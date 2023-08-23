@@ -1,4 +1,4 @@
-import {Agent, Scene, abKey, Ability, Side, Site, contentType, Video} from './Types';
+import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
 import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './VideoFunctions';
 import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
 import $ from 'jquery';
@@ -10,14 +10,14 @@ function handleClickUploadVideo() {
   const videoElement = $("#videoElement")[0] as HTMLVideoElement;
   const uploadButton = $("#uploadButton");
 
-  uploadButton.on("click", openFileUploadWindow);
+  // uploadButton.on("click", openFileUploadWindow);
 }
 
-function openFileUploadWindow() {
-  const fileInput = $("<input type='file'>");
-  fileInput.on("change", handleFileSelection);
-  fileInput.trigger("click");
-}
+// function openFileUploadWindow() {
+//   const fileInput = $("<input type='file'>");
+//   fileInput.on("change", handleFileSelection);
+//   fileInput.trigger("click");
+// }
 
 function handleClickSingleOptionFilter(selector: string) {
   $(selector).on({
@@ -172,7 +172,7 @@ export function getSelectedMap(): Scene {
     $('.card.abilitycard.selected').each(
       function() {
         let currentAgent = getSelectedAgent();
-        let selectedKey: abKey = $(this).attr('id') as abKey;
+        let selectedKey: AbKey = $(this).attr('id') as AbKey;
         let selectedAbility: Ability = {
           agent: currentAgent,
           key: selectedKey,
@@ -205,11 +205,11 @@ export function getSelectedMap(): Scene {
     return selectedSites;
   }
   
-  export function getSelectedContentTypes(): contentType[] {
-    let selectedContentTypes: contentType[] = [];
-     $('.card.contenttypecard.selected').each(
+  export function getSelectedContentTypes(): ContentType[] {
+    let selectedContentTypes: ContentType[] = [];
+     $('.card.ContentTypecard.selected').each(
       function() {
-        let selectedContentType: contentType = $(this).attr('id') as contentType;
+        let selectedContentType: ContentType = $(this).attr('id') as ContentType;
         selectedContentTypes.push(selectedContentType);
       }
     );
@@ -263,7 +263,7 @@ export function getSelectedMap(): Scene {
     handleClickMultiOptionFilter('.sidecard');
     handleClickMultiOptionFilter('.sitecard');
     handleClickMultiOptionFilter('.abilitycard');
-    handleClickMultiOptionFilter('.contenttypecard');
+    handleClickMultiOptionFilter('.ContentTypecard');
     handleClickFavButton();
   }
 

@@ -1,4 +1,4 @@
-import {Agent, Scene, abKey, Ability, Side, Site, contentType, Video} from './Types';
+import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
 import {isFav} from './FrontFunctions';
 
 interface Criteria {
@@ -53,10 +53,10 @@ interface Criteria {
   }
   
   export class ContentTypeCriteria implements Criteria {
-    constructor(private selectedContentTypes: contentType[]) {}
+    constructor(private selectedContentTypes: ContentType[]) {}
   
     meetsCriteria(video: Video): boolean {
-      if ( !$('.card.contenttypecard:not(.selected)') ) {return true;}
+      if ( !$('.card.ContentTypecard:not(.selected)') ) {return true;}
       return  this.selectedContentTypes.some(selectedContentType => selectedContentType == video.type);
     }
   }

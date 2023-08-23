@@ -101,6 +101,8 @@ class BackgroundController {
   private isSupportedGame(info: RunningGameInfo) {
     return kGameClassIds.includes(info.classId);
   }
+
+  
 }
 
 BackgroundController.instance().run();

@@ -14,13 +14,18 @@
 </head>
 
 <body class="desktop vh-100">
+  <div class="modal-overlay" id="modalOverlay" style="display: none;">
+    <div class="modal-content">
+        <p>Uploading...</p>
+    </div>
+  </div>
   <!-- -------------------------------- Header ------------------------------- -->
 
   <header id="header" class="app-header text-bg-dark">
     <img src="../../img/muninn.png" />
     <h1>Muninn WIP / desktop window</h1>
     <div class="window-controls-group">
-      <input type="file" id="videoInput">
+      <button id="openUploadWindowButton">Upload Videos</button>
       <button id="minimizeButton" class="window-control window-control-minimize" />
       <button id="maximizeButton" class="window-control window-control-maximize" />
       <button id="closeButton" class="window-control window-control-close" />
@@ -246,20 +251,20 @@
             </div>
             <div class="row my-3 text-bg-dark rounded"> 
                 <div class="fitertitle "> CONTENT </div>
-                <ul  class="contenttypegrid grid">
-                  <li  class="card contenttypecard selected" id="LU">
+                <ul  class="ContentTypegrid grid">
+                  <li  class="card ContentTypecard selected" id="LU">
                     <img  class="cardimg" src="../../img/lineup.png" alt="LINEUP">
                     <div class="cardname text-dark">Lineup</div>
                   </li>
-                  <li  class="card contenttypecard selected" id="SU">
+                  <li  class="card ContentTypecard selected" id="SU">
                     <img  class="cardimg" src="../../img/setup.png" alt="SETUP">
                     <div class="cardname text-dark">Setup</div>
                   </li>
-                  <li  class="card contenttypecard selected" id="WB">
+                  <li  class="card ContentTypecard selected" id="WB">
                     <img  class="cardimg" src="../../img/wallbang.png" alt="WALLBANG">
                     <div class="cardname text-dark">Wallbang</div>
                   </li>
-                  <li  class="card contenttypecard selected" id="SP">
+                  <li  class="card ContentTypecard selected" id="SP">
                     <img  class="cardimg" src="../../img/sniper.svg" alt="SNIPER PEEK">
                     <div class="cardname text-dark">Sniper peek</div>
                   </li>

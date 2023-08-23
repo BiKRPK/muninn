@@ -14,33 +14,51 @@ new AppWindow(kWindowNames.desktop);
 
 document.addEventListener( 'DOMContentLoaded', initialize);
 
-$( function () {
-    const videoInput = $("#videoInput");
+const openUploadButton = document.getElementById('openUploadWindowButton');
+const modalOverlay = document.getElementById('modalOverlay');
 
-    videoInput.on("change", handleVideoSelection);
-  
-    function handleVideoSelection(this: HTMLInputElement) {
-      const selectedFile = this.files?.[0];
-      if (selectedFile) {
-        saveVideoToIndexedDB(selectedFile);
-      }
-    }
-});
+openUploadButton.onclick = () => {
 
-$(function () {
-    const videoElement = $("#videoElement")[0] as HTMLVideoElement;
-  
-    playVideoFromIndexedDB();
-  
-    function playVideoFromIndexedDB() {
-        retrieveVideoFromIndexedDB()
-            .then((videoFile) => {
-            const videoURL = URL.createObjectURL(videoFile);
-            videoElement.src = videoURL;
-            videoElement.play();
-        })
-            .catch((error) => {
-            console.error("Failed to retrieve video from IndexedDB:", error);
-        });
+    modalOverlay.style.display = 'block';
+
+    const uploadWindow = window.open('upload.html', '_blank', 'resizable=no,height=600,width=300');
+    
+    uploadWindow.onbeforeunload = () => {
+        console.log('Upload window closed.');
+        initialize();
+        modalOverlay.style.display = 'none';
+        return null;
     }
-});
+}
+
+
+// $( function () {
+//     const videoInput = $("#videoInput");
+
+//     videoInput.on("change", handleVideoSelection);
+  
+//     function handleVideoSelection(this: HTMLInputElement) {
+//       const selectedFile = this.files?.[0];
+//       if (selectedFile) {
+//         saveVideoToIndexedDB(selectedFile);
+//       }
+//     }
+// });
+
+// $(function () {
+//     const videoElement = $("#videoElement")[0] as HTMLVideoElement;
+  
+//     playVideoFromIndexedDB();
+  
+//     function playVideoFromIndexedDB() {
+//         retrieveVideoFromIndexedDB()
+//             .then((videoFile) => {
+//             const videoURL = URL.createObjectURL(videoFile);
+//             videoElement.src = videoURL;
+//             videoElement.play();
+//         })
+//             .catch((error) => {
+//             console.error("Failed to retrieve video from IndexedDB:", error);
+//         });
+//     }
+// });

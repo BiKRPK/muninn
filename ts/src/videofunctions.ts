@@ -1,5 +1,5 @@
-import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './criteria';
-import { Agent, Scene, abKey, Ability, Side, Site, contentType, Video } from './Types';
+import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './Criteria';
+import { Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video } from './Types';
 import {getInternalNameFromName, getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
 import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './FrontFunctions'
 import { RawVideo, getVideos } from './Vids'
@@ -10,7 +10,8 @@ var selectedAgent: Agent;
 var selectedAbilities: Ability[];
 var selectedSides: Side[];
 var selectedSites: Site[];
-var selectedContentTypes: contentType[];
+var selectedContentTypes: ContentType[];
+const tempURLs = [];
 
 var allVideos: Array<Video> = loadVideos();
 var filteredVideos: Array<Video> = allVideos;
@@ -27,55 +28,20 @@ var filteredVideos: Array<Video> = allVideos;
 
 export function loadVideos():  Array<Video>{
     let videos: Array<Video> = [];
+    cleanTempURLs(); 
     console.log("dentro de loadvideos");
      try {
          const rawVideos: Array<RawVideo> = getVideos();
-
+         //TODO: Get LocalVideos
          rawVideos.forEach((rawVideo: RawVideo) => {
-            try {
-                const agentName: string = rawVideo.agent;
-                const agent: Agent = {
-                    name: agentName,
-                    internalName: getInternalNameFromName(agentName)
-                }
-                const mapName: string = rawVideo.map;
-                const map: Scene = {
-                    name: mapName,
-                    internalName: getInternalNameFromName(mapName)
-                }
-                const rawAbilities: string = rawVideo.ability;
-                const abilities: Array<Ability> = [];
-                rawAbilities.split(',').forEach((rawability: string) => {
-                    const abkey: abKey = rawability as abKey;
-                    const ability: Ability = {
-                        agent: agent,
-                        key: abkey,
-                        name: getAbilityName(agent, abkey)
-                    }
-                    abilities.push(ability);
-                  });
-
-                const videoSource: string = rawVideo.src;
-                const videoBlob = new Blob([videoSource], { type: "video/mp4" });
-                const videoURL = URL.createObjectURL(videoBlob);
-                const video: Video = {
-                    id: rawVideo.id,
-                    title: rawVideo.title,
-                    description: rawVideo.description,
-                    map: map,
-                    agent: agent,
-                    abilities:  abilities,
-                    side: rawVideo.side as Side,
-                    site: rawVideo.site as Site,
-                    type: rawVideo.type as contentType,
-                    url: videoSource.startsWith('http') ? rawVideo.src : videoURL,
-
-                }
+            try {  
+                const video: Video = buildVideo(rawVideo);
                 videos.push(video);
             } catch (error) {
             console.error(`Error reading ${rawVideo.id}:`, error);
             }
           });
+
      } catch (error) {
         console.error(`Error calling getVideos:`, error);
      }
@@ -84,6 +50,61 @@ export function loadVideos():  Array<Video>{
         console.log("unfilteredvideo " + i + ": " + video.id);
      });
      return videos;
+ }
+
+ function buildVideo(rawVideo: RawVideo): Video {
+    const agentName: string = rawVideo.agent;
+    const agent: Agent = {
+        name: agentName,
+        internalName: getInternalNameFromName(agentName)
+    }
+    const mapName: string = rawVideo.map;
+    const map: Scene = {
+        name: mapName,
+        internalName: getInternalNameFromName(mapName)
+    }
+    const rawAbilities: string = rawVideo.ability;
+    const abilities: Array<Ability> = [];
+    rawAbilities.split(',').forEach((rawability: string) => {
+        const AbKey: AbKey = rawability as AbKey;
+        const ability: Ability = {
+            agent: agent,
+            key: AbKey,
+            name: getAbilityName(agent, AbKey)
+        }
+        abilities.push(ability);
+        });
+
+    const videoSource: string = rawVideo.src as string;
+    const videoBlob: Blob = new Blob([videoSource], { type: "video/mp4" });
+    const videoURL: string = createTempURL(videoBlob);
+    const video: Video = {
+        id: rawVideo.id,
+        title: rawVideo.title,
+        description: rawVideo.description,
+        map: map,
+        agent: agent,
+        abilities:  abilities,
+        side: rawVideo.side as Side,
+        site: rawVideo.site as Site,
+        type: rawVideo.type as ContentType,
+        url: videoSource.startsWith('http') ? rawVideo.src  as string : videoURL,
+
+    }
+    return video;
+ }
+
+ function createTempURL(blob: Blob): string {
+    const url = URL.createObjectURL(blob);
+    tempURLs.push(url);
+    return url;
+ }
+
+ function cleanTempURLs() {
+    for (const url of tempURLs) {
+        URL.revokeObjectURL(url);
+    }
+    tempURLs.length = 0;
  }
 
 //  export function loadVideos(): Promise<Array<Video>> {
@@ -107,11 +128,11 @@ export function loadVideos():  Array<Video>{
 //           const rawAbilities: string = rawVideo.ability;
 //           const abilities: Array<Ability> = [];
 //           rawAbilities.split(",").forEach((rawability: string) => {
-//             const abkey: abKey = rawability as abKey;
+//             const AbKey: AbKey = rawability as AbKey;
 //             const ability: Ability = {
 //               agent: agent,
-//               key: abkey,
-//               name: getAbilityName(agent, abkey),
+//               key: AbKey,
+//               name: getAbilityName(agent, AbKey),
 //             };
 //             abilities.push(ability);
 //           });
@@ -135,7 +156,7 @@ export function loadVideos():  Array<Video>{
 //                   abilities: abilities,
 //                   side: rawVideo.side as Side,
 //                   site: rawVideo.site as Site,
-//                   type: rawVideo.type as contentType,
+//                   type: rawVideo.type as ContentType,
 //                   url: videoURL,
 //                 };
 //                 return video;

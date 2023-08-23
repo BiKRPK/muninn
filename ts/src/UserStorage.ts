@@ -25,7 +25,7 @@ async function performDatabaseOperations() {
   // Perform operations on the database
 }
   
-async function storeVideo(video: RawVideo) {
+export async function storeVideo(video: RawVideo) {
     const db = await openDatabase();
     const tx = db.transaction("videos", "readwrite");
     const store = tx.objectStore("videos");
