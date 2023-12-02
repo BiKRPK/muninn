@@ -3,11 +3,10 @@ import * as bootstrap from 'bootstrap';
 // Default theme
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../Consts";
-import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName} from '.././TypeFunctions';
-import {Agent} from '.././Types';
+import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '.././TypeFunctions';
+import {Agent, ContentType} from '.././Types';
 import {storeVideo} from '.././UserStorage';
 import { RawVideo } from '../Vids';
-
 
 function loadSelectScene () {
  let mapSelect = $('#mapSelect');
@@ -27,13 +26,27 @@ function loadSelectAgent () {
            text : agent.name 
        }));   
     });
+    updateAbilitiesHandler();
+}
+
+function getSelectedAgent() {
+    let agentSelectedId: string = (<HTMLInputElement> document.getElementById('agentSelect')).value;
+    if (agentSelectedId.length == 0) { agentSelectedId = getAllAgents()[0].internalName; }
+    let agentSelected: Agent = {
+        internalName: agentSelectedId,
+        name: getNameFromInternalName(agentSelectedId)
+    }
+    return agentSelected;
 }
 
 function loadSelectAbility () {
-    let agentSelected: Agent = {
-        internalName: $('#agentSelect').val() as string,
-        name: $('#agentSelect').text()
-    }
+    let abilitySelect = $('#abilitySelect');
+    getAgentAbilities(getSelectedAgent()).forEach(ability => {
+        abilitySelect.append($('<option>', { 
+            value: ability.key,
+            text : ability.name + ' (' + ability.key + ')'
+        }));   
+     });
 }
 
 function updateAbilitiesHandler () {
@@ -49,7 +62,7 @@ function updateAbilitiesHandler () {
 }
 
 function cleanSelectAbility () {
-    $('#agentSelect').empty();
+    $('#abilitySelect').empty();
 } 
 
 function loadSelectSide () {
@@ -80,7 +93,7 @@ function loadSelectContentType () {
     getAllContentTypes().forEach(ct => {
         ctSelect.append($('<option>', { 
              value: ct,
-             text : getContentTypeName(ct) + " - " + ct 
+             text : getContentTypeName(ct as ContentType)
         }));   
      });
 }
@@ -90,6 +103,8 @@ function validateForm(): boolean {
     // si input.length == 0 false
     return isValid;
 }
+
+function getTitle()
 
 // Generates a new RawVideo object from the upload form
 function generateNewRawVideo(): RawVideo {

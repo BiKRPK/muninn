@@ -102,7 +102,7 @@ class BackgroundController {
     return kGameClassIds.includes(info.classId);
   }
 
-  
+
 }
 
 BackgroundController.instance().run();

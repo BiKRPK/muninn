@@ -126,7 +126,7 @@ import {getAbilities, RawAbility} from './Abilities';
   ]); 
 
   export function getContentTypeName(ct: ContentType): string {
-    return CTnameMap[ct];
+    return CTnameMap.get(ct);
   }
 
   export function getAllScenes(): Scene[] {

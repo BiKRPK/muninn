@@ -46,11 +46,11 @@
         "is_background_page": true
       },
       "desktop": {
-        "file": "desktop.html",
+        "file": "upload.html",
         "desktop_only": true,
         "native_window": true,
         "resizable": true,
-        "transparent": true,
+        "transparent": false,
         "override_on_update": true,
         "size": {
           "width": 1212,
@@ -67,7 +67,7 @@
         "native_window": true,
         "focus_game_takeover": "ReleaseOnHidden",
         "focus_game_takeover_release_hotkey": "sample_app_ts_showhide",
-        "resizable": true,
+        "resizable": false,
         "transparent": true,
         "override_on_update": true,
         "size": {

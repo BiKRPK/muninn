@@ -7,6 +7,7 @@ import { initialize } from '../FrontFunctions';
 import { saveVideoToIndexedDB, retrieveVideoFromIndexedDB } from '../UserStorage';
 import { Target } from 'puppeteer';
 
+
 // The desktop window is the window displayed while game is not running.
 // In our case, our desktop window has no logic - it only displays static data.
 // Therefore, only the generic AppWindow class is called.
@@ -21,7 +22,7 @@ openUploadButton.onclick = () => {
 
     modalOverlay.style.display = 'block';
 
-    const uploadWindow = window.open('upload.html', '_blank', 'resizable=no,height=600,width=300');
+    const uploadWindow = window.open('upload.html', '_blank', 'resizable=0,height=700,width=600');
     
     uploadWindow.onbeforeunload = () => {
         console.log('Upload window closed.');
@@ -29,6 +30,7 @@ openUploadButton.onclick = () => {
         modalOverlay.style.display = 'none';
         return null;
     }
+    
 }
 
 
