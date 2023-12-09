@@ -24,7 +24,7 @@
   }
   
   #videoUpload input[type="file"] {
-    display: none; /* Hide the default file input appearance */
+    /* display: none; Hide the default file input appearance */
   }
   
   #videoUpload button {

@@ -35,7 +35,7 @@ export async function storeVideo(video: RawVideo) {
     await tx.done;
 }
   
-async function getVideos(): Promise<RawVideo[]> {
+export async function getVideos(): Promise<RawVideo[]> {
     const db = await openDatabase();
     const tx = db.transaction("videos", "readonly");
     const store = tx.objectStore("videos");
