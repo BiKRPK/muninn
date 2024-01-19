@@ -98,12 +98,91 @@ function loadSelectContentType () {
      });
 }
 
-function validateForm(): boolean {
-    let isValid: boolean = true;
-    // si input.length == 0 false
-    return isValid;
+type validateTuple = [boolean, string];
+
+
+
+function validateForm(): validateTuple{
+    let err: string = "";
+    err += validateTitle();
+    err += validateDescription();
+    err += validateAbility();
+    err += validateAgent();
+    err += validateMap();
+    err += validateSide();
+    err += validateSite();
+    err += validateType();
+    err += validateFile();
+    let isValid: boolean = err === "";
+    return [isValid, err];
 }
 
+const messageTemplate = " is Empty \n";
+
+function validateTitle(): string {
+    let err: string = "Title" + messageTemplate;
+    let isValid: boolean = getTitleValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateDescription(): string {
+    let err: string = "Description" + messageTemplate;
+    let isValid: boolean = getDescriptionValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateAbility(): string {
+    let err: string = "Ability" + messageTemplate;
+    let isValid: boolean = getAbilityValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateAgent(): string {
+    let err: string = "Agent" + messageTemplate;
+    let isValid: boolean = getAgentValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateMap(): string {
+    let err: string = "Map" + messageTemplate;
+    let isValid: boolean = getMapValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateSide(): string {
+    let err: string = "Side" + messageTemplate;
+    let isValid: boolean = getSideValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateSite(): string {
+    let err: string = "Site" + messageTemplate;
+    let isValid: boolean = getSiteValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateType(): string {
+    let err: string = "Type" + messageTemplate;
+    let isValid: boolean = getTypeValue().length > 0;
+    if (isValid) {err="";}
+    return err;
+}
+
+function validateFile(): string {
+    let err: string = "No file has been selected";
+    let isValid: boolean = getVideo() != null;
+    if (isValid) {err="";}
+    return err;
+}
+
+    
 
 function getTitleValue(): string {
     return (<HTMLInputElement> document.getElementById('agentSelect')).value;
@@ -139,6 +218,7 @@ function getTypeValue(): string {
 
 function getVideo(): File {
     const videoInput: HTMLInputElement = document.getElementById('videoInput') as HTMLInputElement;
+    if (videoInput.files.length == 0) {return null;}
     const videoFile: File = videoInput.files[0];
     return videoFile;
 }
@@ -187,7 +267,9 @@ function printRawVideo(rawVideo: RawVideo) {
 function uploadVideoButtonHandler () {
     $('#uploadButton').on({
         click: function() {
-          if(validateForm()){
+          let validation: validateTuple = validateForm();
+          console.log(validation[0] + " - " + validation[1]);
+          if(validation[0]){
             let err: boolean = false;
             try {
                 storeVideo(generateNewRawVideo());
@@ -201,6 +283,8 @@ function uploadVideoButtonHandler () {
                 window.alert("Video Uploaded Succesfully :)");
                 cleanForm();
             }
+          } else {
+            window.alert(validation[1]);
           }
         }
       });
