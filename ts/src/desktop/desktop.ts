@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap';
 // Default theme
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../Consts";
-import { initialize } from '../FrontFunctions';
+import { initialize } from '../Frontfunctions';
 import { saveVideoToIndexedDB, retrieveVideoFromIndexedDB } from '../UserStorage';
 import { Target } from 'puppeteer';
 

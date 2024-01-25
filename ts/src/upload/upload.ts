@@ -2,9 +2,9 @@ import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 // Default theme
 import { AppWindow } from "../AppWindow";
-import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '.././TypeFunctions';
-import {Agent, ContentType} from '.././Types';
-import {getVideos, saveVideoToIndexedDB, storeVideo, testAddingVideo} from '.././UserStorage';
+import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '../Typefunctions';
+import {Agent, ContentType} from '../Types';
+import {getVideos, saveVideoToIndexedDB, storeVideo, testAddingVideo} from '../UserStorage';
 import {RawVideo} from '../Vids';
 import {v4 as uuidv4} from 'uuid';
 

@@ -1,6 +1,6 @@
 import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
 import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './VideoFunctions';
-import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
+import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './Typefunctions';
 import $ from 'jquery';
 
 import '@splidejs/splide/css';
