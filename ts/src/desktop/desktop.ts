@@ -4,7 +4,7 @@ import * as bootstrap from 'bootstrap';
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../Consts";
 import { initialize } from '../Frontfunctions';
-import { saveVideoToIndexedDB, retrieveVideoFromIndexedDB } from '../UserStorage';
+
 import { Target } from 'puppeteer';
 
 

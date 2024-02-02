@@ -4,7 +4,7 @@ import * as bootstrap from 'bootstrap';
 import { AppWindow } from "../AppWindow";
 import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '../Typefunctions';
 import {Agent, ContentType} from '../Types';
-import {getVideos, saveVideoToIndexedDB, storeVideo, testAddingVideo} from '../UserStorage';
+import {storeVideo, retrieveVideosIDB} from '../UserStorage';
 import {RawVideo} from '../Vids';
 import {v4 as uuidv4} from 'uuid';
 
@@ -185,11 +185,11 @@ function validateFile(): string {
     
 
 function getTitleValue(): string {
-    return (<HTMLInputElement> document.getElementById('agentSelect')).value;
+    return (<HTMLInputElement> document.getElementById('titleInput')).value;
 }
 
 function getDescriptionValue(): string {
-    return (<HTMLInputElement> document.getElementById('abilitySelect')).value;
+    return (<HTMLInputElement> document.getElementById('descriptionInput')).value;
 }
 
 function getAbilityValue(): string {
@@ -271,9 +271,11 @@ function uploadVideoButtonHandler () {
           console.log(validation[0] + " - " + validation[1]);
           if(validation[0]){
             let err: boolean = false;
+            let video: RawVideo = generateNewRawVideo();
             try {
-                storeVideo(generateNewRawVideo());
-                saveVideoToIndexedDB(getVideo());
+                console.log("here we go");
+                storeVideo(video);
+                //saveVideoToIndexedDB(getVideo());
             } catch (error) {
                 err = true;
                 console.log(error);
@@ -281,7 +283,7 @@ function uploadVideoButtonHandler () {
             }
             if (!err) {
                 window.alert("Video Uploaded Succesfully :)");
-                cleanForm();
+                //cleanForm();
             }
           } else {
             window.alert(validation[1]);
@@ -319,9 +321,9 @@ function initializeUploadWindow() {
 }
 
 const printAddress = async () => {
-    const a = await getVideos();
+    const a = await retrieveVideosIDB();
     console.log(printRawVideo(a[0]));
-  };
+};
   
 
 document.addEventListener( 'DOMContentLoaded', initializeUploadWindow);
