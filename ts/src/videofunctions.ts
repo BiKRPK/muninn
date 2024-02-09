@@ -3,6 +3,7 @@ import { Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video } from './
 import {getInternalNameFromName, getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './Typefunctions';
 import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './Frontfunctions'
 import { RawVideo, getVideos } from './Vids'
+import {retrieveVideosIDB} from './UserStorage';
 
 
 var selectedMap: Scene;
@@ -31,24 +32,33 @@ export function loadVideos():  Array<Video>{
     cleanTempURLs(); 
     console.log("dentro de loadvideos");
      try {
-         const rawVideos: Array<RawVideo> = getVideos();
-         //TODO: Get LocalVideos
-         rawVideos.forEach((rawVideo: RawVideo) => {
+        // const rawVideos: Array<RawVideo> = getVideos();
+        // rawVideos.forEach((rawVideo: RawVideo) => {
+        //     try {  
+        //         const video: Video = buildVideo(rawVideo);
+        //         videos.push(video);
+        //     } catch (error) {
+        //     console.error(`Error reading ${rawVideo.id}:`, error);
+        //     }
+        //   });
+        setTimeout(() => {
+            console.log("Delayed for 1 second.");
+        }, 1000);
+          
+        const localRawVideos: Array<RawVideo> = retrieveVideosIDB();
+        localRawVideos.forEach((localRawVideo: RawVideo) => {
             try {  
-                const video: Video = buildVideo(rawVideo);
-                videos.push(video);
+                const localVideo: Video = buildVideo(localRawVideo);
+                console.log(localVideo.id);
+                videos.push(localVideo);
             } catch (error) {
-            console.error(`Error reading ${rawVideo.id}:`, error);
+            console.error(`Error reading IDB ${localRawVideo.id}:`, error);
             }
           });
 
      } catch (error) {
         console.error(`Error calling getVideos:`, error);
      }
-     let i = 0;
-     videos.forEach(video => {
-        console.log("unfilteredvideo " + i + ": " + video.id);
-     });
      return videos;
  }
 
@@ -75,9 +85,9 @@ export function loadVideos():  Array<Video>{
         abilities.push(ability);
         });
 
-    const videoSource: string = rawVideo.src as string;
-    const videoBlob: Blob = new Blob([videoSource], { type: "video/mp4" });
-    const videoURL: string = createTempURL(videoBlob);
+    // const videoSource: string = rawVideo.src as string;
+    // const videoBlob: Blob = new Blob([videoSource], { type: "video/mp4" });
+    // const videoURL: string = createTempURL(videoBlob);
     const video: Video = {
         id: rawVideo.id,
         title: rawVideo.title,
@@ -88,7 +98,8 @@ export function loadVideos():  Array<Video>{
         side: rawVideo.side as Side,
         site: rawVideo.site as Site,
         type: rawVideo.type as ContentType,
-        url: videoSource.startsWith('http') ? rawVideo.src  as string : videoURL,
+        //url: videoSource.startsWith('http') ? rawVideo.src  as string : videoURL,
+        url: rawVideo.src as string,
 
     }
     return video;
@@ -199,10 +210,7 @@ export function filterVideos() {
     ];
     
     filteredVideos = (allVideos ?? []).filter(video => criteriaArray.every(criteria => criteria.meetsCriteria(video)));
-    let i = 0;
-    filteredVideos.forEach(video => {
-        console.log("filteredvideo " + i + ": " + video.id);
-     });
+
 }
 
 export function initializeSelectedVariables() {

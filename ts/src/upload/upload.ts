@@ -4,7 +4,7 @@ import * as bootstrap from 'bootstrap';
 import { AppWindow } from "../AppWindow";
 import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '../Typefunctions';
 import {Agent, ContentType} from '../Types';
-import {storeVideo, retrieveVideosIDB} from '../UserStorage';
+import {storeVideo, } from '../UserStorage';
 import {RawVideo} from '../Vids';
 import {v4 as uuidv4} from 'uuid';
 
@@ -316,14 +316,10 @@ function initializeUploadWindow() {
     loadSelectSite();
     uploadVideoButtonHandler();
     closeWindowButtonHandler();
-    printAddress();
+    
     //testAddingVideo();
 }
 
-const printAddress = async () => {
-    const a = await retrieveVideosIDB();
-    console.log(printRawVideo(a[0]));
-};
-  
+
 
 document.addEventListener( 'DOMContentLoaded', initializeUploadWindow);

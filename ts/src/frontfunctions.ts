@@ -224,7 +224,6 @@ export function getSelectedMap(): Scene {
     let i = 0;
     getfilteredVideos().forEach(
       function(video) {
-        console.log("filteredvideotoscreen " + i + ": " + video.id);
         $('#thumbnail-carousel > div > ul').append(getThumbnailHTML(video));
         $('#main-carousel > div > ul').append(getVideoHTML(video));
       }

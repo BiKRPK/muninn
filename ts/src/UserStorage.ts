@@ -150,11 +150,16 @@ request.addEventListener('error', () => console.error('Database failed to open')
 // // success handler signifies that the database opened successfully
 request.addEventListener('success', () => {
   console.log('Database opened successfully');
-
   // Store the opened database object in the db variable. This is used a lot below
   db = request.result;
-  printAddress();
 });
+
+// request.onsuccess = () => {
+//   console.log('Database opened successfully:2');
+//   let target: any = e.target;
+//   db = request.result;
+//   printAddress();
+// }
 
 // Setup the database tables if this has not already been done
 request.addEventListener('upgradeneeded', e => {
@@ -189,43 +194,55 @@ request.addEventListener('upgradeneeded', e => {
 
 
 export function retrieveVideosIDB(): RawVideo[] {
+    // let timer = 0;
+    // while (timer < 50) {
+    //   setTimeout(() => {
+    //     console.log("Delayed for 0.01 second.");
+    //     timer += 10;
+    //   }, 10);      
+    // }
+    let db;
+    const request = window.indexedDB.open('videos_bd', 1);
 
-    const objectStore: IDBObjectStore = db.transaction('videos_os', 'readwrite').objectStore('videos_os');
-    
-    const videos: RawVideo[] = [];
+    request.addEventListener('success', () => {
+      console.log('Database opened successfully');
 
-    objectStore.openCursor().onsuccess = (event) => {
-      const target = event.target as any;
-      const cursor = target.result;
-      if (cursor) {
-        videos.push(getRawVideoFromCursor(cursor));
-        cursor.continue();
-      } else {
-        console.log("No more entries!");
-      }
-    };
+      db = request.result;
+      
+      const videos: RawVideo[] = [];
+      const objectStore: IDBObjectStore = db.transaction('videos_os', 'readwrite').objectStore('videos_os');
 
-  return videos;
+      objectStore.openCursor().onsuccess = (event) => {
+        const target = event.target as any;
+        const cursor = target.result;
+        if (cursor) {
+          console.log("SOME entries!");
+          videos.push(getRawVideoFromCursor(cursor.value));
+          console.log(printRawVideo(getRawVideoFromCursor(cursor.value)));
+          cursor.continue();
+        } else {
+          console.log("No more entries!");
+        }
+      };
+      return videos;
+    });
+    console.log("async suck my balls");
+    return [];
 }
 
-const printAddress = async () => {
-  const a = await retrieveVideosIDB();
-  console.log(a.length);
-  if (a.length > 0) { console.log(printRawVideo(a[0])); }
-};
 
 function printRawVideo(rawVideo: RawVideo) {
-  console.log("Raw video: ");
+  // console.log("Raw video: ");
   console.log("id - " + rawVideo.id);
-  console.log("title - " + rawVideo.title);
-  console.log("description - " + rawVideo.description);
-  console.log("ability - " + rawVideo.ability);
-  console.log("agent - " + rawVideo.agent);
-  console.log("map - " + rawVideo.map);
-  console.log("side - " + rawVideo.side);
-  console.log("site - " + rawVideo.site);
-  console.log("type - " + rawVideo.type);
-  console.log("src - " + rawVideo.src);
+  // console.log("title - " + rawVideo.title);
+  // console.log("description - " + rawVideo.description);
+  // console.log("ability - " + rawVideo.ability);
+  // console.log("agent - " + rawVideo.agent);
+  // console.log("map - " + rawVideo.map);
+  // console.log("side - " + rawVideo.side);
+  // console.log("site - " + rawVideo.site);
+  // console.log("type - " + rawVideo.type);
+  // console.log("src - " + rawVideo.src);
 }
 
 
@@ -233,8 +250,7 @@ function getRawVideoFromCursor(cursor) : RawVideo{
 
     // Create ObjectURL
     var URL = window.URL || window.webkitURL;
-    //var vidURL: string = URL.createObjectURL(cursor.video);
-    //var vidURL: string = URL.createObjectURL(new Blob(cursor.video, {'type': 'video/mp4'}));
+    var vidURL: string = URL.createObjectURL(cursor.video);
 
     const video: RawVideo = {
       id: cursor.id,
@@ -245,7 +261,7 @@ function getRawVideoFromCursor(cursor) : RawVideo{
       description: cursor.description,
       ability: cursor.ability,
       type: cursor.type,
-      src: "vidURL",
+      src: vidURL,
       site: cursor.site
     };
 
