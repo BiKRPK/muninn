@@ -1,6 +1,6 @@
 import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './Criteria';
 import { Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video } from './Types';
-import {getInternalNameFromName, getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './Typefunctions';
+import {getInternalNameFromName, getAbilityName} from './Typefunctions';
 import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './Frontfunctions'
 import { RawVideo, getVideos } from './Vids'
 import {retrieveVideosIDB} from './UserStorage';
@@ -14,20 +14,34 @@ var selectedSites: Site[];
 var selectedContentTypes: ContentType[];
 const tempURLs = [];
 
-var allVideos: Array<Video> = loadVideos();
-var filteredVideos: Array<Video> = allVideos;
 
-// async function receiveVideos() {
-//     try {
-//         allVideos = await loadVideos();
-//         filteredVideos = allVideos;
-//       } catch (error) {
-//         console.error("Error loading videos:", error);
-//       }
-// }
-// receiveVideos();
+let allVideos: Array<Video> = [];
+let filteredVideos: Array<Video> = [];
+let initializationPromise: Promise<void> | null = null;
 
-export function loadVideos():  Array<Video>{
+async function initialize() {
+    if (!initializationPromise) {
+        initializationPromise = new Promise<void>(async (resolve, reject) => {
+            try {
+                allVideos = await loadVideos();
+                filteredVideos = allVideos;
+                // Call other initialization functions here...
+                // Start your application after all asynchronous operations are complete...
+                resolve(); // Resolve the promise once initialization is complete
+            } catch (error) {
+                console.error('Error initializing application:', error);
+                reject(error); // Reject the promise if an error occurs during initialization
+            }
+        });
+    }
+}
+
+initialize();
+
+
+
+
+export async function loadVideos():  Promise<Array<Video>>{
     let videos: Array<Video> = [];
     cleanTempURLs(); 
     console.log("dentro de loadvideos");
@@ -41,11 +55,8 @@ export function loadVideos():  Array<Video>{
         //     console.error(`Error reading ${rawVideo.id}:`, error);
         //     }
         //   });
-        setTimeout(() => {
-            console.log("Delayed for 1 second.");
-        }, 1000);
           
-        const localRawVideos: Array<RawVideo> = retrieveVideosIDB();
+        const localRawVideos: Array<RawVideo> = await retrieveVideosIDB(); // Wait for the promise to resolve
         localRawVideos.forEach((localRawVideo: RawVideo) => {
             try {  
                 const localVideo: Video = buildVideo(localRawVideo);
@@ -85,9 +96,6 @@ export function loadVideos():  Array<Video>{
         abilities.push(ability);
         });
 
-    // const videoSource: string = rawVideo.src as string;
-    // const videoBlob: Blob = new Blob([videoSource], { type: "video/mp4" });
-    // const videoURL: string = createTempURL(videoBlob);
     const video: Video = {
         id: rawVideo.id,
         title: rawVideo.title,
@@ -98,10 +106,10 @@ export function loadVideos():  Array<Video>{
         side: rawVideo.side as Side,
         site: rawVideo.site as Site,
         type: rawVideo.type as ContentType,
-        //url: videoSource.startsWith('http') ? rawVideo.src  as string : videoURL,
-        url: rawVideo.src as string,
-
+        url: rawVideo.src instanceof Blob ? createTempURL(rawVideo.src as Blob) : rawVideo.src  as string,
+        //url: rawVideo.src as string,
     }
+    console.log(video.url);
     return video;
  }
 
@@ -118,86 +126,9 @@ export function loadVideos():  Array<Video>{
     tempURLs.length = 0;
  }
 
-//  export function loadVideos(): Promise<Array<Video>> {
-//     return new Promise((resolve, reject) => {
-//       console.log("inside loadVideos");
-//       const rawVideos: Array<RawVideo> = getVideos();
-//       const promises: Promise<Video>[] = [];
   
-//       rawVideos.forEach((rawVideo: RawVideo) => {
-//         try {
-//           const agentName: string = rawVideo.agent;
-//           const agent: Agent = {
-//             name: agentName,
-//             internalName: getInternalNameFromName(agentName),
-//           };
-//           const mapName: string = rawVideo.map;
-//           const map: Scene = {
-//             name: mapName,
-//             internalName: getInternalNameFromName(mapName),
-//           };
-//           const rawAbilities: string = rawVideo.ability;
-//           const abilities: Array<Ability> = [];
-//           rawAbilities.split(",").forEach((rawability: string) => {
-//             const AbKey: AbKey = rawability as AbKey;
-//             const ability: Ability = {
-//               agent: agent,
-//               key: AbKey,
-//               name: getAbilityName(agent, AbKey),
-//             };
-//             abilities.push(ability);
-//           });
-  
-//           const videoSource: string = rawVideo.src;
-//           let videoURL: string;
-  
-//           if (videoSource.startsWith('http')) {
-//             videoURL = videoSource; // Remote URL, assign directly
-//           } else {
-//             const promise = fetch(videoSource)
-//               .then(response => response.blob())
-//               .then(blob => {
-//                 videoURL = URL.createObjectURL(blob); // Local file, create object URL
-//                 const video: Video = {
-//                   id: rawVideo.id,
-//                   title: rawVideo.title,
-//                   description: rawVideo.description,
-//                   map: map,
-//                   agent: agent,
-//                   abilities: abilities,
-//                   side: rawVideo.side as Side,
-//                   site: rawVideo.site as Site,
-//                   type: rawVideo.type as ContentType,
-//                   url: videoURL,
-//                 };
-//                 return video;
-//               })
-//               .catch(error => {
-//                 console.error(`Error reading local video ${rawVideo.id}:`, error);
-//                 return null;
-//               });
-  
-//             promises.push(promise);
-//           }
-//         } catch (error) {
-//           console.error(`Error reading ${rawVideo.id}:`, error);
-//         }
-//       });
-  
-//       Promise.all(promises)
-//         .then(videos => {
-//           const filteredVideos = videos.filter(video => video !== null);
-//           resolve(filteredVideos);
-//         })
-//         .catch(error => {
-//           console.error("Error loading videos:", error);
-//           reject(error);
-//         });
-//     });
-//   }
-  
-  
-export function filterVideos() {
+export async function filterVideos() {
+    await initializationPromise;
     console.log('en filterVideos');
     initializeSelectedVariables();
     const criteriaArray = [

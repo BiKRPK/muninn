@@ -27,11 +27,14 @@ function handleClickSingleOptionFilter(selector: string) {
           $(selector).removeClass('selected');
           $(this).toggleClass('selected');
           swap(oldSelected, $(this));
-          filterVideos();
-          addVideosInScreen();
-          loadSplide();
-          if (selector === '.agentcard') {updateIconsInUI();}
-      }
+          filterVideos().then(() => { // Wait for filterVideos() to complete
+            addVideosInScreen();
+            loadSplide();
+            if (selector === '.agentcard') {updateIconsInUI();}
+          }).catch(error => {
+              console.error('Error filtering videos:', error);
+          });
+        }
     }
   });
 }
@@ -40,9 +43,12 @@ function handleClickMultiOptionFilter(selector: string) {
   $(selector).on({
     click: function() {
       $(this).toggleClass('selected');
-      filterVideos();
-      addVideosInScreen();
-      loadSplide();
+        filterVideos().then(() => { // Wait for filterVideos() to complete
+          addVideosInScreen();
+          loadSplide();
+        }).catch(error => {
+            console.error('Error filtering videos:', error);
+        });
     }
   });
 }
@@ -270,10 +276,14 @@ export function getSelectedMap(): Scene {
     initializeSelectedVariables();
     initializeFilterClickFunctions();
     loadVideos();
-    filterVideos();
-    addVideosInScreen();
-    loadSplide(); 
-    startThumbnailPreview();
+    filterVideos().then(() => { // Wait for filterVideos() to complete
+      addVideosInScreen();
+      loadSplide(); 
+      startThumbnailPreview();
+    }).catch(error => {
+        console.error('Error filtering videos:', error);
+    });
+    
   }
 
   function startThumbnailPreview() {
@@ -298,9 +308,12 @@ export function getSelectedMap(): Scene {
       $('#'+agent.internalName).toggleClass('selected');
       swap(oldSelected, $('#'+agent.internalName));
       updateIconsInUI();
-      filterVideos();
-      addVideosInScreen();
-      loadSplide();
+      filterVideos().then(() => { // Wait for filterVideos() to complete
+        addVideosInScreen();
+        loadSplide();
+      }).catch(error => {
+          console.error('Error filtering videos:', error);
+      });
     }   
   }
 
@@ -311,18 +324,24 @@ export function getSelectedMap(): Scene {
       $('#'+scene.internalName).toggleClass('selected');
       swap(oldSelected, $('#'+scene.internalName));
 
-      filterVideos();
-      addVideosInScreen();
-      loadSplide();
+      filterVideos().then(() => { // Wait for filterVideos() to complete
+        addVideosInScreen();
+        loadSplide();
+      }).catch(error => {
+          console.error('Error filtering videos:', error);
+      });
     } 
   }
 
   export function updateSideInUI(side: Side) {
     $('.sidecard').removeClass('selected');
     $('#'+side).toggleClass('selected');
-    filterVideos();
-    addVideosInScreen();
-    loadSplide();
+    filterVideos().then(() => { // Wait for filterVideos() to complete
+      addVideosInScreen();
+      loadSplide();
+    }).catch(error => {
+        console.error('Error filtering videos:', error);
+    });
   }
 
   function updateIconsInUI() {

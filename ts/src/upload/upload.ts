@@ -7,6 +7,7 @@ import {Agent, ContentType} from '../Types';
 import {storeVideo, } from '../UserStorage';
 import {RawVideo} from '../Vids';
 import {v4 as uuidv4} from 'uuid';
+import { initialize } from '../Frontfunctions';
 
 function loadSelectScene () {
  let mapSelect = $('#mapSelect');
@@ -237,8 +238,8 @@ function generateNewRawVideo(): RawVideo {
         title: getTitleValue(),
         description: getDescriptionValue(),
         ability: getAbilityValue(),
-        agent: getAgentValue(), 
-        map: getMapValue(),
+        agent: getNameFromInternalName(getAgentValue()), 
+        map: getNameFromInternalName(getMapValue()),
         side: getSideValue(),
         site: getSiteValue(),
         src: generateBlob(),
@@ -264,9 +265,9 @@ function printRawVideo(rawVideo: RawVideo) {
     console.log("src - " + rawVideo.src);
 }
 
-function uploadVideoButtonHandler () {
+async function uploadVideoButtonHandler () {
     $('#uploadButton').on({
-        click: function() {
+        click: async function() {
           let validation: validateTuple = validateForm();
           console.log(validation[0] + " - " + validation[1]);
           if(validation[0]){
@@ -274,8 +275,8 @@ function uploadVideoButtonHandler () {
             let video: RawVideo = generateNewRawVideo();
             try {
                 console.log("here we go");
-                storeVideo(video);
-                //saveVideoToIndexedDB(getVideo());
+                await storeVideo(video);
+                initialize();
             } catch (error) {
                 err = true;
                 console.log(error);
