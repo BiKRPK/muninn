@@ -55,7 +55,7 @@ function openDatabase(): Promise<IDBDatabase> {
 }
 
 export async function retrieveVideosIDB(): Promise<RawVideo[]> {
-  await openDatabase();
+  const db = await openDatabase();
 
   const videos: RawVideo[] = [];
   const transaction = db!.transaction('videos_os', 'readonly'); // Use 'readonly' mode for reading
@@ -144,7 +144,7 @@ function getRawVideoFromCursor(cursor) : RawVideo{
 
 export async function storeVideo(video: RawVideo): Promise<void> {
   try {
-      await openDatabase();
+      const db = await openDatabase();
       // Open transaction, get object store; make it a readwrite so we can write to the IDB
       const objectStore = db.transaction('videos_os', 'readwrite').objectStore('videos_os');
       // Create a record to add to the IDB

@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap';
 // Default theme
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../Consts";
-import { initialize } from '../Frontfunctions';
+import { initialize } from '../FrontFunctions';
 
 import { Target } from 'puppeteer';
 
@@ -24,9 +24,9 @@ openUploadButton.onclick = () => {
 
     const uploadWindow = window.open('upload.html', '_blank', 'resizable=0,height=700,width=600');
     
-    uploadWindow.onbeforeunload = () => {
+    uploadWindow.onbeforeunload = async () => {
         console.log('Upload window closed.');
-        initialize();
+        await initialize();
         modalOverlay.style.display = 'none';
         return null;
     }

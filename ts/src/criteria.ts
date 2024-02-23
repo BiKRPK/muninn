@@ -1,5 +1,5 @@
 import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
-import {isFav} from './Frontfunctions';
+import {isFav} from './FrontFunctions';
 
 interface Criteria {
     meetsCriteria(video: Video): boolean;

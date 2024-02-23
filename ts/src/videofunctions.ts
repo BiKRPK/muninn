@@ -1,7 +1,7 @@
 import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './Criteria';
 import { Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video } from './Types';
-import {getInternalNameFromName, getAbilityName} from './Typefunctions';
-import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './Frontfunctions'
+import {getInternalNameFromName, getAbilityName} from './TypeFunctions';
+import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './FrontFunctions'
 import { RawVideo, getVideos } from './Vids'
 import {retrieveVideosIDB} from './UserStorage';
 
@@ -19,7 +19,7 @@ let allVideos: Array<Video> = [];
 let filteredVideos: Array<Video> = [];
 let initializationPromise: Promise<void> | null = null;
 
-async function initialize() {
+export async function init() {
     if (!initializationPromise) {
         initializationPromise = new Promise<void>(async (resolve, reject) => {
             try {
@@ -36,7 +36,7 @@ async function initialize() {
     }
 }
 
-initialize();
+init();
 
 
 
@@ -46,7 +46,23 @@ export async function loadVideos():  Promise<Array<Video>>{
     cleanTempURLs(); 
     console.log("dentro de loadvideos");
      try {
-        // const rawVideos: Array<RawVideo> = getVideos();
+        
+
+        const loopPromise = new Promise<void>((resolve) => {
+            const rawVideos: Array<RawVideo> = getVideos();
+            if (rawVideos.length == 0) {resolve();}
+            rawVideos.forEach((rawVideo: RawVideo, index: number) => {
+                try {  
+                    const video: Video = buildVideo(rawVideo);
+                    videos.push(video);
+                    if (index === rawVideos.length - 1) { resolve(); }
+                } catch (error) {
+                console.error(`Error reading ${rawVideo.id}:`, error);
+                }
+            });
+        });
+        await loopPromise
+
         // rawVideos.forEach((rawVideo: RawVideo) => {
         //     try {  
         //         const video: Video = buildVideo(rawVideo);
@@ -57,15 +73,31 @@ export async function loadVideos():  Promise<Array<Video>>{
         //   });
           
         const localRawVideos: Array<RawVideo> = await retrieveVideosIDB(); // Wait for the promise to resolve
-        localRawVideos.forEach((localRawVideo: RawVideo) => {
-            try {  
-                const localVideo: Video = buildVideo(localRawVideo);
-                console.log(localVideo.id);
-                videos.push(localVideo);
-            } catch (error) {
-            console.error(`Error reading IDB ${localRawVideo.id}:`, error);
-            }
-          });
+        
+        // localRawVideos.forEach((localRawVideo: RawVideo) => {
+        //     try {  
+        //         const localVideo: Video = buildVideo(localRawVideo);
+        //         console.log(localVideo.id);
+        //         videos.push(localVideo);
+        //     } catch (error) {
+        //     console.error(`Error reading IDB value ${localRawVideo.id}:`, error);
+        //     }
+        //   });
+
+        const localLoopPromise = new Promise<void>((resolve) => {
+            if (localRawVideos.length == 0) {resolve();}
+            localRawVideos.forEach((localRawVideo: RawVideo, index: number) => {
+                try {  
+                    const localVideo: Video = buildVideo(localRawVideo);
+                    console.log(localVideo.id);
+                    videos.push(localVideo);
+                    if (index === localRawVideos.length - 1) { resolve(); }
+                } catch (error) {
+                console.error(`Error reading IDB value ${localRawVideo.id}:`, error);
+                }
+            });
+        });
+        await localLoopPromise;
 
      } catch (error) {
         console.error(`Error calling getVideos:`, error);
@@ -109,7 +141,7 @@ export async function loadVideos():  Promise<Array<Video>>{
         url: rawVideo.src instanceof Blob ? createTempURL(rawVideo.src as Blob) : rawVideo.src  as string,
         //url: rawVideo.src as string,
     }
-    console.log(video.url);
+    if (rawVideo.src instanceof Blob) {console.log(video.url)} ; 
     return video;
  }
 

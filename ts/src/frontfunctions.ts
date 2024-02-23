@@ -1,6 +1,6 @@
 import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
-import {filterVideos, getfilteredVideos, loadVideos, initializeSelectedVariables} from './Videofunctions';
-import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './Typefunctions';
+import {filterVideos, getfilteredVideos, init, initializeSelectedVariables} from './VideoFunctions';
+import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
 import $ from 'jquery';
 
 import '@splidejs/splide/css';
@@ -272,19 +272,46 @@ export function getSelectedMap(): Scene {
     handleClickFavButton();
   }
 
-  export function initialize() {
-    initializeSelectedVariables();
-    initializeFilterClickFunctions();
-    loadVideos();
-    filterVideos().then(() => { // Wait for filterVideos() to complete
-      addVideosInScreen();
-      loadSplide(); 
-      startThumbnailPreview();
-    }).catch(error => {
-        console.error('Error filtering videos:', error);
-    });
+  // export function initialize() {
+  //   initializeSelectedVariables();
+  //   initializeFilterClickFunctions();
+  //   init().then(() => {
+  //     filterVideos().then(() => { // Wait for filterVideos() to complete
+  //       addVideosInScreen();
+  //       loadSplide(); 
+  //       startThumbnailPreview();
+  //     }).catch(error => {
+  //         console.error('Error filtering videos:', error);
+  //     });
+  //   });
     
+  // }
+
+  export function initialize(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      initializeSelectedVariables();
+      initializeFilterClickFunctions();
+      init()
+        .then(() => {
+          filterVideos()
+            .then(() => { // Wait for filterVideos() to complete
+              addVideosInScreen();
+              loadSplide(); 
+              startThumbnailPreview();
+              resolve(); // Resolve the promise once all tasks are completed
+            })
+            .catch(error => {
+              console.error('Error filtering videos:', error);
+              reject(error); // Reject the promise if an error occurs
+            });
+        })
+        .catch(error => {
+          console.error('Error initializing:', error);
+          reject(error); // Reject the promise if an error occurs during initialization
+        });
+    });
   }
+  
 
   function startThumbnailPreview() {
     $(document).on({
