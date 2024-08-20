@@ -1,19 +1,21 @@
 import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 // Default theme
-import { AppWindow } from "../AppWindow";
-import {getAllAgents, getAllScenes, getAllSides, getAllSites, getAllContentTypes, getContentTypeName, getNameFromInternalName, getAgentAbilities} from '../TypeFunctions';
-import {Agent, ContentType} from '../Types';
-import {storeVideo, } from '../UserStorage';
-import {RawVideo} from '../Vids';
+
+import {storeVideo, } from '../persistance/UserStorage';
+import {RawVideo} from '../persistance/Vids';
 import {v4 as uuidv4} from 'uuid';
-import { initialize } from '../FrontFunctions';
+import { initialize } from '../logic/FrontFunctions';
+import { Agent } from '../logic/Agent';
+import { ContentType } from '../logic/Enums';
+import { getNameFromOverwolfID, getAllSides, getAllSites, getAllContentTypes, getContentTypeName } from '../logic/TypeUtils';
+import { Scene } from '../logic/Scene';
 
 function loadSelectScene () {
  let mapSelect = $('#mapSelect');
- getAllScenes().forEach(scene => {
+ Scene.getAllScenes().forEach(scene => {
     mapSelect.append($('<option>', { 
-        value: scene.internalName,
+        value: scene.overwolfID,
         text : scene.name 
     }));   
  });
@@ -21,31 +23,28 @@ function loadSelectScene () {
 
 function loadSelectAgent () {
     let agentSelect = $('#agentSelect');
-    getAllAgents().forEach(agent => {
+    Agent.getAllAgents().forEach(agent => {
        agentSelect.append($('<option>', { 
-           value: agent.internalName,
+           value: agent.overwolfID,
            text : agent.name 
        }));   
     });
     updateAbilitiesHandler();
 }
 
-function getSelectedAgent() {
+function getSelectedAgent() : Agent {
     let agentSelectedId: string = getAgentValue();
-    if (agentSelectedId.length == 0) { agentSelectedId = getAllAgents()[0].internalName; }
-    let agentSelected: Agent = {
-        internalName: agentSelectedId,
-        name: getNameFromInternalName(agentSelectedId)
-    }
+    if (agentSelectedId.length == 0) { agentSelectedId = Agent.getAllAgents()[0].overwolfID; }
+    let agentSelected = Agent.getInstance(getNameFromOverwolfID(agentSelectedId), agentSelectedId);
     return agentSelected;
 }
 
 function loadSelectAbility () {
     let abilitySelect = $('#abilitySelect');
-    getAgentAbilities(getSelectedAgent()).forEach(ability => {
+    getSelectedAgent().getAgentAbilities().forEach(ability => {
         abilitySelect.append($('<option>', { 
             value: ability.key,
-            text : ability.name + ' (' + ability.key + ')'
+            text : ability.getAbilityName() + ' (' + ability.key + ')'
         }));   
      });
 }
@@ -82,6 +81,7 @@ function loadSelectSide () {
 function loadSelectSite () {
     let siteSelect = $('#siteSelect');
     getAllSites().forEach(site => {
+        console.log(site);
        siteSelect.append($('<option>', { 
             value: site,
             text : site + " site" 
@@ -92,6 +92,7 @@ function loadSelectSite () {
 function loadSelectContentType () {
     let ctSelect = $('#contentTypeSelect');
     getAllContentTypes().forEach(ct => {
+        console.log(ct + " - " + getContentTypeName(ct as ContentType));
         ctSelect.append($('<option>', { 
              value: ct,
              text : getContentTypeName(ct as ContentType)
@@ -238,8 +239,8 @@ function generateNewRawVideo(): RawVideo {
         title: getTitleValue(),
         description: getDescriptionValue(),
         ability: getAbilityValue(),
-        agent: getNameFromInternalName(getAgentValue()), 
-        map: getNameFromInternalName(getMapValue()),
+        agent: getNameFromOverwolfID(getAgentValue()), 
+        map: getNameFromOverwolfID(getMapValue()),
         side: getSideValue(),
         site: getSiteValue(),
         src: generateBlob(),

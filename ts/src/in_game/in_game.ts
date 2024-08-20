@@ -4,17 +4,19 @@ import {
   OWHotkeys
 } from "@overwolf/overwolf-api-ts";
 
-import { AppWindow } from "../AppWindow";
-import { kHotkeys, kWindowNames, kGamesFeatures } from "../Consts";
-import { initialize } from '../FrontFunctions';
+import { AppWindow } from "../logic/AppWindow";
+import { kHotkeys, kWindowNames, kGamesFeatures } from "../logic/Consts";
+import { initialize } from '../logic/FrontFunctions';
 
 import WindowState = overwolf.windows.WindowStateEx;
 
 import  $ from "jquery";
 
-import {Agent, Scene, Side} from '../Types';
-import {getNameFromInternalName} from '../TypeFunctions';
-import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../FrontFunctions';
+import {getNameFromOverwolfID} from '../logic/TypeUtils';
+import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../logic/FrontFunctions';
+import { Agent } from "../logic/Agent";
+import { Side } from "../logic/Enums";
+import { Scene } from "../logic/Scene";
 
 
 // The window displayed in-game while a game is running.
@@ -87,12 +89,12 @@ class InGame extends AppWindow {
   private inGameAgentReaded(readedAgentIN) {
     //let agent = infoJSON.me.agent;
     console.log('update agent');
-    let agentName = getNameFromInternalName(readedAgentIN) || undefined;
+    let agentName = getNameFromOverwolfID(readedAgentIN) || undefined;
     if (agentName) {
-      this.currentAgent = {
-        name: agentName,
-        internalName: readedAgentIN
-      }
+      this.currentAgent = Agent.getInstance(
+        agentName,
+        readedAgentIN
+      );
       console.log('AGENTE: ' + this.currentAgent.name);
       updateAgentInUI(this.currentAgent);
     } 
@@ -101,11 +103,11 @@ class InGame extends AppWindow {
   private inGameSceneReaded(readedSceneIN) {
     //let scene = infoJSON.game_info.scene;
     console.log('update scene');
-    let sceneName = getNameFromInternalName(readedSceneIN) || undefined;
+    let sceneName = getNameFromOverwolfID(readedSceneIN) || undefined;
     if (sceneName) {
       this.currentScene = {
         name: sceneName,
-        internalName: readedSceneIN
+        overwolfID: readedSceneIN
       }
       console.log('MAPA: '  + this.currentScene.name);
       updateSceneInUI(this.currentScene);
@@ -116,7 +118,7 @@ class InGame extends AppWindow {
     //let team = infoJSON.match_info.team;
     this.currentSide =  readedSideIN.charAt(0).toUpperCase() + readedSideIN.slice(1);
     console.log('LADO: '  + this.currentSide);
-    updateSideInUI(this.currentSide);
+    updateSideInUI(this.currentSide as Side);
   }
 
 

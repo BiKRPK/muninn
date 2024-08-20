@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 // Default theme
-import { AppWindow } from "../AppWindow";
-import { kWindowNames } from "../Consts";
-import { initialize } from '../FrontFunctions';
+import { AppWindow } from "../logic/AppWindow";
+import { kWindowNames } from "../logic/Consts";
+import { initialize } from '../logic/FrontFunctions';
 
 import { Target } from 'puppeteer';
 

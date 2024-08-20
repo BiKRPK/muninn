@@ -170,6 +170,13 @@
     grid-column: span 2;
 }
 
+.mapcard.selected > img {
+    transform: scale(1.1);
+}
+.mapcard:not(.selected) > img {
+    transform: scale(1.9);
+}
+
 .agentcard.selected {
     grid-row: span 2;
     grid-column: span 2;

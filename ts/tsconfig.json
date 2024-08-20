@@ -12,7 +12,8 @@
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
     "types": [
-      "@overwolf/types"
+      "@overwolf/types",
+      "jest"
     ],
     "rootDirs": [
       "./src"

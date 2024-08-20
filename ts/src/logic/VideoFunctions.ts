@@ -1,9 +1,14 @@
-import { MapCriteria, AgentCriteria, SideCriteria, SiteCriteria, AbilityCriteria, ContentTypeCriteria } from './Criteria';
-import { Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video } from './Types';
-import {getInternalNameFromName, getAbilityName} from './TypeFunctions';
+import { SceneSpecification, AgentSpecification, SideSpecification, SiteSpecification, AbilitySpecification, ContentTypeSpecification, FavoriteSpecification, AndSpecification, UserSpecification, ISpecification } from './Specification';
 import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './FrontFunctions'
-import { RawVideo, getVideos } from './Vids'
-import {retrieveVideosIDB} from './UserStorage';
+import { RawVideo, getVideos } from '../persistance/Vids'
+import { retrieveVideosIDB } from '../persistance/UserStorage';
+import { Scene } from './Scene';
+import { Ability } from './Ability';
+import { Agent } from './Agent';
+import { Side, Site, ContentType, VideoOrigin, AbKey } from './Enums';
+import { getoverwolfIDFromName } from './TypeUtils';
+import { Video } from './Video';
+
 
 
 var selectedMap: Scene;
@@ -53,7 +58,7 @@ export async function loadVideos():  Promise<Array<Video>>{
             if (rawVideos.length == 0) {resolve();}
             rawVideos.forEach((rawVideo: RawVideo, index: number) => {
                 try {  
-                    const video: Video = buildVideo(rawVideo);
+                    const video: Video = buildVideo(rawVideo, VideoOrigin.Application);
                     videos.push(video);
                     if (index === rawVideos.length - 1) { resolve(); }
                 } catch (error) {
@@ -88,7 +93,7 @@ export async function loadVideos():  Promise<Array<Video>>{
             if (localRawVideos.length == 0) {resolve();}
             localRawVideos.forEach((localRawVideo: RawVideo, index: number) => {
                 try {  
-                    const localVideo: Video = buildVideo(localRawVideo);
+                    const localVideo: Video = buildVideo(localRawVideo, VideoOrigin.User);
                     console.log(localVideo.id);
                     videos.push(localVideo);
                     if (index === localRawVideos.length - 1) { resolve(); }
@@ -105,43 +110,34 @@ export async function loadVideos():  Promise<Array<Video>>{
      return videos;
  }
 
- function buildVideo(rawVideo: RawVideo): Video {
+ function buildVideo(rawVideo: RawVideo, videoOrigin: VideoOrigin): Video {
     const agentName: string = rawVideo.agent;
-    const agent: Agent = {
-        name: agentName,
-        internalName: getInternalNameFromName(agentName)
-    }
+    const agent: Agent = Agent.getInstance(agentName, getoverwolfIDFromName(agentName));
+
     const mapName: string = rawVideo.map;
-    const map: Scene = {
-        name: mapName,
-        internalName: getInternalNameFromName(mapName)
-    }
+    const scene: Scene = Scene.getInstance(mapName, getoverwolfIDFromName(mapName));
+
     const rawAbilities: string = rawVideo.ability;
     const abilities: Array<Ability> = [];
     rawAbilities.split(',').forEach((rawability: string) => {
-        const AbKey: AbKey = rawability as AbKey;
-        const ability: Ability = {
-            agent: agent,
-            key: AbKey,
-            name: getAbilityName(agent, AbKey)
-        }
-        abilities.push(ability);
-        });
+        const abKey: AbKey = rawability as AbKey;
+        abilities.push(Ability.getInstance(abKey, agent));
+    });
 
-    const video: Video = {
-        id: rawVideo.id,
-        title: rawVideo.title,
-        description: rawVideo.description,
-        map: map,
-        agent: agent,
-        abilities:  abilities,
-        side: rawVideo.side as Side,
-        site: rawVideo.site as Site,
-        type: rawVideo.type as ContentType,
-        url: rawVideo.src instanceof Blob ? createTempURL(rawVideo.src as Blob) : rawVideo.src  as string,
-        //url: rawVideo.src as string,
-    }
-    if (rawVideo.src instanceof Blob) {console.log(video.url)} ; 
+    const video: Video = new Video(
+        rawVideo.id,
+        rawVideo.title,
+        scene,
+        agent,
+        abilities,
+        rawVideo.side as Side,
+        rawVideo.site as Site,
+        rawVideo.type as ContentType,
+        rawVideo.src instanceof Blob ? createTempURL(rawVideo.src as Blob) : rawVideo.src  as string,
+        videoOrigin === VideoOrigin.User,
+        rawVideo.description
+    );
+    if (rawVideo.src instanceof Blob) {console.log(video.src)} ; 
     return video;
  }
 
@@ -163,16 +159,46 @@ export async function filterVideos() {
     await initializationPromise;
     console.log('en filterVideos');
     initializeSelectedVariables();
-    const criteriaArray = [
-      new MapCriteria(selectedMap),
-      new AgentCriteria(selectedAgent),
-      new SideCriteria(selectedSides),
-      new SiteCriteria(selectedSites),
-      new AbilityCriteria(selectedAbilities),
-      new ContentTypeCriteria(selectedContentTypes),
-    ];
-    
-    filteredVideos = (allVideos ?? []).filter(video => criteriaArray.every(criteria => criteria.meetsCriteria(video)));
+    const isSideFiltered: boolean = $('.card.sidecard:not(.selected)').length > 0;
+    const isSiteFiltered: boolean = $('.card.sitecard:not(.selected)').length > 0;
+    const isAbilityFiltered: boolean = $('.card.abilitycard:not(.selected)').length > 0;
+    const isTypeFiltered: boolean = $('.card.ContentTypecard:not(.selected)').length > 0;
+    const isFavoriteFiltered: boolean = false;
+    const isUserContentFiltered: boolean = false;
+
+    const sceneSpec: SceneSpecification = new SceneSpecification(selectedMap);
+    const agentSpec: AgentSpecification = new AgentSpecification(selectedAgent);
+    const sideSpec: SideSpecification = new SideSpecification(selectedSides);
+    const siteSpec: SiteSpecification = new SiteSpecification(selectedSites);
+    const abilitySpec: AbilitySpecification = new AbilitySpecification(selectedAbilities);
+    const contentTypeSpec: ContentTypeSpecification = new ContentTypeSpecification(selectedContentTypes);
+    const favoriteSpec: FavoriteSpecification = new FavoriteSpecification();
+    const userContentSpec: UserSpecification = new UserSpecification();
+
+    const specs: ISpecification[] = [sceneSpec, agentSpec];
+
+    if (isSideFiltered) {
+        specs.push(sideSpec);
+    }
+    if (isSiteFiltered) {
+        specs.push(siteSpec);
+    }
+    if (isAbilityFiltered) {
+        specs.push(abilitySpec);
+    }
+    if (isTypeFiltered) {
+        specs.push(contentTypeSpec);
+    }
+    if (isFavoriteFiltered) {
+        specs.push(favoriteSpec);
+    }
+    if (isUserContentFiltered) {
+        specs.push(userContentSpec);
+    }
+
+    const combinedSpec = specs.reduce((acc, spec) => acc.and(spec));
+
+    filteredVideos = allVideos.filter(video => combinedSpec.isSatisfiedBy(video));
 
 }
 

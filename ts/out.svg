@@ -1,0 +1,709 @@
+<svg version="1.1" baseProfile="full" width="3812.8" height="602.0" viewbox="0 0 3812.75 602" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+[&lt;interface&gt;RawAbilities|+agentName: string;+agentAbilities: { \[key: string\]: RawAbility; }|]
+[&lt;interface&gt;RawAbility|+title: string;+src: string|]
+[Ability|+key: AbKey;+agent: Agent;-static instances: Map&lt;string, Ability&gt;|+static getInstance(): Ability;+static getAllAbilities(): Map&lt;Agent, Ability\[\]&gt;;+getAbilityName(): string;+getIcon(): string]
+[Agent|-static instances: Map&lt;string, Agent&gt;;+name?: string;+overwolfID?: string|+static getInstance(): Agent;+static getAllAgents(): Agent\[\];+getAgentAbilities(): Ability\[\]]
+[AppWindow|\#currWindow: OWWindow;\#mainWindow: OWWindow;\#maximized: boolean|+getWindowState(): Promise&lt;GetWindowStateResult&gt;;-setDrag(): Promise&lt;void&gt;]
+[&lt;enumeration&gt;Side|Defense;Attack]
+[&lt;enumeration&gt;Site|A;B;C;MID]
+[&lt;enumeration&gt;ContentType|LineUp;SetUp;WallBang]
+[&lt;enumeration&gt;AbKey|C;Q;E;X]
+[&lt;enumeration&gt;VideoOrigin|Application;User]
+[Scene|-static instances: Map&lt;string, Scene&gt;;+name?: string;+overwolfID?: string|+static getInstance(): Scene;+static getAllScenes(): Scene\[\]]
+[CompositeSpecification||+abstract isSatisfiedBy(): boolean;+and(): ISpecification;+or(): ISpecification;+not(): ISpecification]
+[AndSpecification|-left: ISpecification;-right: ISpecification|+isSatisfiedBy(): boolean]
+[OrSpecification|-left: ISpecification;-right: ISpecification|+isSatisfiedBy(): boolean]
+[NotSpecification|-specification: ISpecification|+isSatisfiedBy(): boolean]
+[SceneSpecification|-selectedScene: Scene|+isSatisfiedBy(): boolean]
+[AgentSpecification|-selectedAgent: Agent|+isSatisfiedBy(): boolean]
+[SideSpecification|-selectedSides: Side\[\]|+isSatisfiedBy(): boolean]
+[SiteSpecification|-selectedSites: Site\[\]|+isSatisfiedBy(): boolean]
+[AbilitySpecification|-selectedAbilities: Ability\[\]|+isSatisfiedBy(): boolean]
+[ContentTypeSpecification|-selectedContentTypes: ContentType\[\]|+isSatisfiedBy(): boolean]
+[FavoriteSpecification||+isSatisfiedBy(): boolean]
+[UserSpecification||+isSatisfiedBy(): boolean]
+[&lt;interface&gt;ISpecification||+isSatisfiedBy(): boolean;+and(): ISpecification;+or(): ISpecification;+not(): ISpecification]
+[ISpecification]&lt;:--[CompositeSpecification]
+[CompositeSpecification]&lt;:-[AndSpecification]
+[CompositeSpecification]&lt;:-[OrSpecification]
+[CompositeSpecification]&lt;:-[NotSpecification]
+[CompositeSpecification]&lt;:-[SceneSpecification]
+[CompositeSpecification]&lt;:-[AgentSpecification]
+[CompositeSpecification]&lt;:-[SideSpecification]
+[CompositeSpecification]&lt;:-[SiteSpecification]
+[CompositeSpecification]&lt;:-[AbilitySpecification]
+[CompositeSpecification]&lt;:-[ContentTypeSpecification]
+[CompositeSpecification]&lt;:-[FavoriteSpecification]
+[CompositeSpecification]&lt;:-[UserSpecification]
+[Video|+id: string;+title: string;+scene: Scene;+agent: Agent;+abilities: Ability\[\];+side: Side;+site: Site;+type: ContentType;+src: string;+isFromUser: boolean;+description?: string|+isFav(): boolean]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="normal" font-style="normal">
+<g font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="602.0" width="3812.8" stroke="none"></rect>
+</g>
+<g transform="translate(8, 8)" fill="#33322E">
+<g transform="translate(20, 20)" fill="#eee8d5" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<g stroke-dasharray="6 6">
+<path d="M2841.5 192.3 L2841.5 263 L2841.5 283 L2841.5 283.0 " fill="none"></path>
+</g>
+<path d="M2846.8 192.3 L2841.5 192.3 L2836.2 192.3 L2841.5 179.0 Z"></path>
+<path d="M2687.2 346.9 L985.25 418 L985.25 438 L985.3 438.0 " fill="none"></path>
+<path d="M2687.4 352.3 L2687.2 346.9 L2687.0 341.6 L2700.5 346.4 Z"></path>
+<path d="M2687.2 348.0 L1238.25 418 L1238.25 438 L1238.3 438.0 " fill="none"></path>
+<path d="M2687.4 353.3 L2687.2 348.0 L2686.9 342.6 L2700.5 347.3 Z"></path>
+<path d="M2687.2 349.4 L1503.25 418 L1503.25 445.5 L1503.3 445.5 " fill="none"></path>
+<path d="M2687.5 354.8 L2687.2 349.4 L2686.9 344.1 L2700.5 348.7 Z"></path>
+<path d="M2687.2 351.6 L1768.25 418 L1768.25 445.5 L1768.3 445.5 " fill="none"></path>
+<path d="M2687.6 357.0 L2687.2 351.6 L2686.8 346.3 L2700.5 350.7 Z"></path>
+<path d="M2687.2 355.1 L2021.25 418 L2021.25 445.5 L2021.3 445.5 " fill="none"></path>
+<path d="M2687.7 360.4 L2687.2 355.1 L2686.7 349.8 L2700.5 353.8 Z"></path>
+<path d="M2687.3 361.6 L2274.25 418 L2274.25 445.5 L2274.3 445.5 " fill="none"></path>
+<path d="M2688.0 366.9 L2687.3 361.6 L2686.6 356.3 L2700.5 359.8 Z"></path>
+<path d="M2687.6 378.5 L2527.25 418 L2527.25 445.5 L2527.3 445.5 " fill="none"></path>
+<path d="M2688.8 383.6 L2687.6 378.5 L2686.3 373.3 L2700.5 375.3 Z"></path>
+<path d="M2789.4 408.6 L2782.25 418 L2782.25 445.5 L2782.3 445.5 " fill="none"></path>
+<path d="M2793.7 411.8 L2789.4 408.6 L2785.2 405.4 L2797.5 398.0 Z"></path>
+<path d="M2995.2 388.3 L3090.75 418 L3090.75 445.5 L3090.8 445.5 " fill="none"></path>
+<path d="M2996.8 383.2 L2995.2 388.3 L2993.6 393.4 L2982.5 384.3 Z"></path>
+<path d="M2995.7 362.0 L3397.25 418 L3397.25 457 L3397.3 457.0 " fill="none"></path>
+<path d="M2996.4 356.7 L2995.7 362.0 L2995.0 367.3 L2982.5 360.2 Z"></path>
+<path d="M2995.8 355.3 L3650.25 418 L3650.25 457 L3650.3 457.0 " fill="none"></path>
+<path d="M2996.3 350.0 L2995.8 355.3 L2995.3 360.6 L2982.5 354.0 Z"></path>
+<g data-name="RawAbilities">
+<g fill="lightblue" stroke="#33322E" data-name="RawAbilities">
+<rect x="0.0" y="71.5" height="100.0" width="336.0" data-name="RawAbilities"></rect>
+<path d="M0.0 102.5 L336.0 102.5" fill="none" data-name="RawAbilities"></path>
+<path d="M0.0 163.5 L336.0 163.5" fill="none" data-name="RawAbilities"></path>
+</g>
+<g transform="translate(0, 71.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbilities">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="RawAbilities">
+<a id="src\logic\Abilities.ts.RawAbilities" xlink:href="src\logic\Abilities.ts"><text x="160.0" y="13.5" stroke="none" text-anchor="middle" data-name="RawAbilities">RawAbilities</text></a>
+
+</g>
+</g>
+<g transform="translate(0, 102.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbilities">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="RawAbilities">
+<text x="0.0" y="13.5" stroke="none" data-name="RawAbilities">+agentName: string</text>
+<text x="0.0" y="28.5" stroke="none" data-name="RawAbilities">+agentAbilities: { [key: string]: RawAbility</text>
+<text x="0.0" y="43.5" stroke="none" data-name="RawAbilities">}</text>
+
+</g>
+</g>
+<g transform="translate(0, 163.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbilities">
+<g transform="translate(8, 8)" fill="#33322E" data-name="RawAbilities">
+
+</g>
+</g>
+</g>
+<g data-name="RawAbility">
+<g fill="lightblue" stroke="#33322E" data-name="RawAbility">
+<rect x="376.0" y="79.0" height="85.0" width="108.0" data-name="RawAbility"></rect>
+<path d="M376.0 110.0 L484.0 110.0" fill="none" data-name="RawAbility"></path>
+<path d="M376.0 156.0 L484.0 156.0" fill="none" data-name="RawAbility"></path>
+</g>
+<g transform="translate(376, 79)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbility">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="RawAbility">
+<a id="src\logic\Abilities.ts.RawAbility" xlink:href="src\logic\Abilities.ts"><text x="46.0" y="13.5" stroke="none" text-anchor="middle" data-name="RawAbility">RawAbility</text></a>
+
+</g>
+</g>
+<g transform="translate(376, 110)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbility">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="RawAbility">
+<text x="0.0" y="13.5" stroke="none" data-name="RawAbility">+title: string</text>
+<text x="0.0" y="28.5" stroke="none" data-name="RawAbility">+src: string</text>
+
+</g>
+</g>
+<g transform="translate(376, 156)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RawAbility">
+<g transform="translate(8, 8)" fill="#33322E" data-name="RawAbility">
+
+</g>
+</g>
+</g>
+<g data-name="Ability">
+<g fill="#eee8d5" stroke="#33322E" data-name="Ability">
+<rect x="524.0" y="37.5" height="168.0" width="367.0" data-name="Ability"></rect>
+<path d="M524.0 68.5 L891.0 68.5" fill="none" data-name="Ability"></path>
+<path d="M524.0 129.5 L891.0 129.5" fill="none" data-name="Ability"></path>
+</g>
+<g transform="translate(524, 37.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Ability">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Ability">
+<a id="src\logic\Ability.ts.Ability" xlink:href="src\logic\Ability.ts"><text x="175.5" y="13.5" stroke="none" text-anchor="middle" data-name="Ability">Ability</text></a>
+
+</g>
+</g>
+<g transform="translate(524, 68.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Ability">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Ability">
+<text x="0.0" y="13.5" stroke="none" data-name="Ability">+key: AbKey</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Ability">+agent: Agent</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Ability">-static instances: Map&lt;string, Ability&gt;</text>
+
+</g>
+</g>
+<g transform="translate(524, 129.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Ability">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Ability">
+<text x="0.0" y="13.5" stroke="none" data-name="Ability">+static getInstance(): Ability</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Ability">+static getAllAbilities(): Map&lt;Agent, Ability[]&gt;</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Ability">+getAbilityName(): string</text>
+<text x="0.0" y="58.5" stroke="none" data-name="Ability">+getIcon(): string</text>
+
+</g>
+</g>
+</g>
+<g data-name="Agent">
+<g fill="#eee8d5" stroke="#33322E" data-name="Agent">
+<rect x="931.0" y="45.0" height="153.0" width="309.0" data-name="Agent"></rect>
+<path d="M931.0 76.0 L1240.0 76.0" fill="none" data-name="Agent"></path>
+<path d="M931.0 137.0 L1240.0 137.0" fill="none" data-name="Agent"></path>
+</g>
+<g transform="translate(931, 45)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Agent">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Agent">
+<a id="src\logic\Agent.ts.Agent" xlink:href="src\logic\Agent.ts"><text x="146.5" y="13.5" stroke="none" text-anchor="middle" data-name="Agent">Agent</text></a>
+
+</g>
+</g>
+<g transform="translate(931, 76)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Agent">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Agent">
+<text x="0.0" y="13.5" stroke="none" data-name="Agent">-static instances: Map&lt;string, Agent&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Agent">+name?: string</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Agent">+overwolfID?: string</text>
+
+</g>
+</g>
+<g transform="translate(931, 137)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Agent">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Agent">
+<text x="0.0" y="13.5" stroke="none" data-name="Agent">+static getInstance(): Agent</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Agent">+static getAllAgents(): Agent[]</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Agent">+getAgentAbilities(): Ability[]</text>
+
+</g>
+</g>
+</g>
+<g data-name="AppWindow">
+<g fill="#eee8d5" stroke="#33322E" data-name="AppWindow">
+<rect x="1280.0" y="52.5" height="138.0" width="441.0" data-name="AppWindow"></rect>
+<path d="M1280.0 83.5 L1721.0 83.5" fill="none" data-name="AppWindow"></path>
+<path d="M1280.0 144.5 L1721.0 144.5" fill="none" data-name="AppWindow"></path>
+</g>
+<g transform="translate(1280, 52.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AppWindow">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AppWindow">
+<a id="src\logic\AppWindow.ts.AppWindow" xlink:href="src\logic\AppWindow.ts"><text x="212.5" y="13.5" stroke="none" text-anchor="middle" data-name="AppWindow">AppWindow</text></a>
+
+</g>
+</g>
+<g transform="translate(1280, 83.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppWindow">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AppWindow">
+<text x="0.0" y="13.5" stroke="none" data-name="AppWindow">#currWindow: OWWindow</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AppWindow">#mainWindow: OWWindow</text>
+<text x="0.0" y="43.5" stroke="none" data-name="AppWindow">#maximized: boolean</text>
+
+</g>
+</g>
+<g transform="translate(1280, 144.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppWindow">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AppWindow">
+<text x="0.0" y="13.5" stroke="none" data-name="AppWindow">+getWindowState(): Promise&lt;GetWindowStateResult&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AppWindow">-setDrag(): Promise&lt;void&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="Side">
+<g fill="lightgreen" stroke="#33322E" data-name="Side">
+<rect x="1761.0" y="83.0" height="77.0" width="82.0" data-name="Side"></rect>
+<path d="M1761.0 114.0 L1843.0 114.0" fill="none" data-name="Side"></path>
+</g>
+<g transform="translate(1761, 83)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Side">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Side">
+<a id="src\logic\Enums.ts.Side" xlink:href="src\logic\Enums.ts"><text x="33.0" y="13.5" stroke="none" text-anchor="middle" data-name="Side">Side</text></a>
+
+</g>
+</g>
+<g transform="translate(1761, 114)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Side">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Side">
+<text x="0.0" y="13.5" stroke="none" data-name="Side">Defense</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Side">Attack</text>
+
+</g>
+</g>
+</g>
+<g data-name="Site">
+<g fill="lightgreen" stroke="#33322E" data-name="Site">
+<rect x="1883.0" y="68.0" height="107.0" width="47.0" data-name="Site"></rect>
+<path d="M1883.0 99.0 L1930.0 99.0" fill="none" data-name="Site"></path>
+</g>
+<g transform="translate(1883, 68)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Site">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Site">
+<a id="src\logic\Enums.ts.Site" xlink:href="src\logic\Enums.ts"><text x="15.5" y="13.5" stroke="none" text-anchor="middle" data-name="Site">Site</text></a>
+
+</g>
+</g>
+<g transform="translate(1883, 99)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Site">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Site">
+<text x="0.0" y="13.5" stroke="none" data-name="Site">A</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Site">B</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Site">C</text>
+<text x="0.0" y="58.5" stroke="none" data-name="Site">MID</text>
+
+</g>
+</g>
+</g>
+<g data-name="ContentType">
+<g fill="lightgreen" stroke="#33322E" data-name="ContentType">
+<rect x="1970.0" y="75.5" height="92.0" width="117.0" data-name="ContentType"></rect>
+<path d="M1970.0 106.5 L2087.0 106.5" fill="none" data-name="ContentType"></path>
+</g>
+<g transform="translate(1970, 75.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ContentType">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ContentType">
+<a id="src\logic\Enums.ts.ContentType" xlink:href="src\logic\Enums.ts"><text x="50.5" y="13.5" stroke="none" text-anchor="middle" data-name="ContentType">ContentType</text></a>
+
+</g>
+</g>
+<g transform="translate(1970, 106.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ContentType">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ContentType">
+<text x="0.0" y="13.5" stroke="none" data-name="ContentType">LineUp</text>
+<text x="0.0" y="28.5" stroke="none" data-name="ContentType">SetUp</text>
+<text x="0.0" y="43.5" stroke="none" data-name="ContentType">WallBang</text>
+
+</g>
+</g>
+</g>
+<g data-name="AbKey">
+<g fill="lightgreen" stroke="#33322E" data-name="AbKey">
+<rect x="2127.0" y="68.0" height="107.0" width="67.0" data-name="AbKey"></rect>
+<path d="M2127.0 99.0 L2194.0 99.0" fill="none" data-name="AbKey"></path>
+</g>
+<g transform="translate(2127, 68)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AbKey">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AbKey">
+<a id="src\logic\Enums.ts.AbKey" xlink:href="src\logic\Enums.ts"><text x="25.5" y="13.5" stroke="none" text-anchor="middle" data-name="AbKey">AbKey</text></a>
+
+</g>
+</g>
+<g transform="translate(2127, 99)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AbKey">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AbKey">
+<text x="0.0" y="13.5" stroke="none" data-name="AbKey">C</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AbKey">Q</text>
+<text x="0.0" y="43.5" stroke="none" data-name="AbKey">E</text>
+<text x="0.0" y="58.5" stroke="none" data-name="AbKey">X</text>
+
+</g>
+</g>
+</g>
+<g data-name="VideoOrigin">
+<g fill="lightgreen" stroke="#33322E" data-name="VideoOrigin">
+<rect x="2234.0" y="83.0" height="77.0" width="108.0" data-name="VideoOrigin"></rect>
+<path d="M2234.0 114.0 L2342.0 114.0" fill="none" data-name="VideoOrigin"></path>
+</g>
+<g transform="translate(2234, 83)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="VideoOrigin">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="VideoOrigin">
+<a id="src\logic\Enums.ts.VideoOrigin" xlink:href="src\logic\Enums.ts"><text x="46.0" y="13.5" stroke="none" text-anchor="middle" data-name="VideoOrigin">VideoOrigin</text></a>
+
+</g>
+</g>
+<g transform="translate(2234, 114)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="VideoOrigin">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="VideoOrigin">
+<text x="0.0" y="13.5" stroke="none" data-name="VideoOrigin">Application</text>
+<text x="0.0" y="28.5" stroke="none" data-name="VideoOrigin">User</text>
+
+</g>
+</g>
+</g>
+<g data-name="Scene">
+<g fill="#eee8d5" stroke="#33322E" data-name="Scene">
+<rect x="2382.0" y="52.5" height="138.0" width="313.0" data-name="Scene"></rect>
+<path d="M2382.0 83.5 L2695.0 83.5" fill="none" data-name="Scene"></path>
+<path d="M2382.0 144.5 L2695.0 144.5" fill="none" data-name="Scene"></path>
+</g>
+<g transform="translate(2382, 52.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Scene">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Scene">
+<a id="src\logic\Scene.ts.Scene" xlink:href="src\logic\Scene.ts"><text x="148.5" y="13.5" stroke="none" text-anchor="middle" data-name="Scene">Scene</text></a>
+
+</g>
+</g>
+<g transform="translate(2382, 83.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Scene">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Scene">
+<text x="0.0" y="13.5" stroke="none" data-name="Scene">-static instances: Map&lt;string, Scene&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Scene">+name?: string</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Scene">+overwolfID?: string</text>
+
+</g>
+</g>
+<g transform="translate(2382, 144.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Scene">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Scene">
+<text x="0.0" y="13.5" stroke="none" data-name="Scene">+static getInstance(): Scene</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Scene">+static getAllScenes(): Scene[]</text>
+
+</g>
+</g>
+</g>
+<g data-name="CompositeSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="CompositeSpecification">
+<rect x="2700.5" y="283.0" height="115.0" width="282.0" data-name="CompositeSpecification"></rect>
+<path d="M2700.5 314.0 L2982.5 314.0" fill="none" data-name="CompositeSpecification"></path>
+<path d="M2700.5 322.0 L2982.5 322.0" fill="none" data-name="CompositeSpecification"></path>
+</g>
+<g transform="translate(2700.5, 283)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="CompositeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CompositeSpecification">
+<a id="src\logic\Specification.ts.CompositeSpecification" xlink:href="src\logic\Specification.ts"><text x="133.0" y="13.5" stroke="none" text-anchor="middle" data-name="CompositeSpecification">CompositeSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2700.5, 314)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CompositeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CompositeSpecification">
+
+</g>
+</g>
+<g transform="translate(2700.5, 322)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CompositeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CompositeSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="CompositeSpecification">+abstract isSatisfiedBy(): boolean</text>
+<text x="0.0" y="28.5" stroke="none" data-name="CompositeSpecification">+and(): ISpecification</text>
+<text x="0.0" y="43.5" stroke="none" data-name="CompositeSpecification">+or(): ISpecification</text>
+<text x="0.0" y="58.5" stroke="none" data-name="CompositeSpecification">+not(): ISpecification</text>
+
+</g>
+</g>
+</g>
+<g data-name="AndSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="AndSpecification">
+<rect x="878.8" y="438.0" height="108.0" width="213.0" data-name="AndSpecification"></rect>
+<path d="M878.8 469.0 L1091.8 469.0" fill="none" data-name="AndSpecification"></path>
+<path d="M878.8 515.0 L1091.8 515.0" fill="none" data-name="AndSpecification"></path>
+</g>
+<g transform="translate(878.75, 438)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AndSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AndSpecification">
+<a id="src\logic\Specification.ts.AndSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="AndSpecification">AndSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(878.75, 469)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AndSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AndSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AndSpecification">-left: ISpecification</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AndSpecification">-right: ISpecification</text>
+
+</g>
+</g>
+<g transform="translate(878.75, 515)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AndSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AndSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AndSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="OrSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="OrSpecification">
+<rect x="1131.8" y="438.0" height="108.0" width="213.0" data-name="OrSpecification"></rect>
+<path d="M1131.8 469.0 L1344.8 469.0" fill="none" data-name="OrSpecification"></path>
+<path d="M1131.8 515.0 L1344.8 515.0" fill="none" data-name="OrSpecification"></path>
+</g>
+<g transform="translate(1131.75, 438)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="OrSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="OrSpecification">
+<a id="src\logic\Specification.ts.OrSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="OrSpecification">OrSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(1131.75, 469)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="OrSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="OrSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="OrSpecification">-left: ISpecification</text>
+<text x="0.0" y="28.5" stroke="none" data-name="OrSpecification">-right: ISpecification</text>
+
+</g>
+</g>
+<g transform="translate(1131.75, 515)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="OrSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="OrSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="OrSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="NotSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="NotSpecification">
+<rect x="1384.8" y="445.5" height="93.0" width="237.0" data-name="NotSpecification"></rect>
+<path d="M1384.8 476.5 L1621.8 476.5" fill="none" data-name="NotSpecification"></path>
+<path d="M1384.8 507.5 L1621.8 507.5" fill="none" data-name="NotSpecification"></path>
+</g>
+<g transform="translate(1384.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="NotSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="NotSpecification">
+<a id="src\logic\Specification.ts.NotSpecification" xlink:href="src\logic\Specification.ts"><text x="110.5" y="13.5" stroke="none" text-anchor="middle" data-name="NotSpecification">NotSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(1384.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="NotSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="NotSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="NotSpecification">-specification: ISpecification</text>
+
+</g>
+</g>
+<g transform="translate(1384.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="NotSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="NotSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="NotSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="SceneSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="SceneSpecification">
+<rect x="1661.8" y="445.5" height="93.0" width="213.0" data-name="SceneSpecification"></rect>
+<path d="M1661.8 476.5 L1874.8 476.5" fill="none" data-name="SceneSpecification"></path>
+<path d="M1661.8 507.5 L1874.8 507.5" fill="none" data-name="SceneSpecification"></path>
+</g>
+<g transform="translate(1661.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SceneSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SceneSpecification">
+<a id="src\logic\Specification.ts.SceneSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="SceneSpecification">SceneSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(1661.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SceneSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SceneSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SceneSpecification">-selectedScene: Scene</text>
+
+</g>
+</g>
+<g transform="translate(1661.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SceneSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SceneSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SceneSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="AgentSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="AgentSpecification">
+<rect x="1914.8" y="445.5" height="93.0" width="213.0" data-name="AgentSpecification"></rect>
+<path d="M1914.8 476.5 L2127.8 476.5" fill="none" data-name="AgentSpecification"></path>
+<path d="M1914.8 507.5 L2127.8 507.5" fill="none" data-name="AgentSpecification"></path>
+</g>
+<g transform="translate(1914.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AgentSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AgentSpecification">
+<a id="src\logic\Specification.ts.AgentSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="AgentSpecification">AgentSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(1914.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AgentSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AgentSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AgentSpecification">-selectedAgent: Agent</text>
+
+</g>
+</g>
+<g transform="translate(1914.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AgentSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AgentSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AgentSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="SideSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="SideSpecification">
+<rect x="2167.8" y="445.5" height="93.0" width="213.0" data-name="SideSpecification"></rect>
+<path d="M2167.8 476.5 L2380.8 476.5" fill="none" data-name="SideSpecification"></path>
+<path d="M2167.8 507.5 L2380.8 507.5" fill="none" data-name="SideSpecification"></path>
+</g>
+<g transform="translate(2167.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SideSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SideSpecification">
+<a id="src\logic\Specification.ts.SideSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="SideSpecification">SideSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2167.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SideSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SideSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SideSpecification">-selectedSides: Side[]</text>
+
+</g>
+</g>
+<g transform="translate(2167.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SideSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SideSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SideSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="SiteSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="SiteSpecification">
+<rect x="2420.8" y="445.5" height="93.0" width="213.0" data-name="SiteSpecification"></rect>
+<path d="M2420.8 476.5 L2633.8 476.5" fill="none" data-name="SiteSpecification"></path>
+<path d="M2420.8 507.5 L2633.8 507.5" fill="none" data-name="SiteSpecification"></path>
+</g>
+<g transform="translate(2420.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SiteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SiteSpecification">
+<a id="src\logic\Specification.ts.SiteSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="SiteSpecification">SiteSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2420.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SiteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SiteSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SiteSpecification">-selectedSites: Site[]</text>
+
+</g>
+</g>
+<g transform="translate(2420.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SiteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SiteSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="SiteSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="AbilitySpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="AbilitySpecification">
+<rect x="2673.8" y="445.5" height="93.0" width="217.0" data-name="AbilitySpecification"></rect>
+<path d="M2673.8 476.5 L2890.8 476.5" fill="none" data-name="AbilitySpecification"></path>
+<path d="M2673.8 507.5 L2890.8 507.5" fill="none" data-name="AbilitySpecification"></path>
+</g>
+<g transform="translate(2673.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AbilitySpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AbilitySpecification">
+<a id="src\logic\Specification.ts.AbilitySpecification" xlink:href="src\logic\Specification.ts"><text x="100.5" y="13.5" stroke="none" text-anchor="middle" data-name="AbilitySpecification">AbilitySpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2673.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AbilitySpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AbilitySpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AbilitySpecification">-selectedAbilities: Ability[]</text>
+
+</g>
+</g>
+<g transform="translate(2673.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AbilitySpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AbilitySpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="AbilitySpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="ContentTypeSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="ContentTypeSpecification">
+<rect x="2930.8" y="445.5" height="93.0" width="320.0" data-name="ContentTypeSpecification"></rect>
+<path d="M2930.8 476.5 L3250.8 476.5" fill="none" data-name="ContentTypeSpecification"></path>
+<path d="M2930.8 507.5 L3250.8 507.5" fill="none" data-name="ContentTypeSpecification"></path>
+</g>
+<g transform="translate(2930.75, 445.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ContentTypeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ContentTypeSpecification">
+<a id="src\logic\Specification.ts.ContentTypeSpecification" xlink:href="src\logic\Specification.ts"><text x="152.0" y="13.5" stroke="none" text-anchor="middle" data-name="ContentTypeSpecification">ContentTypeSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2930.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ContentTypeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ContentTypeSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="ContentTypeSpecification">-selectedContentTypes: ContentType[]</text>
+
+</g>
+</g>
+<g transform="translate(2930.75, 507.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ContentTypeSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ContentTypeSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="ContentTypeSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="FavoriteSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="FavoriteSpecification">
+<rect x="3290.8" y="457.0" height="70.0" width="213.0" data-name="FavoriteSpecification"></rect>
+<path d="M3290.8 488.0 L3503.8 488.0" fill="none" data-name="FavoriteSpecification"></path>
+<path d="M3290.8 496.0 L3503.8 496.0" fill="none" data-name="FavoriteSpecification"></path>
+</g>
+<g transform="translate(3290.75, 457)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="FavoriteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="FavoriteSpecification">
+<a id="src\logic\Specification.ts.FavoriteSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="FavoriteSpecification">FavoriteSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(3290.75, 488)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="FavoriteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" data-name="FavoriteSpecification">
+
+</g>
+</g>
+<g transform="translate(3290.75, 496)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="FavoriteSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="FavoriteSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="FavoriteSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="UserSpecification">
+<g fill="#eee8d5" stroke="#33322E" data-name="UserSpecification">
+<rect x="3543.8" y="457.0" height="70.0" width="213.0" data-name="UserSpecification"></rect>
+<path d="M3543.8 488.0 L3756.8 488.0" fill="none" data-name="UserSpecification"></path>
+<path d="M3543.8 496.0 L3756.8 496.0" fill="none" data-name="UserSpecification"></path>
+</g>
+<g transform="translate(3543.75, 457)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="UserSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="UserSpecification">
+<a id="src\logic\Specification.ts.UserSpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="UserSpecification">UserSpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(3543.75, 488)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="UserSpecification">
+<g transform="translate(8, 8)" fill="#33322E" data-name="UserSpecification">
+
+</g>
+</g>
+<g transform="translate(3543.75, 496)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="UserSpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="UserSpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="UserSpecification">+isSatisfiedBy(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="ISpecification">
+<g fill="lightblue" stroke="#33322E" data-name="ISpecification">
+<rect x="2735.0" y="64.0" height="115.0" width="213.0" data-name="ISpecification"></rect>
+<path d="M2735.0 95.0 L2948.0 95.0" fill="none" data-name="ISpecification"></path>
+<path d="M2735.0 103.0 L2948.0 103.0" fill="none" data-name="ISpecification"></path>
+</g>
+<g transform="translate(2735, 64)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ISpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ISpecification">
+<a id="src\logic\Specification.ts.ISpecification" xlink:href="src\logic\Specification.ts"><text x="98.5" y="13.5" stroke="none" text-anchor="middle" data-name="ISpecification">ISpecification</text></a>
+
+</g>
+</g>
+<g transform="translate(2735, 95)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ISpecification">
+<g transform="translate(8, 8)" fill="#33322E" data-name="ISpecification">
+
+</g>
+</g>
+<g transform="translate(2735, 103)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ISpecification">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ISpecification">
+<text x="0.0" y="13.5" stroke="none" data-name="ISpecification">+isSatisfiedBy(): boolean</text>
+<text x="0.0" y="28.5" stroke="none" data-name="ISpecification">+and(): ISpecification</text>
+<text x="0.0" y="43.5" stroke="none" data-name="ISpecification">+or(): ISpecification</text>
+<text x="0.0" y="58.5" stroke="none" data-name="ISpecification">+not(): ISpecification</text>
+
+</g>
+</g>
+</g>
+<g data-name="Video">
+<g fill="#eee8d5" stroke="#33322E" data-name="Video">
+<rect x="2988.0" y="0.0" height="243.0" width="190.0" data-name="Video"></rect>
+<path d="M2988.0 31.0 L3178.0 31.0" fill="none" data-name="Video"></path>
+<path d="M2988.0 212.0 L3178.0 212.0" fill="none" data-name="Video"></path>
+</g>
+<g transform="translate(2988, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Video">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Video">
+<a id="src\logic\Video.ts.Video" xlink:href="src\logic\Video.ts"><text x="87.0" y="13.5" stroke="none" text-anchor="middle" data-name="Video">Video</text></a>
+
+</g>
+</g>
+<g transform="translate(2988, 31)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Video">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Video">
+<text x="0.0" y="13.5" stroke="none" data-name="Video">+id: string</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Video">+title: string</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Video">+scene: Scene</text>
+<text x="0.0" y="58.5" stroke="none" data-name="Video">+agent: Agent</text>
+<text x="0.0" y="73.5" stroke="none" data-name="Video">+abilities: Ability[]</text>
+<text x="0.0" y="88.5" stroke="none" data-name="Video">+side: Side</text>
+<text x="0.0" y="103.5" stroke="none" data-name="Video">+site: Site</text>
+<text x="0.0" y="118.5" stroke="none" data-name="Video">+type: ContentType</text>
+<text x="0.0" y="133.5" stroke="none" data-name="Video">+src: string</text>
+<text x="0.0" y="148.5" stroke="none" data-name="Video">+isFromUser: boolean</text>
+<text x="0.0" y="163.5" stroke="none" data-name="Video">+description?: string</text>
+
+</g>
+</g>
+<g transform="translate(2988, 212)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Video">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Video">
+<text x="0.0" y="13.5" stroke="none" data-name="Video">+isFav(): boolean</text>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

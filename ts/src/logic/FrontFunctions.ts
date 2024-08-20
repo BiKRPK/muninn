@@ -1,10 +1,14 @@
-import {Agent, Scene, AbKey, Ability, Side, Site, ContentType, Video} from './Types';
+import {Video} from './Video';
 import {filterVideos, getfilteredVideos, init, initializeSelectedVariables} from './VideoFunctions';
-import {getNameFromInternalName, getAbilityName, getIconFromAbility, getAgentAbilities} from './TypeFunctions';
+import {getNameFromOverwolfID} from './TypeUtils';
 import $ from 'jquery';
 
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
+import { Scene } from './Scene';
+import { Agent } from './Agent';
+import { Ability } from './Ability';
+import { AbKey, ContentType, Side, Site } from './Enums';
 
 function handleClickUploadVideo() {
   const videoElement = $("#videoElement")[0] as HTMLVideoElement;
@@ -87,7 +91,6 @@ function toggleFavorite(button) {
 export function loadSplide() {
   if(getfilteredVideos().length) {
     displayVideos();
-    console.log("loading Splide");
     var main = new Splide( '#main-carousel', {
       fixedHeight  : '80%',
       type      : 'fade',
@@ -155,21 +158,19 @@ function displayVideos() {
 
 export function getSelectedMap(): Scene {
     let selectedMapID: string = $('.card.mapcard.selected').attr('id') as string;
-    console.log('selected map: ' +  selectedMapID);
-    let selectedScene: Scene = {
-      internalName: selectedMapID,
-      name: getNameFromInternalName(selectedMapID),
-    }
+    let selectedScene: Scene = Scene.getInstance(
+      getNameFromOverwolfID(selectedMapID),
+      selectedMapID
+    );
     return selectedScene;
   }
   
  export function getSelectedAgent(): Agent {
     let selectedAgentID: string = $('.card.agentcard.selected').attr('id') as string;
-    console.log('selected agent: ' +  selectedAgentID);
-    let selectedAgent: Agent = {
-      internalName: selectedAgentID,
-      name: getNameFromInternalName(selectedAgentID),
-    }
+    let selectedAgent: Agent = Agent.getInstance(
+      getNameFromOverwolfID(selectedAgentID),
+      selectedAgentID
+    );
     return selectedAgent;
   }
   
@@ -179,11 +180,10 @@ export function getSelectedMap(): Scene {
       function() {
         let currentAgent = getSelectedAgent();
         let selectedKey: AbKey = $(this).attr('id') as AbKey;
-        let selectedAbility: Ability = {
-          agent: currentAgent,
-          key: selectedKey,
-          name: getAbilityName(currentAgent, selectedKey),
-        }
+        let selectedAbility: Ability = Ability.getInstance(
+          selectedKey,
+          currentAgent,
+        );
         selectedAbilities.push(selectedAbility);
       }
     );
@@ -223,7 +223,6 @@ export function getSelectedMap(): Scene {
   }
   
   function addVideosInScreen() {
-    console.log('en addVideosInScreen');
     $('#thumbnail-carousel > div > ul').empty();
     $('#main-carousel > div > ul').empty();
     
@@ -240,8 +239,8 @@ export function getSelectedMap(): Scene {
     return `
     <li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">
         <div id="${video.id}" class="cta">
-            <div class="favorite-button ${isFav(video.id) ? "isFav" : ""}" ></div>
-            <video src="${video.url}" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>
+            <div class="favorite-button ${video.isFav() ? "isFav" : ""}" ></div>
+            <video src="${video.src}" controlslist="nodownload noremoteplayback" muted loop="loop" ></video>
             <div class="text"> 
             <h5>${video.title}</h5>
             <p>${video.description}</p>
@@ -250,15 +249,12 @@ export function getSelectedMap(): Scene {
     </li>`
   }
 
-  export function isFav(videoID: string) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    return favorites.indexOf(videoID) > -1;
-  }
+  
   
   function getVideoHTML(video: Video): string{
     return `
     <li class="splide__slide h-100 main-carousel-item">
-      <video src="${video.url}" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video>
+      <video src="${video.src}" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video>
     </li>`;
   }
 
@@ -329,11 +325,11 @@ export function getSelectedMap(): Scene {
 
 
   export function updateAgentInUI(agent: Agent) {
-    if (!$('#'+agent.internalName).hasClass('selected')) {
+    if (!$('#'+agent.overwolfID).hasClass('selected')) {
       var oldSelected = $('.agentcard.selected');
       $('.agentcard').removeClass('selected');
-      $('#'+agent.internalName).toggleClass('selected');
-      swap(oldSelected, $('#'+agent.internalName));
+      $('#'+agent.overwolfID).toggleClass('selected');
+      swap(oldSelected, $('#'+agent.overwolfID));
       updateIconsInUI();
       filterVideos().then(() => { // Wait for filterVideos() to complete
         addVideosInScreen();
@@ -345,11 +341,11 @@ export function getSelectedMap(): Scene {
   }
 
   export function updateSceneInUI(scene: Scene) {
-    if (!$('#'+scene.internalName).hasClass('selected')) {
+    if (!$('#'+scene.overwolfID).hasClass('selected')) {
       var oldSelected = $('.mapcard.selected');
       $('.mapcard').removeClass('selected');
-      $('#'+scene.internalName).toggleClass('selected');
-      swap(oldSelected, $('#'+scene.internalName));
+      $('#'+scene.overwolfID).toggleClass('selected');
+      swap(oldSelected, $('#'+scene.overwolfID));
 
       filterVideos().then(() => { // Wait for filterVideos() to complete
         addVideosInScreen();
@@ -373,11 +369,11 @@ export function getSelectedMap(): Scene {
 
   function updateIconsInUI() {
     let newAgent: Agent = getSelectedAgent();
-    let newAgentAbilities: Ability[] = getAgentAbilities(newAgent);
+    let newAgentAbilities: Ability[] = newAgent.getAgentAbilities();
     newAgentAbilities.forEach(function(ability: Ability) {
       let key = ability.key;
-      let name = ability.name;
-      $('#' + key + ' > .cardimg').attr('src', getIconFromAbility(ability));
+      let name = ability.agent.name;
+      $('#' + key + ' > .cardimg').attr('src', ability.getIcon());
       $('#' + key + ' > .cardimg').attr('alt', key + ' - ' + name);
       $('#' + key + ' > .cardname').val(key + ' - ' + name);
       $('#' + key + ' > .cardname').text(key + ' - ' + name);
