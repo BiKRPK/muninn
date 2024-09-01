@@ -5,9 +5,6 @@ import { AppWindow } from "../logic/AppWindow";
 import { kWindowNames } from "../logic/Consts";
 import { initialize } from '../logic/FrontFunctions';
 
-import { Target } from 'puppeteer';
-
-
 // The desktop window is the window displayed while game is not running.
 // In our case, our desktop window has no logic - it only displays static data.
 // Therefore, only the generic AppWindow class is called.
