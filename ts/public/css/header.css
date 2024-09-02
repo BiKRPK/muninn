@@ -22,7 +22,6 @@
   display: flex;
   align-items: center;
   z-index: 9999;
-  background-color: #080800;
   border-bottom: 1px solid #FFA900;
 }
 
@@ -173,4 +172,25 @@
 
 .socialIcons a {
   text-decoration: none;
+}
+
+#openUploadWindowButton {
+  margin-right: 20px;
+  background-color: papayawhip;
+  border-color: #FFA900;
+  margin-top: 5px;
+  padding-top: 0;
+  margin-bottom: 3px;
+  padding-bottom: 0;
+}
+
+#openUploadWindowButton > span{
+  padding-left: 11px;
+  font-size: small;
+  color: black;
+}
+
+.text-bg-black {
+  color: #fff !important;
+  background-color: #161616 !important;
 }

@@ -49,7 +49,7 @@ export function getVideos(): RawVideo[] {
         "description": "This is useful for quickly traveling to A Short from A Tower, however it comes with a lot of risk and should likely be done with the help of your teammates utility, when given a good opportunity to do so as they push into the Site.",
         "ability": "Q",
         "type": "LU",
-        "src": "https://blitz-cdn-videos.blitz.gg/valorant/guides/raze-haven-def-ashort-atower-blastpack.mp4#t=0.1",
+        "src": "https://www.youtube.com/embed/Cs1VXlLFPDw",
         "site": "A"
     },
     {

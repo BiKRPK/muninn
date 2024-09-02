@@ -5,6 +5,7 @@
 
 .video { 
     padding-right: 400px;
+    padding-left: 0;
 }
 
 .filters {
@@ -36,11 +37,15 @@
     overflow-y: auto;
     margin-right: 400px;
     padding-right: 400px;
+    background-color: #080808;
+    padding-left: 12px;
+    border-top: 1px solid #FFA900;
 }
 
 #main-carousel {
     height: calc(100% - 250px);
     margin-bottom: 250px;
+    padding-left: 12px;
 }
 
 #thumbnail-carousel > .splide__arrows > button.splide__arrow.splide__arrow--next {
@@ -126,6 +131,14 @@
 
 .sidegrid {
     grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.personalgrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.ContentTypegrid {
+    grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .fitertitle {
@@ -243,34 +256,20 @@
     margin: 0 3px;
 }
 
-.sidecard > .cardimg {
-    transform: scale(1.5);
-}
-
-.sidecard > .cardimg:hover {
-    transform: scale(1.8);
-}
-
-#Defense > .cardimg {
-    transform: scale(2);
-}
-
-#Defense > .cardimg:hover {
-    transform: scale(2.4);
+.sidecard.selected > .cardimg {
+    font-size: 20px;
+    font-weight: 700;
+    height: 50px !important;
+    line-height: 50px;
+    width: auto;
 }
 
 .sidecard:not(.selected) > .cardimg {
-    max-height: calc(45px - 20px) !important;
+    font-size: 18px;
+    font-weight: 700;
+    height: 45px !important;
+    line-height: 45px;
     width: auto;
-    height: 100%;
-    max-width: -webkit-fill-available;
-}
-
-.sidecard.selected > .cardimg {
-    max-height: calc(50px - 24px) !important;
-    width: auto;
-    height: 100%;
-    max-width: -webkit-fill-available;
 }
 
 .sidecard:not(.selected){
@@ -284,13 +283,40 @@
     margin: 0 3px;
 }
 
+.ContentTypecard.selected > .cardimg {
+    font-size: 15px;
+    font-weight: 700;
+    height: 60px !important;
+    line-height: 60px;
+    width: auto;
+}
+
+.ContentTypecard:not(.selected) > .cardimg {
+    font-size: 18px;
+    font-weight: 700;
+    height: 55px !important;
+    line-height: 55px;
+    width: auto;
+}
+
+.ContentTypecard:not(.selected){
+    height: 55px !important;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+.ContentTypecard.selected{
+    height: 60px !important;
+    margin: 0 3px;
+}
+
 .abilitycard:not(.selected){
     height: 55px !important;
     margin: 5px;
     margin-bottom: 0px;
 }
 
-.ContentTypecard:not(.selected){
+.personalcard:not(.selected){
     height: 55px !important;
     margin: 5px;
     margin-bottom: 0px;
@@ -303,7 +329,7 @@
     margin: 0 3px;
 }
 
-.ContentTypecard.selected{
+.personalcard.selected{
     height: 60px !important;
     margin: 0 3px;
 }
@@ -316,7 +342,7 @@
     height: 100%;
 }
 
-.ContentTypecard.selected > .cardimg {
+.personalcard.selected > .cardimg {
     max-height: calc(60px - 24px) !important;
     height: 100%;
     max-width: -webkit-fill-available;
@@ -331,14 +357,16 @@
     height: 100%;
 }
 
-.ContentTypecard:not(.selected) > .cardimg {
+.personalcard:not(.selected) > .cardimg {
     max-height: calc(55px - 20px) !important;
     height: 100%;
     max-width: -webkit-fill-available;
     width: auto;
 }
 
-
+.personalcard > .cardname {
+    font-weight: 700;
+}
 
 .thumbnail-carousel-item video {
     width: auto;
