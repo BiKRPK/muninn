@@ -2,14 +2,14 @@ import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 // Default theme
 
-import {storeVideo, } from '../persistance/UserStorage';
-import {RawVideo} from '../persistance/Vids';
+import {storeVideo, } from '../../persistance/UserStorage';
+import {RawVideo} from '../../persistance/Vids';
 import {v4 as uuidv4} from 'uuid';
-import { initialize } from '../front/FrontFunctions';
-import { Agent } from '../logic/Agent';
-import { ContentType } from '../logic/Enums';
-import { getNameFromOverwolfID, getAllSides, getAllSites, getAllContentTypes, getContentTypeName } from '../logic/TypeUtils';
-import { Scene } from '../logic/Scene';
+import { initialize } from '../FrontFunctions';
+import { Agent } from '../../logic/Agent';
+import { ContentType } from '../../logic/Enums';
+import { getNameFromOverwolfID, getAllSides, getAllSites, getAllContentTypes, getContentTypeName } from '../../logic/TypeUtils';
+import { Scene } from '../../logic/Scene';
 
 function loadSelectScene () {
  let mapSelect = $('#mapSelect');

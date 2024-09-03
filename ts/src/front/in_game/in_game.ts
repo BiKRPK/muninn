@@ -4,19 +4,18 @@ import {
   OWHotkeys
 } from "@overwolf/overwolf-api-ts";
 
-import { AppWindow } from "../logic/AppWindow";
-import { kHotkeys, kWindowNames, kGamesFeatures } from "../logic/Consts";
-import { initialize } from '../logic/FrontFunctions';
+import { AppWindow } from "../../logic/AppWindow";
+import { kHotkeys, kWindowNames, kGamesFeatures } from "../../logic/Consts";
 
 import WindowState = overwolf.windows.WindowStateEx;
 
 import  $ from "jquery";
 
-import {getNameFromOverwolfID} from '../logic/TypeUtils';
-import {updateAgentInUI, updateSceneInUI, updateSideInUI} from '../logic/FrontFunctions';
-import { Agent } from "../logic/Agent";
-import { Side } from "../logic/Enums";
-import { Scene } from "../logic/Scene";
+import {getNameFromOverwolfID} from '../../logic/TypeUtils';
+import {updateAgentInUI, updateSceneInUI, updateSideInUI, initialize} from '../FrontFunctions';
+import { Agent } from "../../logic/Agent";
+import { Side } from "../../logic/Enums";
+import { Scene } from "../../logic/Scene";
 
 
 // The window displayed in-game while a game is running.

@@ -10,10 +10,10 @@ const
 module.exports = env => ({
     entry: {
         background: './src/background/background.ts',
-        desktop: './src/desktop/desktop.ts',
-        in_game: './src/in_game/in_game.ts',
+        desktop: './src/front/desktop/desktop.ts',
+        in_game: './src/front/in_game/in_game.ts',
         main: './src/js/main.js',
-        upload: './src/upload/upload.ts',
+        upload: './src/front/upload/upload.ts',
     },
     devtool: 'inline-source-map',
     module: {
@@ -66,17 +66,17 @@ module.exports = env => ({
             chunks: ['background']
         }),
         new HtmlWebpackPlugin({
-            template: './src/desktop/desktop.html',
+            template: './src/front/desktop/desktop.html',
             filename: path.resolve(__dirname, './dist/desktop.html'),
             chunks: ['desktop']
         }),
         new HtmlWebpackPlugin({
-            template: './src/in_game/in_game.html',
+            template: './src/front/in_game/in_game.html',
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
         }),
         new HtmlWebpackPlugin({
-            template: './src/upload/upload.html',
+            template: './src/front/upload/upload.html',
             filename: path.resolve(__dirname, './dist/upload.html'),
             chunks: ['upload']
         }),
