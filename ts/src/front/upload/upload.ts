@@ -5,7 +5,7 @@ import * as bootstrap from 'bootstrap';
 import {storeVideo, } from '../persistance/UserStorage';
 import {RawVideo} from '../persistance/Vids';
 import {v4 as uuidv4} from 'uuid';
-import { initialize } from '../logic/FrontFunctions';
+import { initialize } from '../front/FrontFunctions';
 import { Agent } from '../logic/Agent';
 import { ContentType } from '../logic/Enums';
 import { getNameFromOverwolfID, getAllSides, getAllSites, getAllContentTypes, getContentTypeName } from '../logic/TypeUtils';

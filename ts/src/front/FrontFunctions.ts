@@ -1,14 +1,14 @@
-import {Video} from './Video';
-import {filterVideos, getfilteredVideos, init, initializeSelectedVariables} from './VideoFunctions';
-import {getNameFromOverwolfID} from './TypeUtils';
+import {Video} from '../logic/Video';
+import {filterVideos, getfilteredVideos, init, initializeSelectedVariables} from '../logic/VideoFunctions';
+import {getNameFromOverwolfID} from '../logic/TypeUtils';
 import $ from 'jquery';
 
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
-import { Scene } from './Scene';
-import { Agent } from './Agent';
-import { Ability } from './Ability';
-import { AbKey, ContentType, Side, Site } from './Enums';
+import { Scene } from '../logic/Scene';
+import { Agent } from '../logic/Agent';
+import { Ability } from '../logic/Ability';
+import { AbKey, ContentType, Side, Site } from '../logic/Enums';
 
 function handleClickUploadVideo() {
   const videoElement = $("#videoElement")[0] as HTMLVideoElement;

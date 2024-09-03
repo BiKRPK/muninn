@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 // Default theme
-import { AppWindow } from "../logic/AppWindow";
-import { kWindowNames } from "../logic/Consts";
-import { initialize } from '../logic/FrontFunctions';
+import { AppWindow } from "../../logic/AppWindow";
+import { kWindowNames } from "../../logic/Consts";
+import { initialize } from '../FrontFunctions';
 
 // The desktop window is the window displayed while game is not running.
 // In our case, our desktop window has no logic - it only displays static data.

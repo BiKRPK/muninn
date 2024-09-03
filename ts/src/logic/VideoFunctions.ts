@@ -1,5 +1,5 @@
 import { SceneSpecification, AgentSpecification, SideSpecification, SiteSpecification, AbilitySpecification, ContentTypeSpecification, FavoriteSpecification, AndSpecification, UserSpecification, ISpecification } from './Specification';
-import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from './FrontFunctions'
+import { getSelectedMap, getSelectedAgent, getSelectedAbilities, getSelectedSides, getSelectedSites, getSelectedContentTypes } from '../front/FrontFunctions'
 import { RawVideo, getVideos } from '../persistance/Vids'
 import { retrieveVideosIDB } from '../persistance/UserStorage';
 import { Scene } from './Scene';

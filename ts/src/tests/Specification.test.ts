@@ -11,53 +11,53 @@
 // const agent: Agent = Agent.getInstance("Jett", getoverwolfIDFromName("Jett"));
 // const abilities: Ability[] = [Ability.getInstance("Q"  , getAbilityName(agent, "Q")) as Ability];
 
-// const mockVideo: Video = new Video (
+// const fakeVideo: Video = new Video (
 //     "123",
-//     "mockVideo",
+//     "fakeVideo",
 //     scene,
 //     agent,
 //     abilities,
 //     Side.Attack,
 //     Site.A,
 //     ContentType.LineUp,
-//     "mockVideo",
+//     "fakeVideo",
 //     false,
-//     "mockVideo",
+//     "fakeVideo",
 // );
 
 // describe('Specification Tests', () => {
 //     it('should satisfy MapSpecification', () => {
 //         const mapSpec = new SceneSpecification(scene);
-//         expect(mapSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(mapSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy AgentSpecification', () => {
 //         const agentSpec = new AgentSpecification(agent);
-//         expect(agentSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(agentSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy SideSpecification', () => {
 //         const sideSpec = new SideSpecification([Side.Attack]);
-//         expect(sideSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(sideSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy SiteSpecification', () => {
 //         const siteSpec = new SiteSpecification([Site.A]);
-//         expect(siteSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(siteSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy AbilitySpecification', () => {
 //         const abilitySpec = new AbilitySpecification([{ name: "Updraft", key: "Q" }]);
-//         expect(abilitySpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(abilitySpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy ContentTypeSpecification', () => {
 //         const contentTypeSpec = new ContentTypeSpecification([ContentType.LineUp]);
-//         expect(contentTypeSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(contentTypeSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy UserSpecification', () => {
-//         const userVideo = { ...mockVideo, isFromUser: true };
+//         const userVideo = { ...fakeVideo, isFromUser: true };
 //         const userSpec = new UserSpecification();
 //         expect(userSpec.isSatisfiedBy(userVideo)).toBe(true);
 //     });
@@ -66,20 +66,20 @@
 //         const mapSpec = new SceneSpecification({ overwolfID: "Haven" });
 //         const agentSpec = new AgentSpecification({ overwolfID: "Jett" });
 //         const andSpec = new AndSpecification(mapSpec, agentSpec);
-//         expect(andSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(andSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy OrSpecification', () => {
 //         const mapSpec = new SceneSpecification({ overwolfID: "Haven" });
 //         const agentSpec = new AgentSpecification({ overwolfID: "Phoenix" });
 //         const orSpec = new OrSpecification(mapSpec, agentSpec);
-//         expect(orSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(orSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy NotSpecification', () => {
 //         const mapSpec = new SceneSpecification({ overwolfID: "Bind" });
 //         const notSpec = new NotSpecification(mapSpec);
-//         expect(notSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(notSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 
 //     it('should satisfy FavoriteSpecification', () => {
@@ -87,6 +87,6 @@
 //             isFav: jest.fn().mockReturnValue(true),
 //         }));
 //         const favSpec = new FavoriteSpecification();
-//         expect(favSpec.isSatisfiedBy(mockVideo)).toBe(true);
+//         expect(favSpec.isSatisfiedBy(fakeVideo)).toBe(true);
 //     });
 // });
