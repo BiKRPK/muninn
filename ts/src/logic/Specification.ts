@@ -56,7 +56,7 @@ export abstract class CompositeSpecification implements ISpecification {
     constructor(private selectedScene: Scene) {super();}
   
     isSatisfiedBy(video: Video): boolean {
-      return video.scene.overwolfID == this.selectedScene.overwolfID;
+      return video.scene == this.selectedScene;
     }
   }
   
@@ -64,7 +64,7 @@ export abstract class CompositeSpecification implements ISpecification {
     constructor(private selectedAgent: Agent) {super();}
   
     isSatisfiedBy(video: Video): boolean {
-      return video.type === ContentType.WallBang || video.agent.overwolfID == this.selectedAgent.overwolfID;
+      return video.type === ContentType.WallBang || video.agent == this.selectedAgent;
     }
   }
   
@@ -90,7 +90,7 @@ export abstract class CompositeSpecification implements ISpecification {
     isSatisfiedBy(video: Video): boolean {
       return  video.abilities.some(
         ability => this.selectedAbilities.some(
-          selectedAbility => selectedAbility.key == ability.key
+          selectedAbility => selectedAbility == ability
         )
       );
     }
