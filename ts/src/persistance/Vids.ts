@@ -25,7 +25,7 @@ export function getVideos(): RawVideo[] {
         "description": "Here's one way to execute and clear the C Site as Raze. This lineup will make Defenders swing out into the open, or jump up onto the platform — leaving them vulnerable.",
         "ability": "E",
         "type": "LU",
-        "src": "https://blitz-cdn-videos.blitz.gg/valorant/guides/raze-haven-atk-backsiteC-clong-paintshells_1.mp4#t=0.1",
+        "src": "https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4",
         "site": "C"
     },
     {

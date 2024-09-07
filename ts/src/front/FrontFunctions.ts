@@ -265,6 +265,7 @@ export function getSelectedMap(): Scene {
     handleClickMultiOptionFilter('.sitecard');
     handleClickMultiOptionFilter('.abilitycard');
     handleClickMultiOptionFilter('.ContentTypecard');
+    handleClickMultiOptionFilter('.personalcard');
     handleClickFavButton();
   }
 

@@ -4,22 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <script src="../../js/main.js"></script>
-  <script src="../../js/WComponents.js"></script>
+  <!-- <script src="../../js/WComponents.js"></script> -->
   <!-- <link rel="stylesheet" href="../../css/general.css" /> -->
   <link rel="stylesheet" href="../../css/header.css" />
   <!-- <link rel="stylesheet" href="../../css/desktop.css" />
   <link rel="stylesheet" href="../../css/modal.css" /> -->
   <link rel="stylesheet" href="../../css/videoplayer.css" />
-  <title>Muninn WIP - Desktop page</title>
+  <title>Muninn - Lineups, Wallbangs and more! </title>
 </head>
 
 <body class="desktop vh-100">
+  <div class="modal-overlay" id="modalOverlay" style="display: none;">
+    <div class="modal-content">
+        <p>Uploading...</p>
+    </div>
+  </div>
   <!-- -------------------------------- Header ------------------------------- -->
 
-  <header id="header" class="app-header text-bg-dark">
+  <header id="header" class="app-header text-bg-black">
     <img src="../../img/muninn.png" />
-    <h1>Muninn WIP / desktop window</h1>
+    <h1>Muninn - Lineups, Wallbangs and more!</h1>
     <div class="window-controls-group">
+        <button  id="openUploadWindowButton" type="button" class="btn btn-secondary btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-upload" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"></path>
+          </svg>
+          <span> Add Video </span>
+        </button>
       <button id="minimizeButton" class="window-control window-control-minimize" />
       <button id="maximizeButton" class="window-control window-control-maximize" />
       <button id="closeButton" class="window-control window-control-close" />
@@ -31,9 +43,6 @@
     <div class="container-fluid h-100">
       <div class="row h-100">
         <div id="videocontainer" class="video h-100 "> 
-          <!-- <video id="player" controlslist="nodownload noremoteplayback" autoplay="" controls="" preload="true" class="w-100 h-100">
-            <source src="https://cdn.lineups.fun/0bf32a62-d237-4e9b-a082-2cea9714e6d9.mp4" type="video/mp4">
-          </video> -->
 
           <section id="main-carousel" class="splide " >
             <div class="splide__track h-100">
@@ -43,7 +52,7 @@
             </div>
           </section>
   
-          <section id="thumbnail-carousel" class="splide pt-1">
+          <section id="thumbnail-carousel" class="splide pt-3">
             <div class="splide__track h-100">
               <ul class="splide__list h-100">
                 <!-- VIDEO THUMBNAILS WILL BE ADDED HERE -->
@@ -51,14 +60,17 @@
             </div>
           </section>
 
+          <section id="no-content-screen">
+            <img src="../../img/no-content-found.webp">
+            <p>Oops! It seems we couldn't find any videos matching your search. Please try again with different parameters.</p>
+          </section>
+          
         </div>
 
         <div class="sidebar row" style="background-color: #FFA900;">
           <div id="filterscontainer" class="filters overflow-auto"> 
-            <!-- TODO COMO IMAGENES CON FUNCIONAMENTO DE BOTON -->
-            <!-- se mantiene la altura porcentual hasta un min-height que se vuelve fijo con overflow-auto -->
-            <div class="row text-bg-dark my-3 rounded">
-                <div class="fitertitle "> MAP SELECTED</div>
+            <div class="row text-bg-black my-3 rounded">
+                <div class="fitertitle "> MAP </div>
                 <ul  class="mapgrid grid">
                   <li  class="card mapcard selected" id="Triad">
                     <img  class="cardimg" src="../../img/haven.jpeg" alt="Haven">
@@ -98,7 +110,7 @@
                   </li>
               </ul>
             </div>
-            <div class="row text-bg-dark my-3 rounded">
+            <div class="row text-bg-black my-3 rounded">
               <div class="fitertitle "> AGENT </div>
               <ul  class="agentgrid grid">
                 <li  class="card agentcard selected" id="Rift_PC_C">
@@ -187,7 +199,7 @@
                 </li>
              </ul>
             </div>
-            <div class="row my-3 text-bg-dark rounded">
+            <div class="row my-3 text-bg-black rounded">
               <div class="fitertitle "> ABILITIES </div>
               <ul class="abilitygrid grid">
                 <li class="card abilitycard selected" id="C">
@@ -209,20 +221,20 @@
               </ul>
             </div>
             <div class="row my-3">
-              <div class="col-4 text-bg-dark me-1 rounded ">
+              <div class="col-4 text-bg-black me-1 rounded ">
                 <div class="fitertitle "> SIDES </div>
                 <ul  class="sidegrid grid ps-0">
                   <li  class="card sidecard selected" id="Attack">
-                    <img  class="cardimg" src="../../img/attack.png" alt="Attack">
-                    <div class="cardname text-dark">Attack</div>
+                    <!-- <img  class="cardimg" src="../../img/attack.png" alt="Attack"> -->
+                    <div class="cardimg text-dark">ATK</div>
                   </li>
                   <li  class="card sidecard selected" id="Defense">
-                    <img  class="cardimg" src="../../img/defense.png" alt="Defense">
-                    <div class="cardname text-dark">Defense</div>
+                    <!-- <img  class="cardimg" src="../../img/defense.png" alt="Defense"> -->
+                    <div class="cardimg text-dark">DEF</div>
                   </li>
                 </ul>
               </div>
-              <div class="col text-bg-dark ms-1 rounded">
+              <div class="col text-bg-black ms-1 rounded">
                 <div class="fitertitle "> SITES </div>
                 <ul  class="sitegrid grid ps-0">
                   <li  class="card sitecard selected" id="A">
@@ -241,27 +253,44 @@
                     <!-- <img  class="cardimg" src="../../img/MIDsite.png" alt="MID site"> -->
                     <div class="cardimg text-dark">MID</div>
                   </li>
+                </ul>
               </div>
             </div>
-            <div class="row my-3 text-bg-dark rounded"> 
-                <div class="fitertitle "> CONTENT </div>
-                <ul  class="ContentTypegrid grid">
+            <div class="row my-3 rounded"> 
+              <div class="col text-bg-black me-1 rounded ">
+                <div class="fitertitle "> CATEGORY </div>
+                <ul  class="ContentTypegrid grid ps-0">
                   <li  class="card ContentTypecard selected" id="LU">
-                    <img  class="cardimg" src="../../img/lineup.png" alt="LINEUP">
-                    <div class="cardname text-dark">Lineup</div>
-                  </li>
-                  <li  class="card ContentTypecard selected" id="SU">
-                    <img  class="cardimg" src="../../img/setup.png" alt="SETUP">
-                    <div class="cardname text-dark">Setup</div>
+                    <!-- <img  class="cardimg" src="../../img/lineup.png" alt="LINEUP"> -->
+                    <div class="cardimg text-dark">LINEUP</div>
                   </li>
                   <li  class="card ContentTypecard selected" id="WB">
-                    <img  class="cardimg" src="../../img/wallbang.png" alt="WALLBANG">
-                    <div class="cardname text-dark">Wallbang</div>
+                    <!-- <img  class="cardimg" src="../../img/wallbang.png" alt="WALLBANG"> -->
+                    <div class="cardimg text-dark" style="line-height: 30px; padding: 0 5px; word-break: break-all;">WALLBANG</div>
                   </li>
-                  <li  class="card ContentTypecard selected" id="SP">
+                  <li  class="card ContentTypecard selected" id="SU">
+                    <!-- <img  class="cardimg" src="../../img/setup.png" alt="SETUP"> -->
+                    <div class="cardimg text-dark">SETUP</div>
+                  </li>
+                  <!-- <li  class="card ContentTypecard selected" id="SP">
                     <img  class="cardimg" src="../../img/sniper.svg" alt="SNIPER PEEK">
                     <div class="cardname text-dark">Sniper peek</div>
+                  </li> -->
+                </ul>
+              </div>
+              <div class="col-5 text-bg-black ms-1 rounded">
+                <div class="fitertitle "> SHOW ONLY </div>
+                <ul  class="personalgrid grid ps-0">
+                  <li  class="card personalcard selected" id="LU">
+                    <img  class="cardimg" src="../../img/heart.svg" alt="FAVORITES">
+                    <div class="cardname text-dark">FAVORITES</div>
                   </li>
+                  <li  class="card personalcard selected" id="SU">
+                    <img  class="cardimg" src="../../img/person.svg" alt="PERSONAL">
+                    <div class="cardname text-dark">PERSONAL</div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <!-- <div id="addcontainter" class="adds h-25 ps-1 pt-2">
@@ -273,7 +302,7 @@
       </div>
       <!-- <div class="row h-15">
 
-        <div id="thumbnailscontainer" class="thumbnails col h-100 text-bg-dark"> 
+        <div id="thumbnailscontainer" class="thumbnails col h-100 text-bg-black"> 
           
         </div>
         <div id="addcontainter" class="adds h-100 text-bg-danger"> 

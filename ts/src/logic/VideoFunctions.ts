@@ -163,8 +163,8 @@ export async function filterVideos() {
     const isSiteFiltered: boolean = $('.card.sitecard:not(.selected)').length > 0;
     const isAbilityFiltered: boolean = $('.card.abilitycard:not(.selected)').length > 0;
     const isTypeFiltered: boolean = $('.card.ContentTypecard:not(.selected)').length > 0;
-    const isFavoriteFiltered: boolean = false;
-    const isUserContentFiltered: boolean = false;
+    const isFavoriteFiltered: boolean = $('.card.favoritecard:not(.selected)').length > 0;
+    const isUserContentFiltered: boolean = $('.card.ownvideocard:not(.selected)').length > 0;
 
     const sceneSpec: SceneSpecification = new SceneSpecification(selectedMap);
     const agentSpec: AgentSpecification = new AgentSpecification(selectedAgent);

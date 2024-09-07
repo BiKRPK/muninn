@@ -4,7 +4,7 @@
 #.type: fill=lightgray
 [&lt;interface&gt;RawAbilities|+agentName: string;+agentAbilities: { \[key: string\]: RawAbility; }|]
 [&lt;interface&gt;RawAbility|+title: string;+src: string|]
-[Ability|+key: AbKey;+agent: Agent;-static instances: Map&lt;string, Ability&gt;|+static getInstance(): Ability;+static getAllAbilities(): Map&lt;Agent, Ability\[\]&gt;;+getAbilityName(): string;+getIcon(): string]
+[Ability|-static instances: Map&lt;string, Ability&gt;;+key: AbKey;+agent: Agent|+static getInstance(): Ability;+static getAllAbilities(): Map&lt;Agent, Ability\[\]&gt;;+getAbilityName(): string;+getIcon(): string]
 [Agent|-static instances: Map&lt;string, Agent&gt;;+name?: string;+overwolfID?: string|+static getInstance(): Agent;+static getAllAgents(): Agent\[\];+getAgentAbilities(): Ability\[\]]
 [AppWindow|\#currWindow: OWWindow;\#mainWindow: OWWindow;\#maximized: boolean|+getWindowState(): Promise&lt;GetWindowStateResult&gt;;-setDrag(): Promise&lt;void&gt;]
 [&lt;enumeration&gt;Side|Defense;Attack]
@@ -137,9 +137,9 @@
 </g>
 <g transform="translate(524, 68.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Ability">
 <g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Ability">
-<text x="0.0" y="13.5" stroke="none" data-name="Ability">+key: AbKey</text>
-<text x="0.0" y="28.5" stroke="none" data-name="Ability">+agent: Agent</text>
-<text x="0.0" y="43.5" stroke="none" data-name="Ability">-static instances: Map&lt;string, Ability&gt;</text>
+<text x="0.0" y="13.5" stroke="none" data-name="Ability">-static instances: Map&lt;string, Ability&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Ability">+key: AbKey</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Ability">+agent: Agent</text>
 
 </g>
 </g>

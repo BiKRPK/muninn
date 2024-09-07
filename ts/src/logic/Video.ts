@@ -17,9 +17,7 @@ import { Scene } from "./Scene";
       public isFromUser: boolean,
       public description?: string
     ) {
-      if (abilities.length < 1 ) {
-        throw new Error('Error: trying to create a video without abilities');
-      } else if (abilities.length > 4 ) {
+      if (abilities.length > 4 ) {
         throw new Error('Error: trying to create a video with more than 4 abilities');
       } 
     }
