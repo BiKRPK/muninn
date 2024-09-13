@@ -45,7 +45,6 @@
 #main-carousel {
     height: calc(100% - 250px);
     margin-bottom: 250px;
-    padding-left: 12px;
 }
 
 #thumbnail-carousel > .splide__arrows > button.splide__arrow.splide__arrow--next {
@@ -374,6 +373,12 @@
     object-fit: cover;
 }
 
+.thumbnail-carousel-item img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+}
+
 .main-carousel-item video {
     max-width: 100%;
     max-height: 100%;
@@ -391,6 +396,12 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%); */
+}
+
+.main-carousel-item iframe {
+    width: 90%;
+    height: 100%;
+    margin: auto
 }
 
 #main-carousel-list > li {

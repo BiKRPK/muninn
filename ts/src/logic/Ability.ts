@@ -34,7 +34,7 @@ export class Ability {
 
     public getIcon(): string {
       const rawAbility: RawAbility = getAbilities(this.agent.name, this.key);
-      if (rawAbility) { return rawAbility.src;}
+      if (rawAbility) { return rawAbility.src; }
       return '';
     }
 

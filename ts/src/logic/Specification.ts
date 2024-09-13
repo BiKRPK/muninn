@@ -56,13 +56,6 @@ export abstract class CompositeSpecification implements ISpecification {
     constructor(private selectedScene: Scene) {super();}
   
     isSatisfiedBy(video: Video): boolean {
-      /**
-       * Si no tuviesemos instancias únicas en el objeto Scene
-       * necesitaríamos hacer lo siguiente:
-       * 
-       * video.scene.name === this.selectedScene.name
-       *  && video.scene.overwolfID === this.selectedScene.overwolfID
-       */
       return video.scene == this.selectedScene;
     }
   }
@@ -95,7 +88,7 @@ export abstract class CompositeSpecification implements ISpecification {
     constructor(private selectedAbilities: Ability[]) {super();}
   
     isSatisfiedBy(video: Video): boolean {
-      return  video.abilities.some(
+      return  video.type === ContentType.WallBang || video.abilities.some(
         ability => this.selectedAbilities.some(
           selectedAbility => selectedAbility == ability
         )

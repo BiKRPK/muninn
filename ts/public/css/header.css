@@ -93,10 +93,6 @@
 .window-control:active:before {
   background-color: #dedede;
 }
-.window-control-minimize:before {
-  mask-image: url('../img/window_minimize.svg');
-  -webkit-mask-image: url('../img/window_minimize.svg');
-}
 .window-control-maximize:before {
   mask-image: url('../img/window_maximize.svg');
   -webkit-mask-image: url('../img/window_maximize.svg');

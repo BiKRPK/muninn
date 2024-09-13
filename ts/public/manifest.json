@@ -45,6 +45,30 @@
         "background_optimization": false,
         "is_background_page": true
       },
+      "list": {
+        "file": "list.html",
+        "desktop_only": true,
+        "native_window": true,
+        "resizable": false,
+        "transparent": true,
+        "override_on_update": true,
+        "size": {
+          "width": 500,
+          "height": 1000
+        }
+      },
+      "upload": {
+        "file": "upload.html",
+        "desktop_only": true,
+        "native_window": true,
+        "resizable": false,
+        "transparent": true,
+        "override_on_update": true,
+        "size": {
+          "width": 500,
+          "height": 1000
+        }
+      },
       "desktop": {
         "file": "desktop.html",
         "desktop_only": true,

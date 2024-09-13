@@ -4,6 +4,7 @@ import * as bootstrap from 'bootstrap';
 import { AppWindow } from "../../logic/AppWindow";
 import { kWindowNames } from "../../logic/Consts";
 import { initialize } from '../FrontFunctions';
+import { BackgroundController } from '../../background/background';
 
 // The desktop window is the window displayed while game is not running.
 // In our case, our desktop window has no logic - it only displays static data.
@@ -13,20 +14,20 @@ new AppWindow(kWindowNames.desktop);
 document.addEventListener( 'DOMContentLoaded', initialize);
 
 const openUploadButton = document.getElementById('openUploadWindowButton');
-const modalOverlay = document.getElementById('modalOverlay');
-
 openUploadButton.onclick = () => {
+    console.log("im here");
+    //overwolf.windows.obtainDeclaredWindow("in_game", { useDefaultSizeAndLocation: true }, function openWindow() {overwolf.windows.restore("in_game")});
+    BackgroundController.instance().openListWindow();
+    // modalOverlay.style.display = 'block';
 
-    modalOverlay.style.display = 'block';
-
-    const uploadWindow = window.open('upload.html', '_blank', 'resizable=0,height=700,width=600');
+    // const uploadWindow = window.open('upload.html', '_blank', 'resizable=0,height=700,width=600');
     
-    uploadWindow.onbeforeunload = async () => {
-        console.log('Upload window closed.');
-        await initialize();
-        modalOverlay.style.display = 'none';
-        return null;
-    }
+    // uploadWindow.onbeforeunload = async () => {
+    //     console.log('Upload window closed.');
+    //     await initialize();
+    //     modalOverlay.style.display = 'none';
+    //     return null;
+    // }
     
 }
 

@@ -4,119 +4,118 @@
 <head>
   <meta charset="UTF-8" />
   <script src="../../js/main.js"></script>
-  <!-- <link rel="stylesheet" href="../../css/header.css" />
-  <link rel="stylesheet" href="../../css/upload.css" /> -->
+  <!-- <link rel="stylesheet" href="../../css/header.css" /> -->
+  <link rel="stylesheet" href="../../css/upload.css" />
   <title>Upload Video</title>
 </head>
 <html>
-<body style="background-color: black;" >
-  <form id="videoUpload" class="text-bg-dark m-4 px-5" style="width: 500px;">
-    <div style="width: 100%;" class="my-5 mb-4 pt-4 border-bottom">
-        VIDEO INFORMATION
-    </div>
+<body class="text-bg-dark" >
+    <nav class="text-bg-black nav">
+        <button id="backbutton" class="btn text-left backbutton">
+           <img src="../img/window_back.svg" alt="BACK"> 
+        </button>
+    </nav>
 
-    <div class="mb-3">
-        <label for="titleInput" class="form-label">TITLE</label>
-        <input type="text" class="form-control" id="titleInput">
-    </div>
-    <div class="mb-3">
-        <label for="descriptionInput" class="form-label">DESCRIPTION </label>
-        <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="mapSelect" class="form-label">MAP</label>
-        <select class="form-select" aria-label="Default select example" id="mapSelect">
-            <option value="1">Ascent</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="agentSelect" class="form-label">AGENT</label>
-        <select class="form-select" aria-label="Default select example" id="agentSelect">
-            <option value="1">Brimstone</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-    </div>
+    <form id="videoUpload" class="text-bg-dark px-5">
+        <div style="width: 100%;" class="mb-4 pt-3 border-bottom">
+            VIDEO INFORMATION
+        </div>
 
-    <div class="mb-3">
-        <label for="abilitySelect">ABILITIES</label>
-        <div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-              <label class="form-check-label" for="inlineCheckbox1">C</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-              <label class="form-check-label" for="inlineCheckbox2">Q</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-              <label class="form-check-label" for="inlineCheckbox3">E</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
-              <label class="form-check-label" for="inlineCheckbox4">X</label>
-          </div>
-        </div>       
-    </div>
+        <div class="pb-3">
+            <label for="titleInput" class="form-label">TITLE</label>
+            <input type="text" class="form-control" id="titleInput">
+        </div>
+        <div class="pb-3">
+            <label for="descriptionInput" class="form-label">DESCRIPTION </label>
+            <textarea class="form-control" id="descriptionInput" rows="3"></textarea>
+        </div>
+        <div class="pb-3">
+            <label for="mapSelect" class="form-label">MAP</label>
+            <select class="form-select" aria-label="Default select example" id="mapSelect">
 
-    <div class="mb-3">
-        <div class="row">
-            <div class="col">
-                <label for="sideSelect" class="form-label">SIDE</label>
-                <select class="form-select" aria-label="Default select example" id="sideSelect">
-                    <option value="1">Attack</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
+            </select>
+        </div>
+        <div class="pb-3">
+            <label for="agentSelect" class="form-label">AGENT</label>
+            <select class="form-select" aria-label="Default select example" id="agentSelect">
 
-            <div class="col">
-                <label for="siteSelect" class="form-label">SITE</label>
-                <select class="form-select" aria-label="Default select example" id="siteSelect">
-                    <option value="1">A</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+            </select>
+        </div>
+
+        <div class="pb-3">
+            <label for="abilitySelect">ABILITIES</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ability" type="checkbox" id="AbilityC" value="C">
+                    <label class="form-check-label" for="AbilityC">C</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ability" type="checkbox" id="AbilityQ" value="Q">
+                    <label class="form-check-label" for="AbilityQ">Q</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ability" type="checkbox" id="AbilityE" value="E">
+                    <label class="form-check-label" for="AbilityE">E</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input ability" type="checkbox" id="AbilityX" value="X">
+                    <label class="form-check-label" for="AbilityX">X</label>
+                </div>
+            </div>       
+        </div>
+
+        <div class="pb-3">
+            <div class="row">
+                <div class="col">
+                    <label for="sideSelect" class="form-label">SIDE</label>
+                    <select class="form-select" aria-label="Default select example" id="sideSelect">
+
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="siteSelect" class="form-label">SITE</label>
+                    <select class="form-select" aria-label="Default select example" id="siteSelect">
+
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="mb-3">
-        <label for="contentTypeSelect" class="form-label">CATEGORY</label>
-        <select class="form-select" aria-label="Default select example" id="contentTypeSelect">
-            <option value="1">Lineup</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-    </div>
+        <div class="pb-3">
+            <label for="contentTypeSelect" class="form-label">CATEGORY</label>
+            <select class="form-select" aria-label="Default select example" id="contentTypeSelect">
 
-    <div class="mb-3">
-      <label for="abilitySelect">SOURCE</label>
-      <div>
-        <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
-        <label style="background-color: #FFA900 !important;" class="btn btn-secondary" for="option1">PC</label>
+            </select>
+        </div>
 
-        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-        <label class="btn btn-secondary" for="option2">YouTube</label>
-      </div>
-    </div>
+        <div class="pb-3">
+            <label for="sourceSelect">SOURCE</label>
+            <div>
+            <input type="radio" class="btn-check" name="options" id="PC" autocomplete="off" checked>
+            <label class="btn btn-secondary" for="PC">PC</label>
 
-    <div class="mb-3 w-auto">
-        <label for="videoInput" class="form-label">VIDEO FILE</label>
-        <input class="form-control" type="file" id="videoInput" accept="video/mp4">
-    </div>
+            <input type="radio" class="btn-check" name="options" id="YouTube" autocomplete="off">
+            <label class="btn btn-secondary" for="YouTube">YouTube</label>
+            </div>
+        </div>
 
+        <div class="pb-3 w-auto">
+            <div id="PCInput">
+                <label for="videoPCInput" class="form-label">VIDEO FILE</label>
+                <input class="form-control" type="file" id="videoPCInput" accept="video/mp4">
+            </div>
+            <div id="YTInput">
+                <label for="videoYTInput" class="form-label">VIDEO LINK</label>
+                <input type="text" class="form-control" id="videoYTInput">
+            </div>
+        </div>      
 
-      
+        <div class="text-center pb-3 pt-2">
+            <button id="uploadButton" type="button" class="btn btn-primary btn-lg" >Upload</button>
+        </div>
+    </form>
 
-    <div class="mb-3 text-center pb-3 pt-2">
-      <button type="button" class="btn btn-primary btn-lg" >Upload</button>
-    </div>
-  </form>
-  <script src="upload.js" type="module"></script>
 </body>
 </html>

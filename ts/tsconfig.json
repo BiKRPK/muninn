@@ -13,7 +13,8 @@
     "allowSyntheticDefaultImports": true,
     "types": [
       "@overwolf/types",
-      "jest"
+      "jest",
+      "node"
     ],
     "rootDirs": [
       "./src"

@@ -49,7 +49,6 @@ init();
 export async function loadVideos():  Promise<Array<Video>>{
     let videos: Array<Video> = [];
     cleanTempURLs(); 
-    console.log("dentro de loadvideos");
      try {
         
 
@@ -128,14 +127,14 @@ export async function loadVideos():  Promise<Array<Video>>{
         rawVideo.id,
         rawVideo.title,
         scene,
-        agent,
-        abilities,
         rawVideo.side as Side,
         rawVideo.site as Site,
         rawVideo.type as ContentType,
         rawVideo.src instanceof Blob ? createTempURL(rawVideo.src as Blob) : rawVideo.src  as string,
-        videoOrigin === VideoOrigin.User,
-        rawVideo.description
+        videoOrigin === VideoOrigin.User,    
+        rawVideo.description,
+        rawVideo.type === ContentType.WallBang ? undefined : agent,
+        rawVideo.type === ContentType.WallBang ? undefined : abilities
     );
     if (rawVideo.src instanceof Blob) {console.log(video.src)} ; 
     return video;
@@ -157,14 +156,13 @@ export async function loadVideos():  Promise<Array<Video>>{
   
 export async function filterVideos() {
     await initializationPromise;
-    console.log('en filterVideos');
     initializeSelectedVariables();
     const isSideFiltered: boolean = $('.card.sidecard:not(.selected)').length > 0;
     const isSiteFiltered: boolean = $('.card.sitecard:not(.selected)').length > 0;
     const isAbilityFiltered: boolean = $('.card.abilitycard:not(.selected)').length > 0;
     const isTypeFiltered: boolean = $('.card.ContentTypecard:not(.selected)').length > 0;
-    const isFavoriteFiltered: boolean = $('.card.favoritecard:not(.selected)').length > 0;
-    const isUserContentFiltered: boolean = $('.card.ownvideocard:not(.selected)').length > 0;
+    const isFavoriteFiltered: boolean = $('.card.favoritecard.selected').length > 0;
+    const isUserContentFiltered: boolean = $('.card.ownvideocard.selected').length > 0;
 
     const sceneSpec: SceneSpecification = new SceneSpecification(selectedMap);
     const agentSpec: AgentSpecification = new AgentSpecification(selectedAgent);

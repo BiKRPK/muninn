@@ -15,9 +15,10 @@ export const kGamesFeatures = new Map<number, string[]>([
 export const kGameClassIds = Array.from(kGamesFeatures.keys());
 
 export const kWindowNames = {
+  list: 'list',
+  upload: 'upload',
   inGame: 'in_game',
-  desktop: 'desktop',
-  upload: 'upload'
+  desktop: 'desktop'
 };
 
 export const kHotkeys = {

@@ -10,10 +10,11 @@ const
 module.exports = env => ({
     entry: {
         background: './src/background/background.ts',
-        desktop: './src/front/desktop/desktop.ts',
-        in_game: './src/front/in_game/in_game.ts',
-        main: './src/js/main.js',
+        list: './src/front/list/list.ts',
         upload: './src/front/upload/upload.ts',
+        desktop: './src/front/desktop/desktop.ts',
+        in_game: './src/front/in_game/in_game.ts',  
+        main: './src/js/main.js'
     },
     devtool: 'inline-source-map',
     module: {
@@ -66,6 +67,16 @@ module.exports = env => ({
             chunks: ['background']
         }),
         new HtmlWebpackPlugin({
+            template: './src/front/list/list.html',
+            filename: path.resolve(__dirname, './dist/list.html'),
+            chunks: ['list']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/front/upload/upload.html',
+            filename: path.resolve(__dirname, './dist/upload.html'),
+            chunks: ['upload']
+        }),
+        new HtmlWebpackPlugin({
             template: './src/front/desktop/desktop.html',
             filename: path.resolve(__dirname, './dist/desktop.html'),
             chunks: ['desktop']
@@ -74,11 +85,6 @@ module.exports = env => ({
             template: './src/front/in_game/in_game.html',
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/front/upload/upload.html',
-            filename: path.resolve(__dirname, './dist/upload.html'),
-            chunks: ['upload']
         }),
         new OverwolfPlugin(env),
         new webpack.ProvidePlugin({

@@ -37,7 +37,7 @@ export function getVideos(): RawVideo[] {
         "description": "This is useful for getting an unexpected angle on players on A Site, particularly toward the beginning of the round, or when you think the enemy team is lagging behind on their rotation into A Site. There is a lot of risk involved with this though, so doing this with the help of your team's smokes/other utility is ideal. Also, make sure to clear the area under the bricks yourself, or with the help of a teammate!",
         "ability": "Q",
         "type": "LU",
-        "src": "https://blitz-cdn-videos.blitz.gg/valorant/guides/raze-haven-atk-bottomalong-topalonog-blastpack.mp4#t=0.1",
+        "src": "https://www.youtube.com/watch?v=BzVbn4BfVoY",
         "site": "A"
     },
     {
@@ -49,7 +49,7 @@ export function getVideos(): RawVideo[] {
         "description": "This is useful for quickly traveling to A Short from A Tower, however it comes with a lot of risk and should likely be done with the help of your teammates utility, when given a good opportunity to do so as they push into the Site.",
         "ability": "Q",
         "type": "LU",
-        "src": "https://www.youtube.com/embed/Cs1VXlLFPDw",
+        "src": "https://www.youtube.com/watch?v=aG7y0a69GQI",
         "site": "A"
     },
     {

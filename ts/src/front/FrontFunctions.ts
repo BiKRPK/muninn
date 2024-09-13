@@ -9,6 +9,7 @@ import { Scene } from '../logic/Scene';
 import { Agent } from '../logic/Agent';
 import { Ability } from '../logic/Ability';
 import { AbKey, ContentType, Side, Site } from '../logic/Enums';
+import axios from 'axios';
 
 function handleClickUploadVideo() {
   const videoElement = $("#videoElement")[0] as HTMLVideoElement;
@@ -114,7 +115,16 @@ export function loadSplide() {
       // },
     } );
   
-    
+    main.on('active', function() {
+      let src: string = $('.main-carousel-item.is-active').attr('src');
+      $('#player').replaceWith(`<div></div>`);
+      $('.main-carousel-item.is-active > div').attr('id','player');
+      if (src.startsWith("https://www.youtube.com/")) {
+        onYouTubeIframeAPIReady(src);
+      } else {
+        $('#player').replaceWith(`<video id="player" src="${src}" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video>`);
+      }
+    });
 
     function handleVideoPlayback() {
       const activeVideo = main.Components.Elements.slides[main.index].querySelector('video');
@@ -122,9 +132,9 @@ export function loadSplide() {
     
       videos.forEach(video => {
         if (video === activeVideo) {
-          video.play();
+          //video.play();
         } else {
-          video.pause();
+          //video.pause();
         }
       });
     }
@@ -231,11 +241,13 @@ export function getSelectedMap(): Scene {
       function(video) {
         $('#thumbnail-carousel > div > ul').append(getThumbnailHTML(video));
         $('#main-carousel > div > ul').append(getVideoHTML(video));
+        
       }
     );
   }
   
-  function getThumbnailHTML(video: Video): string{
+  function getThumbnailHTML(video: Video): string {
+    if (video.src.startsWith("https://www.youtube.com/")) {return getThumbnailYT(video);}
     return `
     <li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">
         <div id="${video.id}" class="cta">
@@ -249,14 +261,50 @@ export function getSelectedMap(): Scene {
     </li>`
   }
 
-  
-  
+  function getThumbnailYT(video: Video): string {
+    return `
+    <li class="splide__slide text-bg-secondary thumbnail-carousel-item rounded thumbnail h-100">
+        <div id="${video.id}" class="cta">
+            <div class="favorite-button ${video.isFav() ? "isFav" : ""}" ></div>
+            <img src="https://i.ytimg.com/vi/${youtube_parser(video.src)}/maxresdefault.jpg"></img>
+            <div class="text"> 
+            <h5>${video.title}</h5>
+            <p>${video.description}</p>
+            </div> 
+        </div> 
+    </li>`
+  }
+
+  async function getYTsource(videoId: string): Promise<string | null> {
+    const key: string = "AIzaSyBylwMcQudP4hN71hJqn8jzJpvL9JV5h5A";
+    //const videoId: string = youtube_parser(video.src);  // Función para extraer el ID del video de la URL
+    const url: string = `https://www.googleapis.com/youtube/v3/videos?part=id,player,snippet&id=${videoId}&maxResults=1&key=${key}`;
+
+    try {
+        const response = await axios.get(url);
+        if (response.data.items.length > 0) {
+          const video = response.data.items[0];
+          console.log(video);
+            // Search within contentDetails.streams for the desired format (e.g., MP4)
+          if(video) {video.snippet.resourceId.url;}
+        } else {
+            console.error("No se encontró información para el video.");
+            return null;
+        }
+    } catch (exception) {
+        console.error(`ERROR received from ${url}: ${exception}`);
+        return null;
+    }
+  }
+
+
   function getVideoHTML(video: Video): string{
     return `
-    <li class="splide__slide h-100 main-carousel-item">
-      <video src="${video.src}" controlslist="nodownload noremoteplayback" loop="loop" controls="controls" autoplay="autoplay" muted></video>
+    <li class="splide__slide h-100 main-carousel-item" src="${video.src}">
+      <div><div>
     </li>`;
   }
+
 
   function initializeFilterClickFunctions() {
     handleClickSingleOptionFilter('.agentcard');
@@ -265,7 +313,8 @@ export function getSelectedMap(): Scene {
     handleClickMultiOptionFilter('.sitecard');
     handleClickMultiOptionFilter('.abilitycard');
     handleClickMultiOptionFilter('.ContentTypecard');
-    handleClickMultiOptionFilter('.personalcard');
+    handleClickMultiOptionFilter('.favoritecard');
+    handleClickMultiOptionFilter('.ownvideocard');
     handleClickFavButton();
   }
 
@@ -285,6 +334,7 @@ export function getSelectedMap(): Scene {
   // }
 
   export function initialize(): Promise<void> {
+    console.log("initializing");
     return new Promise<void>((resolve, reject) => {
       initializeSelectedVariables();
       initializeFilterClickFunctions();
@@ -373,7 +423,7 @@ export function getSelectedMap(): Scene {
     let newAgentAbilities: Ability[] = newAgent.getAgentAbilities();
     newAgentAbilities.forEach(function(ability: Ability) {
       let key = ability.key;
-      let name = ability.agent.name;
+      let name = ability.getAbilityName();
       $('#' + key + ' > .cardimg').attr('src', ability.getIcon());
       $('#' + key + ' > .cardimg').attr('alt', key + ' - ' + name);
       $('#' + key + ' > .cardname').val(key + ' - ' + name);
@@ -382,3 +432,70 @@ export function getSelectedMap(): Scene {
     $('#C').attr('src', '');
     
   }
+
+  // Definimos la variable en la que almacenaremos nuestro objeto YT.Player
+var player,
+// Y otras más para la carga asíncrona de la API
+firstScriptTag,
+tag = document.createElement("script");
+// Con estás 3 lineas se consigue que la API de YouTube pueda cargarse asínconamente
+tag.src = "https://www.youtube.com/iframe_api";
+firstScriptTag = document.getElementsByTagName("script")[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// Una vez la API de Iframe está lista...
+function onYouTubeIframeAPIReady(src: string) {
+let videoId: string = youtube_parser(src);
+// Definimos las opciones
+  var options = {
+    // Anchura (Opcional - por defecto 640)
+    width: 480,
+    // Altura (Opcional - por defecto 360)
+    height: 270,
+    // El identificador del video (Obligatorio)
+
+    videoId: videoId,
+    // Las opciones para el reproductor (Opcional)
+    playerVars: {
+      autoplay: 0,
+      loop: 0,
+    },
+    // Registro de eventos del reproductor
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': doALoop
+    },
+  };
+
+  // Definimos nuestro objeto de video
+  player = new window['YT'].Player(
+    // El primer parámetro será o bien una referencia a un elemento del DOM
+    // o bien un ID de uno de los elementos, le cual será reemplazado por le iframe.
+    "player",
+    // El segundo parámetro se trata de un objeto con todas las opciones
+    options
+  );
+}
+
+function doALoop(event) {
+  if (event.data === window['YT'].PlayerState.ENDED) {
+    player.playVideo(); 
+  }
+}
+
+function onPlayerReady(event) {
+  player.mute();
+  player.playVideo();
+}
+
+function registerEvent(event, data) {
+  var eventData = JSON.parse(event.data);
+  console.log("YT" + eventData.event);
+
+}
+
+function youtube_parser(url){
+  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return (match&&match[7].length==11)? match[7] : false;
+}

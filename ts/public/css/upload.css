@@ -1,64 +1,48 @@
 #videoUpload {
-    background-color: #333; /* Dark grey background color */
-    color: white; /* Text color */
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px; /* Adjust width as needed */
-    margin: 0 auto; /* Center the form horizontally */
-  }
-  
-  #videoUpload label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  #videoUpload input[type="text"],
-  #videoUpload select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #555; /* Darker grey input background color */
-    color: white;
-    border-radius: 4px;
-  }
-  
-  #videoUpload input[type="file"] {
-    /* display: none; Hide the default file input appearance */
-  }
-  
-  #videoUpload button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #007BFF; /* Blue button color */
-    color: white;
-    margin-right: 10px;
-  }
-  
-  #videoUpload button#closeButton {
-    background-color: #ccc; /* Grey button color for close button */
-  }
-  
-  #videoUpload button#uploadButton:hover,
-  #videoUpload button#closeButton:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  /* Additional styling for disabled elements */
-  #videoUpload select:disabled,
-  #videoUpload button:disabled {
-    background-color: #777; /* Disabled element background color */
-    cursor: not-allowed;
-  }
-  
-  /* Style the select dropdown */
-  #videoUpload select {
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%20%270%200%201024%201024%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath%20d%3D%27M940%201024H84c-46.932%200-84-37.068-84-84V84C0%2037.068%2037.068%200%2084%200h856c46.932%200%2084%2037.068%2084%2084v856c0%2046.932-37.068%2084-84%2084z%20M92%2084c-25.367%200-46%2020.633-46%2046v764c0%2025.367%2020.633%2046%2046%2046h840c25.367%200%2046-20.633%2046-46V130c0-25.367-20.633-46-46-46H92z%20M753.667%20734c-12.096%200-23.195-4.717-31.607-13.129L512%20525.274%20312.939%20720.87c-8.412%208.412-19.51%2013.13-31.607%2013.13-24.813%200-45.833-20.021-45.833-45.833%200-12.097%204.717-23.195%2013.129-31.607l210.061-195.596L289.503%20277.13c-8.412-8.412-13.129-19.51-13.129-31.607%200-24.813%2020.021-45.833%2045.833-45.833%2012.097%200%2023.195%204.717%2031.607%2013.129L512%20474.726l199.061-195.596c8.412-8.412%2019.51-13.129%2031.607-13.129%2024.813%200%2045.833%2020.021%2045.833%2045.833%200%2012.097-4.717%2023.195-13.129%2031.607L575.129%20525.274%20775.667%20720.87c8.412-8.412%2013.129-19.51%2013.129-31.607%200-25.812-20.021-45.833-45.833-45.833z%27%2F%3E%3C%2Fsvg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-  }
-  
+  width: 500px;
+}
+
+.btn-check:checked + .btn {
+  background-color: #FFA900;
+}
+
+#PCInput, #YTInput {
+  display: none;
+}
+
+#PC:checked ~ #PCInput {
+  display: block;
+}
+
+#YouTube:checked ~ #YTInput {
+  display: block;
+}
+
+.text-bg-black {
+  color: #fff !important;
+  background-color: #161616 !important;
+}
+
+.backbutton {
+  height: 100%;
+  background-color: transparent;
+  transition: background 0.15s ease-in-out;
+  border-width: 0;
+}
+
+.backbutton > img{
+  height: 100%;
+  background-color: transparent;
+  transition: background 0.15s ease-in-out;
+  border-width: 0;
+}
+
+.backbutton:hover:before,
+.backbutton:active:before {
+  background-color: #dedede !important;
+}
+
+.nav {
+  border-bottom: 1px solid #FFA900;
+  height: 40px;
+}

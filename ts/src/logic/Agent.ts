@@ -34,11 +34,9 @@ import { getAllAbKeys, getAllAgentsNames, getAllAgentsOverwolfIDs, OverwolfIDToA
 
     public getAgentAbilities(): Ability[] {
       let agentAbilities: Array<Ability> = [];
-      console.log(this.overwolfID);
       for (const key of getAllAbKeys()) {
         console.log(key);
         agentAbilities.push(Ability.getInstance(key, this));
-        console.log(agentAbilities);
       }
       return agentAbilities;
     }

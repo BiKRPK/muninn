@@ -372,7 +372,6 @@ export interface RawAbility {
   
   export function getAbilities(agentName: string, key: string): RawAbility {
     const agent: RawAbilities = abilities.find((ability) => ability.agentName === agentName);
-  
     if (agent) {
         return agent.agentAbilities[key];
     } else {
