@@ -276,7 +276,7 @@ export function getSelectedMap(): Scene {
   }
 
   async function getYTsource(videoId: string): Promise<string | null> {
-    const key: string = "AIzaSyBylwMcQudP4hN71hJqn8jzJpvL9JV5h5A";
+    const key: string = "";
     //const videoId: string = youtube_parser(video.src);  // Función para extraer el ID del video de la URL
     const url: string = `https://www.googleapis.com/youtube/v3/videos?part=id,player,snippet&id=${videoId}&maxResults=1&key=${key}`;
 
