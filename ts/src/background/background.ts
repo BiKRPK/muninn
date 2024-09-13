@@ -114,17 +114,17 @@ export class BackgroundController {
   public openListWindow() {
     if (this._windows[kWindowNames.list]) {
       console.log("openlist");
-      overwolf.windows.obtainDeclaredWindow('list', (result) => {
-        if (result.success) {
-          console.log(result.window.name);
-          //overwolf.windows.setTopmost(result.window.id, true, () => {          
-            overwolf.windows.restore(result.window.id, () => {
-              //this._windows[kWindowNames.desktop].maximize();
-              this._windows[kWindowNames.list].restore();
-            });
-          //});
-        }
-      });
+      this._windows[kWindowNames.list].restore();
+    //   overwolf.windows.obtainDeclaredWindow('list', (result) => {
+    //     if (result.success) {
+    //       console.log(result.window.name);        
+    //       overwolf.windows.restore(result.window.id, () => {
+    //         overwolf.windows.restore(result.window.id, () => {
+              
+    //         });
+    //       });
+    //     }
+    //   });
     }
   }
 
@@ -166,6 +166,7 @@ export class BackgroundController {
     if (this._windows[kWindowNames.upload]) {
       console.log("uploadlist");
       this._windows[kWindowNames.upload].close();
+      this.openListWindow();
     }
   }
 
@@ -177,10 +178,10 @@ export class BackgroundController {
       initialize();
     }
 
-    if (state.window_name === kWindowNames.upload && state.window_state === "closed") {
-      console.log("upload closed");
-      this.openListWindow();
-    }
+    // if (state.window_name === kWindowNames.upload && state.window_state === "closed") {
+    //   console.log("upload closed");
+    //   this.openListWindow();
+    // }
   }
 
 }
